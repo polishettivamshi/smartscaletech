@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "professional": {
+      "title": "Professional",
+      "description": "A professional profile on the map",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "experience": { "type": "string" },
+        "location": { "type": "string" },
+        "skills": { "type": "array" },
+        "imageUrl": { "type": "string" },
+        "linkedinUrl": { "type": "string" },
+        "bio": { "type": "string" },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "userId": { "type": "string" },
+        "status": { "type": "string", "enum": ["review", "active"] },
+        "isPaid": { "type": "boolean" },
+        "paymentId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "role", "location", "userId", "status"]
+    },
+    "user": {
+      "title": "User",
+      "description": "User account details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "isAdmin": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    }
+  },
+  "firestore": {
+    "professionals": {
+      "schema": "professional",
+      "description": "Collection of professional profiles"
+    },
+    "users": {
+      "schema": "user",
+      "description": "Collection of user details"
+    }
+  }
+}
