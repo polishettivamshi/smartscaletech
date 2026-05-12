@@ -1,41 +1,59 @@
-# India Professionals Map
+# SmartScaleTech
 
-A high-performance, polished professional discovery platform focused on mapping talent across India. Built with a focus on speed, distinctive design, and community trust.
+SmartScaleTech is a high-performance Digital Branding Agency website helping businesses and job seekers create a powerful digital presence. This project features premium career services (ATS resume writing, LinkedIn optimization) and technical solutions (UI/UX design, web development).
 
-## 🚀 Concept
-The platform allows professionals (Engineers, Designers, Marketers, etc.) to register their profile with a city-specific geographic location. Verified profiles appear on a zoomable interactive map of India, enabling regional discovery and collaboration.
+## 🚀 Key Features
+- **Modern UI/UX**: Built with a "Clean Modern" aesthetic using Inter for typography and a deep primary indigo theme.
+- **Service Categories**: Comprehensive listings for Career, Tech, and Marketing services.
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop views.
+- **Interactions**: Smooth animations powered by Framer Motion.
+- **Booking Flow**: Integrated consultation request modal.
 
 ## 🛠️ Tech Stack
-- **Frontend**: React 18, Vite, Tailwind CSS, Framer Motion (for animations).
-- **Backend/Database**: Firebase Firestore (NoSQL).
-- **Authentication**: Firebase Authentication (Google Login).
-- **Icons**: Lucide React.
-- **Hosting**: Cloud Run (via AI Studio).
+- **Framework**: [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Type Safety**: [TypeScript](https://www.typescriptlang.org/)
 
-## ✨ Key Features
-- **Interactive India Map**: Explore professionals by city with a custom-built, zoomable SVG map visualization.
-- **Community Governance (Admin Flow)**:
-  - All new profiles enter a `review` state by default.
-  - Admins (identified by specific email or `isAdmin` flag in Firestore) have access to a dedicated **Admin Terminal** (`/admin`).
-  - Admins can review, approve, or reject pending profiles.
-  - Approved profiles transition to `active` and become visible on the global map.
-- **Self-Service Onboarding**: Simple integration with Google Auth to create and manage professional profiles.
-- **Smart Search & Filtering**: Filter talent by role (Engineering, Design, etc.) and search by name.
-- **Responsive Design**: Designed for both large-screen landscape exploration and mobile-first listing views.
+## 📦 Local Setup Instructions
 
-## 🔒 Security & Roles
-- **Public**: Can view the map and verified profiles.
-- **Professional**: Can create and edit their own profile.
-- **Admin**: Can manage community health, view analytics, and moderate profiles.
-- **Firestore Rules**: Hardened security rules prevent unauthorized data access or modification.
+Follow these steps to run the project on your local machine using Visual Studio Code:
 
-## 📦 Deployment & Setup
-1. **Firebase Configuration**: Ensure `firebase-applet-config.json` is present with valid project credentials.
-2. **Environment**: Standard Node.js environment.
-3. **Admin Setup**: The first admin is bootstrapped via email whitelist (`polishettivamshi123@gmail.com`). Subsequent admins can be promoted by existing admins in the Firestore database.
+### 1. Prerequisites
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (Version 18 or higher recommended)
+- [npm](https://www.npmjs.com/) (usually comes with Node.js)
 
-## 🤝 Community Guidelines
-To maintain quality, we use a manual verification flow. Once you submit your profile, a community moderator will review it within 24-48 hours.
+### 2. Clone and Open
+Download the project code as a ZIP and extract it, or clone the repository if applicable. Open the folder in VS Code.
+
+### 3. Install Dependencies
+Open the VS Code terminal (`Ctrl+` or `Cmd+`) and run:
+```bash
+npm install
+```
+
+### 4. Run Development Server
+Start the local development server by running:
+```bash
+npm run dev
+```
+Once the server starts, you can view the application at `http://localhost:3000`.
+
+### 5. Build for Production
+To generate a production-ready build:
+```bash
+npm run build
+```
+The output will be available in the `dist/` directory.
+
+## 📂 Project Structure
+- `src/components/home/`: Individual landing page sections (Hero, Services, Testimonials, etc.)
+- `src/components/layout/`: Shared layout components (Navbar, Footer)
+- `src/components/ui/`: Reusable primitive components (Buttons)
+- `src/App.tsx`: Main application router and page structure
+- `src/index.css`: Global styles and Tailwind configuration
 
 ---
-*Built with ❤️ for India's professional community.*
+*Generated with ❤️ by SmartScaleTech Team.*

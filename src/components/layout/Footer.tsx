@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap, Facebook, Linkedin, Instagram, Github, Mail, Phone, MapPin } from 'lucide-react';
+import { Zap, Facebook, Linkedin, Instagram, Github, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -20,9 +20,15 @@ export const Footer = () => {
               We help businesses and professionals build powerful digital presence and achieve their goals through expert branding and technology.
             </p>
             <div className="flex gap-4">
-               {[Facebook, Linkedin, Instagram, Github].map((Icon, i) => (
-                 <a key={i} href="#" className="h-10 w-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all">
-                    <Icon size={18} />
+               {[
+                 { Icon: Facebook, url: "https://facebook.com/smartscaletech" },
+                 { Icon: Linkedin, url: "https://linkedin.com/company/smartscaletech" },
+                 { Icon: Instagram, url: "https://instagram.com/smartscaletech" },
+                 { Icon: Github, url: "https://github.com/smartscaletech" },
+                 { Icon: MessageCircle, url: "https://whatsapp.com/channel/0029VbCFJRKJJhzXxOaL7g28" }
+               ].map((item, i) => (
+                 <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all">
+                    <item.Icon size={18} />
                  </a>
                ))}
             </div>
@@ -58,11 +64,11 @@ export const Footer = () => {
              <ul className="space-y-4">
                <li className="flex items-start gap-3">
                   <Mail size={18} className="text-primary mt-0.5" />
-                  <span className="text-slate-500 text-sm">hello@smartscaletech.com</span>
+                  <span className="text-slate-500 text-sm">smartscaletechforyou@gmail.com</span>
                </li>
                <li className="flex items-start gap-3">
                   <Phone size={18} className="text-primary mt-0.5" />
-                  <span className="text-slate-500 text-sm">+91 12345 67890</span>
+                  <span className="text-slate-500 text-sm">+91 9000859695</span>
                </li>
                <li className="flex items-start gap-3">
                   <MapPin size={18} className="text-primary mt-0.5" />

@@ -18,30 +18,20 @@
 
 :root {
   --bg-color: #ffffff;
-  --text-color: #0f172a;
+  --text-color: #1e293b;
   --card-bg: #ffffff;
   --card-border: #f1f5f9;
-  --nav-bg: rgba(255, 255, 255, 0.8);
-}
-
-.dark {
-  --bg-color: #020617;
-  --text-color: #f8fafc;
-  --card-bg: #0f172a;
-  --card-border: #1e293b;
-  --nav-bg: rgba(2, 6, 23, 0.8);
+  --nav-bg: rgba(255, 255, 255, 0.95);
 }
 
 html {
   scroll-behavior: smooth;
-  transition: background-color 0.3s ease;
 }
 
 body {
   @apply antialiased font-sans;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .bg-page { background-color: var(--bg-color); }

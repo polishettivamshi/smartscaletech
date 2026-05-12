@@ -15,7 +15,6 @@ import { FAQ } from './components/home/FAQ';
 import { CTASection } from './components/home/CTASection';
 import { Footer } from './components/layout/Footer';
 import { FloatingActions } from './components/home/FloatingActions';
-import { AuthProvider } from './contexts/AuthContext';
 
 function HomePage() {
   return (
@@ -35,17 +34,15 @@ function HomePage() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-page">
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-          </Routes>
-          <Footer />
-          <FloatingActions />
-        </div>
-      </Router>
-    </AuthProvider>
+    <Router>
+      <div className="min-h-screen bg-page">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+        <Footer />
+        <FloatingActions />
+      </div>
+    </Router>
   );
 }

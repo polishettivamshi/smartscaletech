@@ -55,16 +55,16 @@ export const Pricing = () => {
   };
 
   return (
-    <section id="pricing" className="py-24 bg-slate-50/50 dark:bg-slate-900/50">
+    <section id="pricing" className="py-24 bg-slate-50/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Simple Transparent Pricing</h2>
-          <p className="text-slate-500 mb-10">{billing === 'one-time' ? 'One-time Payment • No Hidden Charges' : 'Flexible Monthly Billing • Cancel Anytime'}</p>
+          <h2 className="text-4xl font-black text-slate-900 mb-4">Simple Transparent Pricing</h2>
+          <p className="text-slate-700 font-medium mb-10">{billing === 'one-time' ? 'One-time Payment • No Hidden Charges' : 'Flexible Monthly Billing • Cancel Anytime'}</p>
 
-          <div className="inline-flex items-center p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl shadow-inner relative z-0 mb-4">
+          <div className="inline-flex items-center p-1 bg-slate-100 rounded-2xl shadow-inner relative z-0 mb-4">
             <button
               onClick={() => setBilling('monthly')}
-              className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all relative z-10 ${billing === 'monthly' ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}
+              className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all relative z-10 ${billing === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
             >
               Monthly
             </button>
@@ -78,7 +78,7 @@ export const Pricing = () => {
               layoutId="activeTab"
               initial={false}
               animate={{ x: billing === 'one-time' ? '100%' : '0%' }}
-              className="absolute inset-y-1 left-1 w-[calc(50%-4px)] bg-primary dark:bg-primary-dark rounded-xl shadow-lg -z-0"
+              className="absolute inset-y-1 left-1 w-[calc(50%-4px)] bg-primary rounded-xl shadow-lg -z-0"
               transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
             />
           </div>
@@ -106,7 +106,7 @@ export const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
               viewport={{ once: true }}
-              className={`relative p-10 rounded-[40px] bg-white dark:bg-slate-800 border ${plan.popular ? 'border-primary ring-1 ring-primary shadow-2xl' : 'border-slate-100 dark:border-slate-700 shadow-xl shadow-slate-200/50 dark:shadow-none'} flex flex-col h-full hover:-translate-y-2 transition-all duration-300`}
+              className={`relative p-10 rounded-[40px] bg-white border ${plan.popular ? 'border-primary ring-1 ring-primary shadow-2xl' : 'border-slate-100 shadow-xl shadow-slate-200/50'} flex flex-col h-full hover:-translate-y-2 transition-all duration-300`}
             >
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-xl shadow-primary/20">
@@ -115,9 +115,9 @@ export const Pricing = () => {
               )}
 
               <div className="text-center mb-8">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 uppercase tracking-wider">{plan.name}</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-6 uppercase tracking-wider">{plan.name}</h3>
                 <div className="flex items-center justify-center gap-1">
-                  <span className="text-5xl font-black text-slate-900 dark:text-white">
+                  <span className="text-5xl font-black text-slate-900">
                     ₹{billing === 'one-time' ? plan.oneTimePrice : plan.monthlyPrice}
                   </span>
                   {billing === 'monthly' && <span className="text-slate-400 font-bold self-end mb-1">/mo</span>}
@@ -130,7 +130,7 @@ export const Pricing = () => {
                     <div className="h-5 w-5 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
                       <Check size={12} strokeWidth={4} />
                     </div>
-                    <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{feature}</span>
+                    <span className="text-sm font-bold text-slate-700">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -138,7 +138,7 @@ export const Pricing = () => {
               <Button
                 onClick={() => handleSelectPlan(plan.name)}
                 variant={plan.popular ? 'default' : 'outline'}
-                className={`w-full h-14 rounded-2xl font-bold ${plan.popular ? 'bg-primary hover:bg-primary-dark shadow-lg shadow-primary/30' : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
+                className={`w-full h-14 rounded-2xl font-bold ${plan.popular ? 'bg-primary hover:bg-primary-dark shadow-lg shadow-primary/30' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}
               >
                 Select Plan
               </Button>

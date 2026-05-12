@@ -1,7 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../lib/firebase';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import React, { createContext, useContext, useState } from 'react';
+
+interface User {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -12,52 +16,13 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({ user: null, loading: true, isAdmin: false });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      if (user) {
-        try {
-          const userRef = doc(db, 'users', user.uid);
-          const userDoc = await getDoc(userRef);
-          
-          let currentIsAdmin = false;
-          if (user.email === 'polishettivamshi123@gmail.com') {
-            currentIsAdmin = true;
-          }
-
-          if (!userDoc.exists()) {
-            await setDoc(userRef, {
-              uid: user.uid,
-              email: user.email,
-              displayName: user.displayName,
-              photoURL: user.photoURL,
-              isAdmin: currentIsAdmin,
-              createdAt: serverTimestamp(),
-              updatedAt: serverTimestamp(),
-            });
-          } else {
-            currentIsAdmin = userDoc.data().isAdmin || currentIsAdmin;
-          }
-          
-          setIsAdmin(currentIsAdmin);
-        } catch (error) {
-          console.error("Error syncing user:", error);
-        }
-      } else {
-        setIsAdmin(false);
-      }
-      setLoading(false);
-    });
-    return unsubscribe;
-  }, []);
+  const [user] = useState<User | null>(null);
+  const [isAdmin] = useState(false);
+  const [loading] = useState(false);
 
   return (
     <AuthContext.Provider value={{ user, loading, isAdmin }}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

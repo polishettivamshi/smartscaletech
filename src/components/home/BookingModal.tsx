@@ -58,11 +58,11 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[40px] shadow-2xl overflow-hidden"
+            className="relative w-full max-w-lg bg-white rounded-[40px] shadow-2xl overflow-hidden"
           >
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 transition-colors"
+              className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors"
             >
               <X size={20} />
             </button>
@@ -70,22 +70,22 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
             <div className="p-10">
               {isSuccess ? (
                 <div className="text-center py-12">
-                   <div className="h-20 w-20 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                   <div className="h-20 w-20 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
                       <Check size={40} />
                    </div>
-                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Request Received!</h3>
-                   <p className="text-slate-500 dark:text-slate-400">Our experts will contact you within 24 hours.</p>
+                   <h3 className="text-2xl font-bold text-slate-900 mb-2">Request Received!</h3>
+                   <p className="text-slate-700 font-medium">Our experts will contact you within 24 hours.</p>
                 </div>
               ) : (
                 <>
                   <div className="mb-8">
                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-2">Booking for</p>
-                    <h3 className="text-3xl font-black text-slate-900 dark:text-white">{planName}</h3>
+                    <h3 className="text-3xl font-black text-slate-900">{planName}</h3>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
-                       <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Full Name</label>
+                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Full Name</label>
                        <div className="relative">
                           <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                            <input 
@@ -93,14 +93,14 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                             type="text" 
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full h-12 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl pl-12 pr-4 text-sm font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-primary transition-all"
+                            className="w-full h-12 bg-slate-50 border-none rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-300"
                             placeholder="John Doe"
                           />
                        </div>
                     </div>
 
                     <div className="space-y-2">
-                       <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Email Address</label>
+                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Email Address</label>
                        <div className="relative">
                           <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                           <input 
@@ -108,14 +108,14 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                             type="email" 
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full h-12 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl pl-12 pr-4 text-sm font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-primary transition-all"
+                            className="w-full h-12 bg-slate-50 border-none rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-300"
                             placeholder="john@example.com"
                           />
                        </div>
                     </div>
 
                     <div className="space-y-2">
-                       <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Phone Number</label>
+                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Phone Number</label>
                        <div className="relative">
                           <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                           <input 
@@ -123,8 +123,8 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                             type="tel" 
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            className="w-full h-12 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl pl-12 pr-4 text-sm font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-primary transition-all"
-                            placeholder="+91 12345 67890"
+                            className="w-full h-12 bg-slate-50 border-none rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-300"
+                            placeholder="+91 9000859695"
                           />
                        </div>
                     </div>

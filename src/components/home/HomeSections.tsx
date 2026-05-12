@@ -22,16 +22,16 @@ export const HowItWorks = () => {
       name: 'Growth & Success',
       description: 'Launch your digital presence and start seeing real-world results.',
       icon: TrendingUp,
-      color: 'bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400',
+      color: 'bg-emerald-100 text-emerald-600',
     },
   ];
 
   return (
-    <section id="portfolio" className="bg-slate-50/50 dark:bg-slate-900/50 py-24">
+    <section id="portfolio" className="bg-slate-50/50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">How It Works</h2>
-          <p className="text-slate-500 dark:text-slate-400">Your journey to a powerful digital presence in 3 simple steps.</p>
+          <h2 className="text-4xl font-black text-slate-900 mb-4">How It Works</h2>
+          <p className="text-slate-500">Your journey to a powerful digital presence in 3 simple steps.</p>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
@@ -42,16 +42,16 @@ export const HowItWorks = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
               viewport={{ once: true }}
-              className="relative flex flex-col items-center p-10 bg-white dark:bg-slate-800 rounded-[40px] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700"
+              className="relative flex flex-col items-center p-10 bg-white rounded-[40px] shadow-xl shadow-slate-200/50 border border-slate-100"
             >
               <div className={`flex h-20 w-20 items-center justify-center rounded-[24px] ${step.color} mb-8`}>
                 <step.icon size={32} />
               </div>
-              <div className="absolute top-10 right-10 text-6xl font-black text-slate-100 dark:text-slate-700 opacity-50 select-none">
+              <div className="absolute top-10 right-10 text-6xl font-black text-slate-100 opacity-50 select-none">
                 {step.id}
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{step.name}</h3>
-              <p className="mt-4 text-center text-slate-500 dark:text-slate-400 leading-relaxed">{step.description}</p>
+              <h3 className="text-2xl font-bold text-slate-900">{step.name}</h3>
+              <p className="mt-4 text-center text-slate-500 leading-relaxed">{step.description}</p>
             </motion.div>
           ))}
         </div>
@@ -93,11 +93,11 @@ export const WhyJoin = () => {
   ];
 
   return (
-    <section id="about" className="bg-white dark:bg-slate-950 py-24">
+    <section id="about" className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Why Join SmartScaleTech?</h2>
-          <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">We provide the tools and platform you need to excel in your career and grow your digital presence.</p>
+          <h2 className="text-4xl font-black text-slate-900 mb-4">Why Join SmartScaleTech?</h2>
+          <p className="text-slate-500 max-w-2xl mx-auto">We provide the tools and platform you need to excel in your career and grow your digital presence.</p>
         </div>
 
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
@@ -108,20 +108,20 @@ export const WhyJoin = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
               viewport={{ once: true }}
-              className="flex flex-col items-start p-8 rounded-[32px] bg-slate-50/50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 hover:shadow-xl transition-all group"
+              className="flex flex-col items-start p-8 rounded-[32px] bg-slate-50/50 border border-slate-100 hover:bg-white hover:shadow-xl transition-all group"
             >
-              <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-white dark:bg-slate-800 shadow-sm text-slate-900 mb-6 group-hover:scale-110 transition-transform`}>
+              <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm text-slate-900 mb-6 group-hover:scale-110 transition-transform`}>
                 <reason.icon size={24} className="text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">{reason.name}</h3>
-              <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">{reason.description}</p>
+              <h3 className="text-xl font-bold text-slate-900">{reason.name}</h3>
+              <p className="mt-2 text-slate-500 text-sm leading-relaxed mb-6">{reason.description}</p>
               
               <div className="w-full space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Success Rate</span>
-                  <span className="text-xs font-bold text-slate-900 dark:text-white">{reason.percentage}%</span>
+                  <span className="text-xs font-bold text-slate-900">{reason.percentage}%</span>
                 </div>
-                <div className="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${reason.percentage}%` }}
