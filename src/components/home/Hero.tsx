@@ -146,7 +146,7 @@ export const Hero = () => {
                   {/* Naukri */}
                   <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
                     <img
-                      src="/images/naukri_logo.jpg"
+                      src="../images/naukri_logo.jpg"
                       alt="Naukri"
                       className="h-4 w-4 sm:h-6 sm:w-6 object-contain"
                     />

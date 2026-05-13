@@ -23,7 +23,7 @@ export const Footer = () => {
                {[
                  { Icon: Facebook, url: "https://facebook.com/smartscaletech" },
                  { Icon: Linkedin, url: "https://linkedin.com/company/smartscaletech" },
-                 { Icon: Instagram, url: "https://instagram.com/smartscaletech" },
+                 { Icon: Instagram, url: "https://www.instagram.com/smartscale.tech" },
                  { Icon: Github, url: "https://github.com/smartscaletech" },
                  { Icon: MessageCircle, url: "https://whatsapp.com/channel/0029VbCFJRKJJhzXxOaL7g28" }
                ].map((item, i) => (
