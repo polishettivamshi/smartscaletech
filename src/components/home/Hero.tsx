@@ -83,7 +83,7 @@ export const Hero = () => {
                   <Star size={20} fill="currentColor" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">4.9★</p>
+                  <p className="text-lg font-black text-slate-900 truncate">4.9/5★</p>
                   <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Client Rating</p>
                 </div>
               </div>
