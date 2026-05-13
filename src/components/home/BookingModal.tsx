@@ -23,9 +23,9 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
     setIsSubmitting(true);
 
     // Construct the WhatsApp message
-    const message = `Hello SmartScaleTech! 👋\n\nI'm interested in the "${planName}" plan.\n\nMy Details:\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nPlease get in touch with me soon!`;
+    const message = `Hello SmartScaleTech! \nI'm interested in the "${planName}" plan.\n\nMy Details:\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nPlease get in touch with me soon!`;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/911234567890?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/919000859695?text=${encodedMessage}`;
 
     // Simulate API call
     setTimeout(() => {
@@ -124,7 +124,7 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             className="w-full h-12 bg-slate-50 border-none rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-300"
-                            placeholder="+91 9000859695"
+                            placeholder="+91 9123456789"
                           />
                        </div>
                     </div>

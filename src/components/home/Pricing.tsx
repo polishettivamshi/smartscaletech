@@ -8,7 +8,7 @@ const plans = [
   {
     name: "Career Starter",
     oneTimePrice: "999",
-    monthlyPrice: "199",
+    monthlyPrice: "499",
     features: [
       "ATS Resume Writing",
       "LinkedIn Optimization",
@@ -20,8 +20,8 @@ const plans = [
   },
   {
     name: "Portfolio Launch",
-    oneTimePrice: "3,999",
-    monthlyPrice: "499",
+    oneTimePrice: "2,999",
+    monthlyPrice: "1,999",
     features: [
       "Animated Portfolio Website",
       "ATS Resume Writing",
@@ -33,8 +33,8 @@ const plans = [
   },
   {
     name: "Business Web",
-    oneTimePrice: "6,999",
-    monthlyPrice: "999",
+    oneTimePrice: "5,999",
+    monthlyPrice: "2,999",
     features: [
       "5 Premium Pages",
       "Custom Lead Forms",

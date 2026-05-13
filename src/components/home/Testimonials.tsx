@@ -3,22 +3,22 @@ import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    name: "Rahul Sharma",
-    role: "Senior Software Engineer @ Google",
+    name: "Vamshi Polishetti",
+    role: "Software Engineer",
     content: "The ATS resume package was a game changer. I started getting calls from top-tier companies within a week of updating my profile.",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul"
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=1123"
   },
   {
-    name: "Priya Varma",
-    role: "Marketing Director",
+    name: "Kiranraj Akula",
+    role: "Software Developer",
     content: "Our business website's conversion rate increased by 40% after the redesign. The team at SmartScaleTech knows exactly what works.",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=124501"
   },
   {
-    name: "Ankit Gupta",
-    role: "Freelance Developer",
+    name: "Vasantha Polishetti",
+    role: "Quality Control Analyst",
     content: "The LinkedIn optimization service is underrated. My impressions went from 500 to 5000+ per month. Highly recommended!",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ankit"
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=vasan"
   }
 ];
 

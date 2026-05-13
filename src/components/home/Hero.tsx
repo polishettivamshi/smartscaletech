@@ -230,7 +230,7 @@ const IndiaMapVisualization = () => {
       <div className="absolute inset-0">
          <ProfileMarker top="20%" left="50%" name="Rahul Verma" />
          <ProfileMarker top="45%" left="65%" name="Sneha Reddy" />
-         <ProfileMarker top="60%" left="40%" name="Abhishek M" />
+         <ProfileMarker top="60%" left="40%" name="Vasantha P" />
          <ProfileMarker top="30%" left="35%" name="Kiran Kumar" />
          <ProfileMarker top="75%" left="55%" name="Vamshi P" />
       </div>

@@ -1,4 +1,4 @@
-import { UserPlus, CreditCard, Map as MapIcon, Shield, Search, Globe, Users, Rocket, TrendingUp } from 'lucide-react';
+import { UserPlus, CreditCard, Map as MapIcon, Shield, Search, Globe, Users, Rocket, TrendingUp, Briefcase } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const HowItWorks = () => {
@@ -84,12 +84,12 @@ export const WhyJoin = () => {
       color: 'bg-indigo-500'
     },
     {
-      name: 'Be Part of India',
-      description: 'Be a part of India\'s largest professional community.',
-      icon: Users,
-      percentage: 100,
-      color: 'bg-emerald-500'
-    },
+    name: 'Unlock Opportunities',
+    description: 'Get noticed by top recruiters and industry leaders.',
+    icon: Briefcase,
+    percentage: 94,
+    color: 'bg-emerald-500'
+  }
   ];
 
   return (

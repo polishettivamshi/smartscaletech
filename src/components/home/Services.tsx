@@ -64,11 +64,6 @@ const services = [
         icon: <Layout size={20} className="text-purple-600" />
       },
       {
-        title: "Mobile App Development",
-        desc: "Native and cross-platform mobile apps using React Native and Flutter for iOS and Android.",
-        icon: <Briefcase size={20} className="text-teal-600" />
-      },
-      {
         title: "AI Integration",
         desc: "Custom AI solutions for your business, including specialized chatbots and automation tools.",
         icon: <Brain size={20} className="text-indigo-500" />
