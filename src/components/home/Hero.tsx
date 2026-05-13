@@ -70,7 +70,7 @@ export const Hero = () => {
                   <Users size={20} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">500+</p>
+                  <p className="text-lg font-black text-slate-900 truncate">10+</p>
                   <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Happy Clients</p>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export const Hero = () => {
                     <img
                       src={naukriLogo}
                       alt="Naukri"
-                      className="h-4 w-4 sm:h-6 sm:w-6 object-contain"
+                      className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
                     />
                   </div>
 
