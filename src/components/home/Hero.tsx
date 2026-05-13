@@ -25,10 +25,14 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-5xl font-black tracking-tight text-slate-900 sm:text-7xl leading-[1.1]"
+              className="text-3xl font-black tracking-tight text-slate-900 sm:text-6xl md:text-7xl leading-[1.2]"
             >
-              Build Your <span className="text-primary">Website.</span><br />
-              Build Your <span className="text-accent">Career.</span>
+              <span className="block whitespace-nowrap">
+                Build Your <span className="text-primary">Website.</span>
+              </span>
+              <span className="block whitespace-nowrap">
+                Build Your <span className="text-accent">Career.</span>
+              </span>
             </motion.h1>
             
             <motion.p 
