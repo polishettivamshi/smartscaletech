@@ -87,7 +87,7 @@ export const Hero = () => {
                   <Briefcase size={20} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">3+</p>
+                  <p className="text-lg font-black text-slate-900 truncate">1+</p>
                   <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Years Exp.</p>
                 </div>
               </div>
@@ -117,42 +117,46 @@ export const Hero = () => {
               <motion.div 
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-0 sm:top-4 w-52 sm:w-72 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-30"
-              >
+                className="absolute top-0 sm:top-4 w-52 sm:w-72 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-30">
+                
                 <div className="flex items-center justify-between mb-3 sm:mb-4">
                   <p className="text-[10px] sm:text-sm font-bold text-slate-900">Profile Performance</p>
                   <div className="flex gap-0.5 sm:gap-1">
                     {[1,2,3,4,5].map(i => <Star key={i} size={8} className="text-amber-400 fill-amber-400" />)}
                   </div>
                 </div>
-                <div className="flex gap-2 sm:gap-3">
-                   <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" className="h-4 w-4 sm:h-6 sm:w-6" />
-                   </div>
-                   <div className="flex gap-3">
-                {/* Indeed */}
-                <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/2111/2111425.png"
-                    alt="Indeed"
-                    className="h-4 w-4 sm:h-6 sm:w-6"
-                  />
+
+                {/* Main Icon Container - This controls the gap for all three */}
+                <div className="flex gap-2 sm:gap-4">
+                  
+                  {/* LinkedIn */}
+                  <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" className="h-4 w-4 sm:h-6 sm:w-6" />
+                  </div>
+
+                  {/* Indeed */}
+                  <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+                    <img
+                      src="https://images.icon-icons.com/2389/PNG/512/indeed_logo_icon_145170.png"
+                      alt="Indeed"
+                      className="h-4 w-4 sm:h-6 sm:w-6"
+                    />
+                  </div>
+
+                  {/* Naukri */}
+                  <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+                    <img
+                      src="/images/naukri_logo.jpg"
+                      alt="Naukri"
+                      className="h-4 w-4 sm:h-6 sm:w-6 object-contain"
+                    />
+                  </div>
+
                 </div>
 
-                {/* Naukri */}
-                <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/3/34/Naukri_Logo.png"
-                    alt="Naukri"
-                    className="h-4 w-4 sm:h-6 sm:w-6"
-                  />
-                </div>
-              </div>
-                   <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" className="h-4 w-4 sm:h-6 sm:w-6" />
-                   </div>
-                </div>
-                <p className="text-[7px] sm:text-[10px] text-slate-500 mt-3 sm:mt-4 text-center lowercase">Optimized for LinkedIn, indeed & Github</p>
+                <p className="text-[7px] sm:text-[10px] text-slate-500 mt-3 sm:mt-4 text-center lowercase">
+                  Optimized for LinkedIn, Indeed & Naukri
+                </p>
               </motion.div>
 
               {/* Floating Projects Card (Mid-Left) */}
@@ -162,7 +166,7 @@ export const Hero = () => {
                 className="absolute top-[45%] -left-4 sm:left-0 w-40 sm:w-56 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-40"
               >
                 <p className="text-[9px] sm:text-xs text-slate-500 mb-1">Successful Projects</p>
-                <p className="text-xl sm:text-3xl font-black text-slate-900">500+</p>
+                <p className="text-xl sm:text-3xl font-black text-slate-900">10+</p>
                 <div className="flex mt-3 sm:mt-4 gap-1">
                    {[1,2,3,4,5].map(i => <div key={i} className="h-1 sm:h-1.5 flex-1 rounded-full bg-slate-100 overflow-hidden"><div className="h-full bg-primary w-2/3" /></div>)}
                 </div>
