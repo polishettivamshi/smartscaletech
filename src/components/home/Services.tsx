@@ -42,8 +42,8 @@ const services = [
         icon: <FileText size={20} className="text-rose-600" />
       },
       {
-        title: "Salary Negotiation",
-        desc: "Expert guidance on negotiating salary, benefits, and equity packages to maximize your earnings.",
+        title: "Salary Negotiation Tips",
+        desc: "Expert guidance on negotiating salary tips, benefits, and equity packages to maximize your earnings.",
         icon: <Rocket size={20} className="text-yellow-600" />
       }
     ],
