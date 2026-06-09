@@ -17,7 +17,7 @@ const testimonials = [
   {
     name: "Vasantha Polishetti",
     role: "Quality Control Analyst",
-    content: "The LinkedIn optimization service is underrated. My impressions went from 500 to 5000+ per month. Highly recommended!",
+    content: "The LinkedIn optimization service is underrated. My impressions went from 10 to 100+ per month. Highly recommended!",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=vasan"
   }
 ];

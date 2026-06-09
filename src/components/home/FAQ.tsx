@@ -6,7 +6,7 @@ import { Button } from '../ui/Button';
 const faqs = [
   {
     q: "What is an ATS-friendly resume?",
-    a: "It is a resume that is structured and keyword-optimized to pass through Applicant Tracking Systems used by 90% of Fortune 500 companies."
+    a: "It is a resume that is structured and keyword-optimized to pass through Applicant Tracking Systems used by 90% of Fortune 10 companies."
   },
   {
     q: "How long does it take to complete an order?",

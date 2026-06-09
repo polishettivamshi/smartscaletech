@@ -22,8 +22,25 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Construct the WhatsApp message
-    const message = `Hello SmartScaleTech! \nI'm interested in the "${planName}" plan.\n\nMy Details:\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nPlease get in touch with me soon!`;
+    // Construct the WhatsApp message with improved lead qualification
+    const message = `Hello SmartScaleTech,
+
+I'm interested in your services.
+
+Service Required:
+[ATS Resume / LinkedIn Optimization / Portfolio / Website / Other]
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+Current Role/Business:
+
+My Requirement:
+
+Preferred Time for Discussion:
+
+Please get in touch with me.`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/919000859695?text=${encodedMessage}`;
 

@@ -74,7 +74,7 @@ export const Footer = () => {
                   <MapPin size={18} className="text-primary mt-0.5" />
                   <span className="text-slate-500 text-sm">India</span>
                </li>
-               <li className="text-xs font-bold text-slate-400 pt-2 uppercase">Mon - Sat: 9:00 AM - 8:00 PM</li>
+               <li className="text-xs font-bold text-slate-400 pt-2 uppercase">Mon - Sat: 9:00 AM - 9:00 PM</li>
              </ul>
           </div>
         </div>

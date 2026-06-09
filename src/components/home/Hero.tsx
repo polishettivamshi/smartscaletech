@@ -50,6 +50,11 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             >
+              <a href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%0A%0AI%27m%20interested%20in%20your%20services.%0A%0AService%20Required%3A%0A%5BATS%20Resume%20%2F%20LinkedIn%20Optimization%20%2F%20Portfolio%20%2F%20Website%20%2F%20Other%5D%0A%0AName%3A%0AEmail%3A%0APhone%3A%0A%0ACurrent%20Role%2FBusiness%3A%0A%0AMy%20Requirement%3A%0A%0APreferred%20Time%20for%20Discussion%3A%0A%0APlease%20get%20in%20touch%20with%20me." target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="h-14 px-8 rounded-2xl bg-green-500 hover:bg-green-600 shadow-xl shadow-green-500/20 transition-all hover:-translate-y-1">
+                  📞 Book Free Consultation on WhatsApp
+                </Button>
+              </a>
               <a href="#pricing">
                 <Button size="lg" className="h-14 px-8 rounded-2xl bg-primary hover:bg-primary-dark shadow-xl shadow-primary/20 transition-all hover:-translate-y-1">
                   Free Consultation <ArrowRight className="ml-2 h-5 w-5" />
@@ -74,7 +79,7 @@ export const Hero = () => {
                   <Users size={20} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">10+</p>
+                  <p className="text-lg font-black text-slate-900 truncate">20+</p>
                   <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Happy Clients</p>
                 </div>
               </div>
@@ -171,7 +176,7 @@ export const Hero = () => {
                 className="absolute top-[45%] -left-4 sm:left-0 w-40 sm:w-56 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-40"
               >
                 <p className="text-[9px] sm:text-xs text-slate-500 mb-1">Successful Projects</p>
-                <p className="text-xl sm:text-3xl font-black text-slate-900">10+</p>
+                <p className="text-xl sm:text-3xl font-black text-slate-900">20+</p>
                 <div className="flex mt-3 sm:mt-4 gap-1">
                    {[1,2,3,4,5].map(i => <div key={i} className="h-1 sm:h-1.5 flex-1 rounded-full bg-slate-100 overflow-hidden"><div className="h-full bg-primary w-2/3" /></div>)}
                 </div>

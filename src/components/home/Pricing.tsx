@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Check } from 'lucide-react';
+import { Check, MessageCircle, Clock } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useState } from 'react';
 import { BookingModal } from './BookingModal';
@@ -135,13 +135,28 @@ export const Pricing = () => {
                 ))}
               </div>
 
-              <Button
-                onClick={() => handleSelectPlan(plan.name)}
-                variant={plan.popular ? 'default' : 'outline'}
-                className={`w-full h-14 rounded-2xl font-bold ${plan.popular ? 'bg-primary hover:bg-primary-dark shadow-lg shadow-primary/30' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}
-              >
-                Select Plan
-              </Button>
+              <div className="space-y-3">
+                <a href={`https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%0A%0AI%27m%20interested%20in%20the%20${plan.name}%20plan.%0A%0AService%20Required%3A%0A%5BATS%20Resume%20%2F%20LinkedIn%20Optimization%20%2F%20Portfolio%20%2F%20Website%20%2F%20Other%5D%0A%0AName%3A%0AEmail%3A%0APhone%3A%0A%0ACurrent%20Role%2FBusiness%3A%0A%0AMy%20Requirement%3A%0A%0APreferred%20Time%20for%20Discussion%3A%0A%0APlease%20get%20in%20touch%20with%20me.`} target="_blank" rel="noopener noreferrer" className="block">
+                  <Button
+                    variant={plan.popular ? 'default' : 'outline'}
+                    className={`w-full h-14 rounded-2xl font-bold ${plan.popular ? 'bg-green-500 hover:bg-green-600 shadow-lg shadow-green-500/30' : 'border-green-200 text-green-600 hover:bg-green-50'}`}
+                  >
+                    <MessageCircle size={18} className="mr-2" />
+                    Chat on WhatsApp
+                  </Button>
+                </a>
+                <Button
+                  onClick={() => handleSelectPlan(plan.name)}
+                  variant={plan.popular ? 'default' : 'outline'}
+                  className={`w-full h-14 rounded-2xl font-bold ${plan.popular ? 'bg-primary hover:bg-primary-dark shadow-lg shadow-primary/30' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}
+                >
+                  Select Plan
+                </Button>
+              </div>
+              <div className="flex items-center justify-center gap-2 text-[11px] font-bold text-slate-400 mt-4 pt-4 border-t border-slate-100">
+                <Clock size={14} className="text-green-500" />
+                Reply within 30 minutes
+              </div>
             </motion.div>
           ))}
         </div>
