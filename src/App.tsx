@@ -9,7 +9,7 @@ import { Hero } from './components/home/Hero';
 import { Services } from './components/home/Services';
 import { TrustedBy } from './components/home/TrustedBy';
 import { Testimonials } from './components/home/Testimonials';
-import { WhyJoin, HowItWorks } from './components/home/HomeSections';
+import { WhyJoin, HowItWorks, PrivacyPolicy, TermsOfService } from './components/home/HomeSections';
 import { Pricing } from './components/home/Pricing';
 import { FAQ } from './components/home/FAQ';
 import { CTASection } from './components/home/CTASection';
@@ -39,6 +39,8 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
         </Routes>
         <Footer />
         <FloatingActions />

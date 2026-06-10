@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap, Facebook, Linkedin, Instagram, Github, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { Zap, Facebook, Instagram, Github, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -20,9 +20,8 @@ export const Footer = () => {
               SmartScaleTech helps businesses and professionals build powerful digital presence through ATS resume services, LinkedIn optimization, branding, and web development.
             </p>
             <div className="flex gap-4">
-               {[
+               {[ 
                  { Icon: Facebook, url: "https://facebook.com/smartscaletech" },
-                 { Icon: Linkedin, url: "https://linkedin.com/company/smartscaletech" },
                  { Icon: Instagram, url: "https://www.instagram.com/smartscale.tech" },
                  { Icon: Github, url: "https://github.com/smartscaletech" },
                  { Icon: MessageCircle, url: "https://whatsapp.com/channel/0029VbCFJRKJJhzXxOaL7g28" }
@@ -83,9 +82,17 @@ export const Footer = () => {
            <p className="text-slate-400 text-xs font-medium">
              &copy; {new Date().getFullYear()} SmartScaleTech. All rights reserved.
            </p>
-           <div className="flex gap-8">
-              <a href="#" className="text-slate-400 text-xs font-medium hover:text-slate-900">Privacy Policy</a>
-              <a href="#" className="text-slate-400 text-xs font-medium hover:text-slate-900">Terms of Service</a>
+           <div className="flex flex-col sm:flex-row items-center gap-4 text-slate-400 text-xs font-medium">
+              <span>
+                Developed by{' '}
+                <a href="https://www.linkedin.com/in/vamshi-polishetti" target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-slate-900">
+                  <span className="text-slate-900">Vamshi</span>{' '}
+                  <span className="text-primary">Polishetti</span>
+                </a>
+                .
+              </span>
+              <a href="/privacy-policy" className="hover:text-slate-900">Privacy Policy</a>
+              <a href="/terms-of-service" className="hover:text-slate-900">Terms of Service</a>
            </div>
         </div>
       </div>
