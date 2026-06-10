@@ -18,7 +18,7 @@ export const Hero = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <span className="text-[10px] font-bold">#1</span>
               </div>
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Digital Branding Agency</span>
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">SmartScaleTech Digital Branding Agency</span>
             </motion.div>
 
             <motion.h1 
@@ -27,6 +27,7 @@ export const Hero = () => {
               transition={{ duration: 0.5 }}
               className="text-3xl font-black tracking-tight text-slate-900 sm:text-6xl md:text-7xl leading-[1.2]"
             >
+              <span className="block whitespace-nowrap text-primary">SmartScaleTech</span>
               <span className="block whitespace-nowrap">
                 Build Your <span className="text-primary">Website.</span>
               </span>
@@ -41,7 +42,15 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-8 text-lg leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
             >
-              We help businesses and job seekers create a powerful digital presence that bypasses algorithms and generates real-world results.
+              SmartScaleTech helps businesses and job seekers create a powerful digital presence that bypasses algorithms and generates real-world results.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-4 text-base leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
+            >
+              We offer ATS resume writing, LinkedIn optimization, UI/UX design, web development, and digital branding services under the SmartScaleTech brand.
             </motion.p>
             
             <motion.div 
