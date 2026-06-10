@@ -3,7 +3,7 @@ import { FileText, Linkedin, Rocket, Briefcase, GraduationCap, Users, ArrowRight
 
 const services = [
   {
-    category: "Career Branding Accelerator",
+    category: "SmartScaleTech Career Branding Accelerator",
     icon: <Briefcase className="text-primary" />,
     items: [
       {
@@ -50,7 +50,7 @@ const services = [
     footerLink: "Explore Career Services"
   },
   {
-    category: "Premium Tech & Design",
+    category: "SmartScaleTech Premium Tech & Design",
     icon: <Code className="text-accent" />,
     items: [
       {
@@ -92,7 +92,7 @@ const services = [
     footerLink: "Explore Tech Services"
   },
   {
-    category: "Marketing & Strategy",
+    category: "SmartScaleTech Marketing & Strategy",
     icon: <Target className="text-emerald-500" />,
     items: [
       {
@@ -125,8 +125,8 @@ export const Services = () => {
     <section id="services" className="py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">Our Services</h2>
-          <p className="text-slate-500">Tailored solutions for your digital and professional growth.</p>
+          <h2 className="text-4xl font-black text-slate-900 mb-4">SmartScaleTech Services</h2>
+          <p className="text-slate-500">Career branding, web development, UI/UX design, SEO, and LinkedIn optimization services by SmartScaleTech.</p>
         </div>
 
         <div className="space-y-24">

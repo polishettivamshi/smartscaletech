@@ -7,8 +7,8 @@ export const CTASection = () => {
       <div className="mx-auto max-w-7xl bg-primary rounded-[40px] p-8 md:p-16 overflow-hidden relative shadow-2xl shadow-primary/20 border border-transparent">
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
            <div className="text-center lg:text-left max-w-2xl">
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-[1.1]">Ready to transform your digital presence?</h2>
-              <p className="text-white/90 font-bold text-lg">Join 20+ professionals already winning with our optimized strategies.</p>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-[1.1]">Ready to transform your digital presence with SmartScaleTech?</h2>
+              <p className="text-white/90 font-bold text-lg">Join 20+ professionals already winning with SmartScaleTech's ATS resume, LinkedIn optimization, and web development solutions.</p>
            </div>
            
            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">

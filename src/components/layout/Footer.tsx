@@ -17,7 +17,7 @@ export const Footer = () => {
               </span>
             </Link>
             <p className="text-slate-500 text-sm leading-relaxed mb-8 max-w-xs">
-              We help businesses and professionals build powerful digital presence and achieve their goals through expert branding and technology.
+              SmartScaleTech helps businesses and professionals build powerful digital presence through ATS resume services, LinkedIn optimization, branding, and web development.
             </p>
             <div className="flex gap-4">
                {[
