@@ -85,7 +85,7 @@ export const Footer = () => {
            <div className="flex flex-col sm:flex-row items-center gap-4 text-slate-400 text-xs font-medium">
               <span>
                 Developed by{' '}
-                <a href="https://www.linkedin.com/in/vamshi-polishetti" target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-slate-900">
+                <a href="https://www.linkedin.com/in/polishettivamshi/" target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-slate-900">
                   <span className="text-slate-900">Vamshi</span>{' '}
                   <span className="text-primary">Polishetti</span>
                 </a>
