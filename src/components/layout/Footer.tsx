@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap, Facebook, Instagram, Github, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { Zap, Linkedin, Instagram, Github, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -21,7 +21,7 @@ export const Footer = () => {
             </p>
             <div className="flex gap-4">
                {[ 
-                 { Icon: Facebook, url: "https://facebook.com/smartscaletech" },
+                 { Icon: Linkedin, url: "https://www.linkedin.com/company/smartscale-tech" },
                  { Icon: Instagram, url: "https://www.instagram.com/smartscale.tech" },
                  { Icon: Github, url: "https://github.com/smartscaletech" },
                  { Icon: MessageCircle, url: "https://whatsapp.com/channel/0029VbCFJRKJJhzXxOaL7g28" }
@@ -74,8 +74,9 @@ export const Footer = () => {
                   <span className="text-slate-500 text-sm">India</span>
                </li>
                <li>
-                 <a href="https://www.linkedin.com/company/smartscaletech" target="_blank" rel="noopener noreferrer" className="text-slate-500 text-sm hover:text-primary transition-colors">
-                   SmartScaleTech LinkedIn
+                 <a href="https://www.linkedin.com/company/smartscale-tech" target="_blank" rel="noopener noreferrer" className="text-slate-900 text-sm font-semibold hover:text-primary transition-colors">
+                   <span className="text-slate-900">SmartScaleTech</span>{' '}
+                   <span className="text-primary">LinkedIn</span>
                  </a>
                </li>
                <li className="text-xs font-bold text-slate-400 pt-2 uppercase">Mon - Sat: 9:00 AM - 9:00 PM</li>
