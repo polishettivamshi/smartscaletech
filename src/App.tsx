@@ -14,6 +14,7 @@ import { Pricing } from './components/home/Pricing';
 import { FAQ } from './components/home/FAQ';
 import { CTASection } from './components/home/CTASection';
 import { Footer } from './components/layout/Footer';
+import { NotFound } from './components/layout/NotFound';
 import { FloatingActions } from './components/home/FloatingActions';
 
 function HomePage() {
@@ -41,6 +42,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
         <FloatingActions />
