@@ -53,7 +53,7 @@ export const Testimonials = () => {
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <img src={t.image} alt={t.name} className="h-12 w-12 rounded-full border border-slate-100" />
+                <img src={t.image} alt={t.name} loading="lazy" className="h-12 w-12 rounded-full border border-slate-100" />
                 <div>
                   <p className="text-sm font-bold text-slate-900">{t.name}</p>
                   <p className="text-[10px] uppercase font-black text-slate-500 tracking-wider">{t.role}</p>

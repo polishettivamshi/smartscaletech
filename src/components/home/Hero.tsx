@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Button } from '../ui/Button';
-import { ArrowRight, Star, Users, Zap, Briefcase, TrendingUp, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Star, Users, Zap, Briefcase, TrendingUp, CheckCircle2, Linkedin, Search, User } from 'lucide-react';
 import naukriLogo from '/images/naukri_logo.jpg';
 
 export const Hero = () => {
@@ -141,16 +141,12 @@ export const Hero = () => {
                   
                   {/* LinkedIn */}
                   <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" className="h-4 w-4 sm:h-6 sm:w-6" />
+                    <Linkedin size={20} className="text-slate-700" />
                   </div>
 
                   {/* Indeed */}
                   <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                    <img
-                      src="https://images.icon-icons.com/2389/PNG/512/indeed_logo_icon_145170.png"
-                      alt="Indeed"
-                      className="h-4 w-4 sm:h-6 sm:w-6"
-                    />
+                    <Search size={20} className="text-slate-700" />
                   </div>
 
                   {/* Naukri */}
@@ -189,8 +185,8 @@ export const Hero = () => {
                 className="absolute top-1/2 -right-4 sm:right-0 w-44 sm:w-64 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-20"
               >
                 <div className="flex items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
-                  <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-full overflow-hidden bg-slate-100">
-                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile" />
+                  <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-full overflow-hidden bg-slate-100 flex items-center justify-center">
+                     <User size={24} className="text-slate-500" />
                   </div>
                   <div>
                     <p className="text-[10px] sm:text-sm font-bold text-slate-900 leading-tight">Profile Score</p>
@@ -252,25 +248,29 @@ const IndiaMapVisualization = () => {
   );
 };
 
-const ProfileMarker = ({ top, left, name }: { top: string; left: string; name: string }) => (
-  <motion.div 
-    initial={{ scale: 0, opacity: 0 }}
-    animate={{ scale: 1, opacity: 1 }}
-    transition={{ delay: Math.random() * 2 }}
-    style={{ top, left }}
-    className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
-  >
-    <div className="relative">
-      <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-blue-100 shadow-lg ring-2 ring-blue-500/20 transition-transform group-hover:scale-110">
-        <img 
-          src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} 
-          alt={name}
-          className="h-full w-full object-cover"
-        />
+const ProfileMarker = ({ top, left, name }: { top: string; left: string; name: string }) => {
+  const initials = name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
+
+  return (
+    <motion.div 
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: Math.random() * 2 }}
+      style={{ top, left }}
+      className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+    >
+      <div className="relative">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-blue-100 text-xs font-bold text-blue-700 shadow-lg ring-2 ring-blue-500/20 transition-transform group-hover:scale-110">
+          {initials}
+        </div>
+        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-900 shadow-sm opacity-0 transition-opacity group-hover:opacity-100">
+          {name}
+        </div>
       </div>
-      <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-900 shadow-sm opacity-0 transition-opacity group-hover:opacity-100">
-        {name}
-      </div>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
