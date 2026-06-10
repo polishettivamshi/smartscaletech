@@ -10,7 +10,7 @@ Disallow: /*.tsx$
 Disallow: /*.ts$
 
 # Sitemap location
-Sitemap: https://smartscaletech.com/sitemap.xml
+Sitemap: https://smartscaletech.vercel.app/sitemap.xml
 
 # Crawl delay (optional - set to avoid overloading)
 # Crawl-delay: 1
