@@ -1,0 +1,21 @@
+# SmartScaleTech robots.txt
+# Allows all web crawlers to index the site
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+Disallow: /*.json$
+Disallow: /*.tsx$
+Disallow: /*.ts$
+
+# Sitemap location
+Sitemap: https://smartscaletech.com/sitemap.xml
+
+# Crawl delay (optional - set to avoid overloading)
+# Crawl-delay: 1
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
