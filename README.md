@@ -1,6 +1,8 @@
 # SmartScaleTech
 
-SmartScaleTech is a high-performance Digital Branding Agency website helping businesses and job seekers create a powerful digital presence. This project features premium career services (ATS resume writing, LinkedIn optimization) and technical solutions (UI/UX design, web development).
+🔗 **Live Site:** [smartscaletech.vercel.app](https://smartscaletech.vercel.app)
+
+SmartScaleTech is a high-performance digital branding agency platform helping businesses and job seekers build a powerful online presence. The platform showcases premium career services (ATS resume writing, LinkedIn optimization) alongside technical solutions (web development, UI/UX design) — built end-to-end as a production-ready full-stack project.
 
 ## 🚀 Key Features
 - **Modern UI/UX**: Built with a "Clean Modern" aesthetic using Inter for typography and a deep primary indigo theme.
