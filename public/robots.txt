@@ -1,21 +1,19 @@
 # SmartScaleTech robots.txt
-# Allows all web crawlers to index the site
+# Allows search engine crawlers and image bots to index the site and logos
 
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /private
-Disallow: /*.json$
-Disallow: /*.tsx$
-Disallow: /*.ts$
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Google-InspectionTool
+Allow: /
 
 # Sitemap location
 Sitemap: https://smartscaletech.vercel.app/sitemap.xml
-
-# Crawl delay (optional - set to avoid overloading)
-# Crawl-delay: 1
-
-# Specific rules for Google
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0

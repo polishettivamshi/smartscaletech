@@ -18,7 +18,7 @@ export const Hero = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <span className="text-[10px] font-bold">#1</span>
               </div>
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">SmartScaleTech Digital Branding Agency</span>
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">SmartScaleTech (Smart Scale Tech) Digital Branding Agency</span>
             </motion.div>
 
             <motion.h1 
