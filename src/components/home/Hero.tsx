@@ -39,7 +39,7 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-8 text-lg leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
             >
-              <strong className="text-slate-900">Build your website. Build your career.</strong> SmartScaleTech helps businesses and job seekers in Hyderabad create a powerful digital presence that bypasses algorithms and generates real-world results.
+              <strong className="text-slate-900">Build your website. Build your career.</strong> SmartScaleTech helps businesses and job seekers in Hitech City, Hyderabad create a powerful digital presence that bypasses algorithms and generates real-world results.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -47,7 +47,7 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-4 text-base leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
             >
-              We offer ATS resume writing, LinkedIn optimization, UI/UX design, web development, and personal portfolio websites for clients in Hyderabad and across India.
+              We offer ATS resume writing, LinkedIn optimization, UI/UX design, web development, and personal portfolio websites for clients in Hitech City, Hyderabad and across India.
             </motion.p>
             
             <motion.div 
