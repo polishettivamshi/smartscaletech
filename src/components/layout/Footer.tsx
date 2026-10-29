@@ -17,7 +17,7 @@ export const Footer = () => {
               </span>
             </Link>
             <p className="text-slate-500 text-sm leading-relaxed mb-8 max-w-xs">
-              SmartScaleTech helps businesses and professionals build powerful digital presence through ATS resume services, LinkedIn optimization, branding, and web development.
+              SmartScaleTech is a Hyderabad-based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, branding, and web development.
             </p>
             <div className="flex gap-4">
                {[ 
@@ -71,7 +71,7 @@ export const Footer = () => {
                </li>
                <li className="flex items-start gap-3">
                   <MapPin size={18} className="text-primary mt-0.5" />
-                  <span className="text-slate-500 text-sm">India</span>
+                  <span className="text-slate-500 text-sm">Hyderabad, Telangana, India</span>
                </li>
                <li>
                  <a href="https://www.linkedin.com/company/smartscale-tech" target="_blank" rel="noopener noreferrer" className="text-slate-900 text-sm font-semibold hover:text-primary transition-colors">

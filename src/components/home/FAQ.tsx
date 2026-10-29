@@ -9,6 +9,10 @@ const faqs = [
     a: "It is a resume that is structured and keyword-optimized to pass through Applicant Tracking Systems used by 90% of Fortune 10 companies."
   },
   {
+    q: "Do you provide resume writing services in Hyderabad?",
+    a: "Yes. We are based in Hyderabad, Telangana and work with clients across India. Consultations happen over WhatsApp or call, and all deliverables are shared digitally, so location is never a barrier."
+  },
+  {
     q: "How long does it take to complete an order?",
     a: "Usually, we deliver the first draft within 3-5 business days depending on the package selected."
   },
