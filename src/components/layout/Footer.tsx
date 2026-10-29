@@ -17,7 +17,7 @@ export const Footer = () => {
               </span>
             </Link>
             <p className="text-slate-500 text-sm leading-relaxed mb-8 max-w-xs">
-              SmartScaleTech is a Hyderabad-based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, branding, and web development.
+              SmartScaleTech is a Hitech City, Hyderabad based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, branding, and web development.
             </p>
             <div className="flex gap-4">
                {[ 
@@ -49,9 +49,16 @@ export const Footer = () => {
           <div className="md:col-span-3">
              <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6">Services</h4>
              <ul className="space-y-4">
-               {['Career Branding', 'Web Development', 'Resume Writing', 'LinkedIn Optimization', 'GitHub Optimization'].map(item => (
-                 <li key={item}>
-                   <a href="#" className="text-slate-500 text-sm hover:text-primary transition-colors">{item}</a>
+               {[
+                 { label: 'Resume Writing', to: '/ats-resume-writing-hyderabad' },
+                 { label: 'LinkedIn Optimization', to: '/linkedin-profile-optimization-hyderabad' },
+                 { label: 'Web Development', to: '/web-development-hyderabad' },
+                 { label: 'UI/UX Design', to: '/ui-ux-design-hyderabad' },
+                 { label: 'Portfolio Website', to: '/portfolio-website-hyderabad' },
+                 { label: 'Final Year Projects', to: '/final-year-projects-hyderabad' },
+               ].map(item => (
+                 <li key={item.label}>
+                   <Link to={item.to} className="text-slate-500 text-sm hover:text-primary transition-colors">{item.label}</Link>
                  </li>
                ))}
              </ul>
@@ -71,7 +78,7 @@ export const Footer = () => {
                </li>
                <li className="flex items-start gap-3">
                   <MapPin size={18} className="text-primary mt-0.5" />
-                  <span className="text-slate-500 text-sm">Hyderabad, Telangana, India</span>
+                  <span className="text-slate-500 text-sm">Hitech City, Hyderabad, Telangana, India</span>
                </li>
                <li>
                  <a href="https://www.linkedin.com/company/smartscale-tech" target="_blank" rel="noopener noreferrer" className="text-slate-900 text-sm font-semibold hover:text-primary transition-colors">

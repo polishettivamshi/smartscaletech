@@ -1,7 +1,23 @@
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
+import type { ReactNode } from 'react';
 import { FileText, Linkedin, Rocket, Briefcase, GraduationCap, Users, ArrowRight, Code, Brain, Target, Search, Palette, Megaphone, Globe, Layout, Github } from 'lucide-react';
 
-const services = [
+interface ServiceItem {
+  title: string;
+  desc: string;
+  icon: ReactNode;
+  link?: string;
+}
+
+interface ServiceGroup {
+  category: string;
+  icon: ReactNode;
+  items: ServiceItem[];
+  footerLink: string;
+}
+
+const services: ServiceGroup[] = [
   {
     category: "SmartScaleTech Career Branding Accelerator",
     icon: <Briefcase className="text-primary" />,
@@ -9,12 +25,14 @@ const services = [
       {
         title: "ATS Resume Writing",
         desc: "Technically engineered single-page resumes designed to rank #1 in Applicant Tracking Systems.",
-        icon: <FileText size={20} className="text-indigo-600" />
+        icon: <FileText size={20} className="text-indigo-600" />,
+        link: "/ats-resume-writing-hyderabad"
       },
       {
         title: "LinkedIn Optimization",
         desc: "Strategic keyword placement and headline optimization to 10x your recruiter impressions.",
-        icon: <Linkedin size={20} className="text-blue-600" />
+        icon: <Linkedin size={20} className="text-blue-600" />,
+        link: "/linkedin-profile-optimization-hyderabad"
       },
       {
         title: "Naukri Profile Optimization",
@@ -56,12 +74,14 @@ const services = [
       {
         title: "Final Year Projects",
         desc: "Complete end-to-end development of academic projects with scalable architecture and documentation.",
-        icon: <GraduationCap size={20} className="text-cyan-600" />
+        icon: <GraduationCap size={20} className="text-cyan-600" />,
+        link: "/final-year-projects-hyderabad"
       },
       {
         title: "Personal Portfolios",
         desc: "Recruiter-ready portfolios with smooth animations to showcase your coding projects.",
-        icon: <Layout size={20} className="text-purple-600" />
+        icon: <Layout size={20} className="text-purple-600" />,
+        link: "/portfolio-website-hyderabad"
       },
       {
         title: "AI Integration",
@@ -71,12 +91,14 @@ const services = [
       {
         title: "UI/UX Design",
         desc: "User-centric design systems that prioritize conversion and seamless interaction.",
-        icon: <Palette size={20} className="text-pink-500" />
+        icon: <Palette size={20} className="text-pink-500" />,
+        link: "/ui-ux-design-hyderabad"
       },
       {
         title: "Web Development",
         desc: "High-performance, scalable web applications built with modern frameworks like React.",
-        icon: <Globe size={20} className="text-blue-500" />
+        icon: <Globe size={20} className="text-blue-500" />,
+        link: "/web-development-hyderabad"
       },
       {
         title: "API Development & Integration",
@@ -125,8 +147,8 @@ export const Services = () => {
     <section id="services" className="py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">SmartScaleTech Services in Hyderabad</h2>
-          <p className="text-slate-500">ATS resume writing, LinkedIn optimization, web development, UI/UX design, and SEO services for job seekers and businesses in Hyderabad, India.</p>
+          <h2 className="text-4xl font-black text-slate-900 mb-4">SmartScaleTech Services in Hitech City, Hyderabad</h2>
+          <p className="text-slate-500">ATS resume writing, LinkedIn optimization, web development, UI/UX design, and SEO services for job seekers and businesses in Hitech City, Hyderabad, India.</p>
         </div>
 
         <div className="space-y-24">
@@ -140,24 +162,43 @@ export const Services = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                {group.items.map((service, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    whileHover={{ y: -8 }}
-                    className="p-8 sm:p-10 rounded-[40px] bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all group"
-                  >
-                    <div className="h-14 w-14 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 group-hover:bg-primary/5 transition-colors">
-                      {service.icon}
-                    </div>
-                    <h4 className="text-xl font-bold text-slate-900 mb-4">{service.title}</h4>
-                    <p className="text-slate-500 text-sm leading-relaxed mb-6">
-                      {service.desc}
-                    </p>
-                  </motion.div>
-                ))}
+                {group.items.map((service, idx) => {
+                  const body = (
+                    <>
+                      <div className="h-14 w-14 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 group-hover:bg-primary/5 transition-colors">
+                        {service.icon}
+                      </div>
+                      <h4 className="text-xl font-bold text-slate-900 mb-4">{service.title}</h4>
+                      <p className="text-slate-500 text-sm leading-relaxed mb-6">
+                        {service.desc}
+                      </p>
+                      {service.link && (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-primary">
+                          Learn more <ArrowRight size={14} />
+                        </span>
+                      )}
+                    </>
+                  );
+
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      whileHover={{ y: -8 }}
+                      className="p-8 sm:p-10 rounded-[40px] bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all group"
+                    >
+                      {service.link ? (
+                        <Link to={service.link} className="block h-full" aria-label={service.title}>
+                          {body}
+                        </Link>
+                      ) : (
+                        body
+                      )}
+                    </motion.div>
+                  );
+                })}
               </div>
               
               <div className="mt-12 flex justify-center md:justify-start">

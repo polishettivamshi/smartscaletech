@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     q: "Do you provide resume writing services in Hyderabad?",
-    a: "Yes. We are based in Hyderabad, Telangana and work with clients across India. Consultations happen over WhatsApp or call, and all deliverables are shared digitally, so location is never a barrier."
+    a: "Yes. We are based in Hitech City, Hyderabad, Telangana and work with clients across India. Consultations happen over WhatsApp or call, and all deliverables are shared digitally, so location is never a barrier."
   },
   {
     q: "How long does it take to complete an order?",
