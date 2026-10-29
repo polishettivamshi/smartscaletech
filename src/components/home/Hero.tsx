@@ -18,7 +18,7 @@ export const Hero = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <span className="text-[10px] font-bold">#1</span>
               </div>
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">SmartScaleTech (Smart Scale Tech) Digital Branding Agency</span>
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">ATS Resume Writing &amp; Web Development Agency in Hyderabad</span>
             </motion.div>
 
             <motion.h1 
@@ -27,13 +27,10 @@ export const Hero = () => {
               transition={{ duration: 0.5 }}
               className="text-3xl font-black tracking-tight text-slate-900 sm:text-6xl md:text-7xl leading-[1.2]"
             >
-              <span className="block whitespace-nowrap text-primary">SmartScaleTech</span>
-              <span className="block whitespace-nowrap">
-                Build Your <span className="text-primary">Website.</span>
-              </span>
-              <span className="block whitespace-nowrap">
-                Build Your <span className="text-accent">Career.</span>
-              </span>
+              <span className="block text-primary">SmartScaleTech</span>
+              <span className="block">ATS Resume Writing</span>
+              <span className="block">&amp; Web Development</span>
+              <span className="block text-2xl sm:text-4xl md:text-5xl text-slate-900 mt-3">in Hyderabad, India</span>
             </motion.h1>
             
             <motion.p 
@@ -42,7 +39,7 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-8 text-lg leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
             >
-              SmartScaleTech helps businesses and job seekers create a powerful digital presence that bypasses algorithms and generates real-world results.
+              <strong className="text-slate-900">Build your website. Build your career.</strong> SmartScaleTech helps businesses and job seekers in Hyderabad create a powerful digital presence that bypasses algorithms and generates real-world results.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -50,7 +47,7 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-4 text-base leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
             >
-              We offer ATS resume writing, LinkedIn optimization, UI/UX design, web development, and digital branding services under the SmartScaleTech brand.
+              We offer ATS resume writing, LinkedIn optimization, UI/UX design, web development, and personal portfolio websites for clients in Hyderabad and across India.
             </motion.p>
             
             <motion.div 

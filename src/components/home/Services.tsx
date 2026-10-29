@@ -125,8 +125,8 @@ export const Services = () => {
     <section id="services" className="py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">SmartScaleTech Services</h2>
-          <p className="text-slate-500">Career branding, web development, UI/UX design, SEO, and LinkedIn optimization services by SmartScaleTech.</p>
+          <h2 className="text-4xl font-black text-slate-900 mb-4">SmartScaleTech Services in Hyderabad</h2>
+          <p className="text-slate-500">ATS resume writing, LinkedIn optimization, web development, UI/UX design, and SEO services for job seekers and businesses in Hyderabad, India.</p>
         </div>
 
         <div className="space-y-24">
