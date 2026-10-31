@@ -10,6 +10,8 @@ import { Hero } from './components/home/Hero';
 import { Services } from './components/home/Services';
 import { ResumeComparison } from './components/home/ResumeComparison';
 import { FounderSection } from './components/home/FounderSection';
+import { LinkedInCommunitySection } from './components/home/LinkedInCommunitySection';
+import { FreeATSCheckerPage } from './components/tools/FreeATSCheckerPage';
 import { TrustedBy } from './components/home/TrustedBy';
 import { Testimonials } from './components/home/Testimonials';
 import { WhyJoin, HowItWorks, PrivacyPolicy, TermsOfService } from './components/home/HomeSections';
@@ -21,6 +23,8 @@ import { NotFound } from './components/layout/NotFound';
 import { FloatingActions } from './components/home/FloatingActions';
 import { SEO } from './lib/seo';
 import { serviceRoutes } from './data/serviceRoutes';
+import { DashboardPage } from './components/dashboard/DashboardPage';
+import { CareerAssistantBot } from './components/chat/CareerAssistantBot';
 
 // Lazy-loaded so each service page's content stays out of the homepage bundle.
 const ServicePage = lazy(() =>
@@ -63,6 +67,16 @@ const RouteEffects = () => {
     );
   }
 
+  if (pathname === '/dashboard') {
+    return (
+      <SEO
+        title="Candidate Career Progress Dashboard | SmartScaleTech"
+        description="Track your resume ATS score improvements, recruiter search visibility, and interview callbacks over time with SmartScaleTech Hyderabad."
+        path="/dashboard"
+      />
+    );
+  }
+
   if (pathname === '/terms-of-service') {
     return (
       <SEO
@@ -83,6 +97,7 @@ function HomePage() {
       <TrustedBy />
       <Services />
       <ResumeComparison />
+      <LinkedInCommunitySection />
       <HowItWorks />
       <Testimonials />
       <FounderSection />
@@ -102,6 +117,8 @@ function App() {
         <RouteEffects />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/free-ats-resume-checker" element={<FreeATSCheckerPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/404" element={<NotFound />} />
@@ -119,6 +136,7 @@ function App() {
         </Routes>
         <Footer />
         <FloatingActions />
+        <CareerAssistantBot />
       </div>
     </Router>
   );

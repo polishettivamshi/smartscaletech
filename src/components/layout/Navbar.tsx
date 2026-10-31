@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap, Moon, Sun, ChevronDown, Menu as MenuIcon, X } from 'lucide-react';
+import { Zap, Moon, Sun, ChevronDown, Menu as MenuIcon, X, TrendingUp } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -32,22 +32,45 @@ export const Navbar = () => {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
+          <Link
+            to="/free-ats-resume-checker"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all text-xs font-black uppercase tracking-wider shadow-xs"
+          >
+            <Zap size={13} fill="currentColor" /> Free ATS Checker
+          </Link>
+
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs font-black uppercase tracking-wider shadow-2xs border border-emerald-200"
+          >
+            <TrendingUp size={13} /> Tracker
+          </Link>
+
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 transition-colors hover:text-primary"
+              className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-500 transition-colors hover:text-primary"
             >
               {link.name}
             </a>
           ))}
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-4">
-          <a href="#pricing" className="hidden sm:block">
-            <Button className="h-10 rounded-xl px-6 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20">
-              Join Now
+        <div className="flex items-center gap-2 sm:gap-3">
+          <a
+            href="https://www.linkedin.com/company/smartscale-tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl border border-slate-200 text-[#0A66C2] hover:bg-[#0A66C2]/5 font-bold text-xs transition-colors"
+          >
+            <span>Follow</span>
+          </a>
+
+          <a href="/#pricing" className="hidden sm:block">
+            <Button className="h-10 rounded-xl px-5 font-black uppercase tracking-wider text-xs shadow-md shadow-primary/20">
+              Get Started
             </Button>
           </a>
 
@@ -71,6 +94,22 @@ export const Navbar = () => {
             className="lg:hidden border-t border-slate-100 bg-white shadow-2xl"
           >
              <div className="p-8 space-y-6">
+                <div className="flex flex-col gap-2 pb-2">
+                  <Link
+                    to="/free-ats-resume-checker"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-primary bg-primary/10 px-4 py-3 rounded-xl"
+                  >
+                    <Zap size={16} fill="currentColor" /> Free ATS Resume Checker
+                  </Link>
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-4 py-3 rounded-xl"
+                  >
+                    <TrendingUp size={16} /> Candidate Progress Tracker
+                  </Link>
+                </div>
                 {navLinks.map((link) => (
                   <a
                     key={link.name}

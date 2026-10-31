@@ -57,6 +57,14 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Free Tools -->
+  <url>
+    <loc>https://smartscaletech.vercel.app/free-ats-resume-checker</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
   <!-- High-Intent Buyer Landing Pages -->
   <url>
     <loc>https://smartscaletech.vercel.app/resume-writing-freshers-hyderabad</loc>

@@ -21,7 +21,7 @@ export const FloatingActions = () => {
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1, x: -5 }}
         className="h-12 w-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg shadow-green-500/30 transition-shadow hover:shadow-xl"
-        title="Chat with us"
+        title="Chat on WhatsApp"
       >
         <MessageCircle size={24} fill="currentColor" />
       </motion.a>
@@ -30,7 +30,7 @@ export const FloatingActions = () => {
         href="tel:+919000859695"
         whileHover={{ scale: 1.1, x: -5 }}
         className="h-12 w-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 transition-shadow hover:shadow-xl"
-        title="Call us"
+        title="Call us (+91 90008 59695)"
       >
         <Phone size={20} fill="currentColor" />
       </motion.a>

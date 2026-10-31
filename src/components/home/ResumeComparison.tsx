@@ -85,7 +85,7 @@ export const ResumeComparison = () => {
                   </h3>
                 </div>
                 <div className="text-right">
-                  <span className="text-2xl font-black text-emerald-600">94/100</span>
+                  <span className="text-2xl font-black text-emerald-600">98/100</span>
                   <span className="block text-[10px] font-bold text-emerald-500 uppercase">ATS Pass Rate</span>
                 </div>
               </div>

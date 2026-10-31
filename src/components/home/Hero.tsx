@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { ArrowRight, Star, Users, Zap, Briefcase, TrendingUp, CheckCircle2, Linkedin, Search, User } from 'lucide-react';
 import naukriLogo from '/images/naukri_logo.jpg';
@@ -56,19 +57,19 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             >
+              <Link to="/free-ats-resume-checker">
+                <Button size="lg" className="h-14 px-8 rounded-2xl bg-gradient-to-r from-primary to-indigo-700 hover:from-primary/90 hover:to-indigo-800 text-white shadow-xl shadow-primary/25 transition-all hover:-translate-y-1 font-bold">
+                  ⚡ Check ATS Score Free <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
               <a href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%0A%0AI%27m%20interested%20in%20your%20services.%0A%0AService%20Required%3A%0A%5BATS%20Resume%20%2F%20LinkedIn%20Optimization%20%2F%20Portfolio%20%2F%20Website%20%2F%20Other%5D%0A%0AName%3A%0AEmail%3A%0APhone%3A%0A%0ACurrent%20Role%2FBusiness%3A%0A%0AMy%20Requirement%3A%0A%0APreferred%20Time%20for%20Discussion%3A%0A%0APlease%20get%20in%20touch%20with%20me." target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="h-14 px-8 rounded-2xl bg-green-500 hover:bg-green-600 shadow-xl shadow-green-500/20 transition-all hover:-translate-y-1">
-                  📞 Book Free Consultation on WhatsApp
+                <Button size="lg" className="h-14 px-8 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-600/20 transition-all hover:-translate-y-1">
+                  📞 WhatsApp Consultation
                 </Button>
               </a>
               <a href="#pricing">
-                <Button size="lg" className="h-14 px-8 rounded-2xl bg-primary hover:bg-primary-dark shadow-xl shadow-primary/20 transition-all hover:-translate-y-1">
-                  Free Consultation <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </a>
-              <a href="#services">
-                <Button variant="outline" size="lg" className="h-14 px-8 rounded-2xl border-slate-200 text-slate-600 hover:bg-slate-50 transition-all hover:-translate-y-1">
-                  View Services
+                <Button variant="outline" size="lg" className="h-14 px-8 rounded-2xl border-slate-200 text-slate-700 hover:bg-slate-50 transition-all hover:-translate-y-1">
+                  View Packages
                 </Button>
               </a>
             </motion.div>

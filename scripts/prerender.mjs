@@ -10,9 +10,17 @@ const distDir = path.resolve(rootDir, 'dist');
 // Read service routes and data dynamically or parse from file
 const serviceRoutesFile = path.resolve(rootDir, 'src/data/serviceRoutes.ts');
 const serviceRoutesContent = fs.readFileSync(serviceRoutesFile, 'utf-8');
-const routeMatches = [...serviceRoutesContent.matchAll(/'([^']+)'/g)].map((m) => m[1]);
+const routeMatches = [...serviceRoutesContent.matchAll(/'([a-z0-9-]+)'/g)].map((m) => m[1]);
 
-console.log(`[prerender] Found ${routeMatches.length} service routes to prepare.`);
+const extraRoutes = [
+  'free-ats-resume-checker',
+  'dashboard',
+  'privacy-policy',
+  'terms-of-service'
+];
+const allRoutes = [...new Set([...routeMatches, ...extraRoutes])];
+
+console.log(`[prerender] Found ${allRoutes.length} routes to prepare.`);
 
 const distIndexHtml = path.resolve(distDir, 'index.html');
 if (!fs.existsSync(distIndexHtml)) {
@@ -22,7 +30,7 @@ if (!fs.existsSync(distIndexHtml)) {
 
 const template = fs.readFileSync(distIndexHtml, 'utf-8');
 
-for (const route of routeMatches) {
+for (const route of allRoutes) {
   const targetDir = path.resolve(distDir, route);
   if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
