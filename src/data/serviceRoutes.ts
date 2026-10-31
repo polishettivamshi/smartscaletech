@@ -10,4 +10,10 @@ export const serviceRoutes = [
   'ui-ux-design-hyderabad',
   'portfolio-website-hyderabad',
   'final-year-projects-hyderabad',
+  // High Buyer-Intent Local Landing Pages
+  'resume-writing-freshers-hyderabad',
+  'linkedin-profile-writer-software-engineers-hyderabad',
+  'executive-resume-writing-hyderabad',
+  'college-placement-resume-hyderabad',
+  'freelance-portfolio-website-hyderabad',
 ];

@@ -153,7 +153,7 @@ export const ServicePage = ({ slug }: Props) => {
                 <Clock size={14} className="text-green-500" /> Mon-Sat, 9AM-9PM IST
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <ShieldCheck size={14} className="text-primary" /> Reply within 30 minutes
+                <ShieldCheck size={14} className="text-primary" /> Reply within 5 minutes
               </span>
             </div>
           </motion.div>
@@ -288,7 +288,7 @@ export const ServicePage = ({ slug }: Props) => {
             Ready to get started with {page.h1}?
           </h2>
           <p className="mx-auto mt-4 max-w-xl font-semibold text-white/85">
-            Message us on WhatsApp. We reply within 30 minutes during working hours.
+            Message us on WhatsApp. We reply within 5 minutes during working hours.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">

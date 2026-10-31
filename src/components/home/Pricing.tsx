@@ -3,44 +3,57 @@ import { Check, MessageCircle, Clock } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useState } from 'react';
 import { BookingModal } from './BookingModal';
+import { PaymentModal } from './PaymentModal';
 
 const plans = [
   {
     name: "Career Starter",
+    scope: "Resume, LinkedIn & Job Portals",
+    support: "1-on-1 WhatsApp Support",
     oneTimePrice: "999",
     monthlyPrice: "499",
     features: [
-      "ATS Resume Writing",
-      "LinkedIn Optimization",
-      "Naukri Profile Setup",
-      "GitHub Optimization",
-      "Job Search Guide"
+      "Role-Specific ATS Resume (Word + PDF)",
+      "LinkedIn Profile & Headline Re-write",
+      "Naukri & Job Portal Keyword Setup",
+      "GitHub Profile Readme & Structure",
+      "Unlimited Revisions until Interview-Ready",
+      "Direct 1-on-1 Support (Reply in 5 Mins)",
+      "24-48 Hours Fast Turnaround"
     ],
     popular: false
   },
   {
     name: "Portfolio Launch",
+    scope: "Website + Career Branding Bundle",
+    support: "Direct Developer & Founder Support",
     oneTimePrice: "2,999",
     monthlyPrice: "1,999",
     features: [
-      "Animated Portfolio Website",
-      "ATS Resume Writing",
-      "LinkedIn & GitHub Prep",
-      "SEO Optimization",
-      "1 Year Hosting Incl."
+      "Custom Animated Portfolio Website",
+      "Full ATS Resume Writing Included",
+      "LinkedIn & GitHub Bio & Repo Setup",
+      "Free Cloud Deployment Setup (₹0/mo Server)",
+      "Google SEO & Schema Structured Data",
+      "Full Source Code Handover & Walkthrough",
+      "Direct Founder Support (Reply in 5 Mins)"
     ],
     popular: true
   },
   {
     name: "Business Web",
+    scope: "Full-Stack Company Web Presence",
+    support: "30 Days Post-Launch Support",
     oneTimePrice: "5,999",
     monthlyPrice: "2,999",
     features: [
-      "5 Premium Pages",
-      "Custom Lead Forms",
-      "SEO & Google Maps",
-      "WhatsApp Integration",
-      "Performance Audit"
+      "5 Custom Designed Responsive Pages",
+      "WhatsApp Lead Capture & Inquiry Forms",
+      "Google Search Console & Maps Setup",
+      "Performance Audit (Sub-2s Fast Load)",
+      "Free Cloud Hosting Setup (No Server Fees)",
+      "30 Days Dedicated Maintenance & Support",
+      "Priority WhatsApp & Call (Reply in 5 Mins)"
     ],
     popular: false
   }
@@ -49,6 +62,7 @@ const plans = [
 export const Pricing = () => {
   const [billing, setBilling] = useState<'monthly' | 'one-time'>('one-time');
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [paymentPlan, setPaymentPlan] = useState<{ name: string; amount: string } | null>(null);
 
   const handleSelectPlan = (planName: string) => {
     setSelectedPlan(planName);
@@ -135,27 +149,35 @@ export const Pricing = () => {
                 ))}
               </div>
 
-              <div className="space-y-3">
-                <a href={`https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%0A%0AI%27m%20interested%20in%20the%20${plan.name}%20plan.%0A%0AService%20Required%3A%0A%5BATS%20Resume%20%2F%20LinkedIn%20Optimization%20%2F%20Portfolio%20%2F%20Website%20%2F%20Other%5D%0A%0AName%3A%0AEmail%3A%0APhone%3A%0A%0ACurrent%20Role%2FBusiness%3A%0A%0AMy%20Requirement%3A%0A%0APreferred%20Time%20for%20Discussion%3A%0A%0APlease%20get%20in%20touch%20with%20me.`} target="_blank" rel="noopener noreferrer" className="block">
-                  <Button
-                    variant={plan.popular ? 'default' : 'outline'}
-                    className={`w-full h-14 rounded-2xl font-bold ${plan.popular ? 'bg-green-500 hover:bg-green-600 shadow-lg shadow-green-500/30' : 'border-green-200 text-green-600 hover:bg-green-50'}`}
-                  >
-                    <MessageCircle size={18} className="mr-2" />
-                    Chat on WhatsApp
-                  </Button>
-                </a>
+              <div className="space-y-2.5">
+                <Button
+                  onClick={() =>
+                    setPaymentPlan({
+                      name: plan.name,
+                      amount: billing === 'one-time' ? plan.oneTimePrice : plan.monthlyPrice,
+                    })
+                  }
+                  className={`w-full h-12 rounded-xl font-bold text-sm shadow-md transition-all ${
+                    plan.popular
+                      ? 'bg-primary hover:bg-primary-dark text-white shadow-primary/25'
+                      : 'bg-slate-900 hover:bg-slate-800 text-white'
+                  }`}
+                >
+                  Pay Now / Book with Advance
+                </Button>
+
                 <Button
                   onClick={() => handleSelectPlan(plan.name)}
-                  variant={plan.popular ? 'default' : 'outline'}
-                  className={`w-full h-14 rounded-2xl font-bold ${plan.popular ? 'bg-primary hover:bg-primary-dark shadow-lg shadow-primary/30' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}
+                  variant="outline"
+                  className="w-full h-12 rounded-xl font-bold text-xs border-green-300 text-green-700 hover:bg-green-50"
                 >
-                  Select Plan
+                  <MessageCircle size={16} className="mr-1.5 text-green-600" />
+                  Chat &amp; Custom Scope
                 </Button>
               </div>
               <div className="flex items-center justify-center gap-2 text-[11px] font-bold text-slate-400 mt-4 pt-4 border-t border-slate-100">
                 <Clock size={14} className="text-green-500" />
-                Reply within 30 minutes
+                Reply within 5 minutes · Direct founder support
               </div>
             </motion.div>
           ))}
@@ -166,6 +188,13 @@ export const Pricing = () => {
         isOpen={selectedPlan !== null} 
         onClose={() => setSelectedPlan(null)} 
         planName={selectedPlan || ''} 
+      />
+
+      <PaymentModal
+        isOpen={paymentPlan !== null}
+        onClose={() => setPaymentPlan(null)}
+        planName={paymentPlan?.name || ''}
+        amount={paymentPlan?.amount || '999'}
       />
     </section>
   );

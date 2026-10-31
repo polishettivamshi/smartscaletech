@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { Navbar } from './components/layout/Navbar';
 import { Hero } from './components/home/Hero';
 import { Services } from './components/home/Services';
+import { ResumeComparison } from './components/home/ResumeComparison';
+import { FounderSection } from './components/home/FounderSection';
 import { TrustedBy } from './components/home/TrustedBy';
 import { Testimonials } from './components/home/Testimonials';
 import { WhyJoin, HowItWorks, PrivacyPolicy, TermsOfService } from './components/home/HomeSections';
@@ -80,8 +82,10 @@ function HomePage() {
       <Hero />
       <TrustedBy />
       <Services />
+      <ResumeComparison />
       <HowItWorks />
       <Testimonials />
+      <FounderSection />
       <WhyJoin />
       <Pricing />
       <FAQ />

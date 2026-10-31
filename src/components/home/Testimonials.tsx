@@ -27,8 +27,11 @@ export const Testimonials = () => {
     <section className="py-24 bg-slate-50/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">What Our Clients Say</h2>
-          <p className="text-slate-700 font-bold">Success stories from professionals who transformed their digital presence.</p>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold mb-3">
+            [TODO: Replace placeholder client testimonials with your real client feedback / WhatsApp screenshots]
+          </div>
+          <h2 className="text-4xl font-black text-slate-900 mb-4">Client Feedback &amp; Stories</h2>
+          <p className="text-slate-600 font-medium">Stories from job seekers and businesses who revamped their digital presence.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

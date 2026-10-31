@@ -13,7 +13,9 @@ export const TrustedBy = () => {
   return (
     <div className="py-12 border-y border-slate-100 bg-white overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 text-center mb-8">
-        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Trusted by innovators at</p>
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+          Top tech companies our candidates interview and apply with
+        </p>
       </div>
       <div className="flex relative items-center">
         <div className="flex animate-marquee gap-20 items-center justify-around min-w-full">

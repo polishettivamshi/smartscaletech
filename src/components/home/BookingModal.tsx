@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Check, Mail, Phone, User, Send } from 'lucide-react';
+import { X, Check, Phone, User, Send, ShieldCheck, Clock, MessageCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { submitLead } from '../../lib/leads';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -12,52 +13,46 @@ interface BookingModalProps {
 export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [whatsappLink, setWhatsappLink] = useState('');
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    phone: ''
+    phone: '',
+    experienceLevel: 'Fresher / Entry-Level',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Construct the WhatsApp message with improved lead qualification
-    const message = `Hello SmartScaleTech,
+    try {
+      const { whatsappUrl } = await submitLead({
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        service: planName || 'General Inquiry',
+        sourcePage: window.location.pathname || '/',
+        note: `Level: ${formData.experienceLevel}`,
+      });
 
-I'm interested in your services.
-
-Service Required:
-[ATS Resume / LinkedIn Optimization / Portfolio / Website / Other]
-
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-
-Current Role/Business:
-
-My Requirement:
-
-Preferred Time for Discussion:
-
-Please get in touch with me.`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919000859695?text=${encodedMessage}`;
-
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+      setWhatsappLink(whatsappUrl);
       setIsSuccess(true);
-      
-      // Redirect to WhatsApp
-      window.open(whatsappUrl, '_blank');
 
-      setTimeout(() => {
-        setIsSuccess(false);
-        onClose();
-        setFormData({ name: '', email: '', phone: '' });
-      }, 3000);
-    }, 1500);
+      // Attempt to open WhatsApp window safely
+      try {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      } catch (err) {
+        console.warn('Popup blocked:', err);
+      }
+    } catch (err) {
+      console.error('Lead submission failed:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleResetAndClose = () => {
+    setIsSuccess(false);
+    setFormData({ name: '', phone: '', experienceLevel: 'Fresher / Entry-Level' });
+    onClose();
   };
 
   return (
@@ -68,95 +63,137 @@ Please get in touch with me.`;
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleResetAndClose}
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-lg bg-white rounded-[40px] shadow-2xl overflow-hidden"
+            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100"
           >
             <button
-              onClick={onClose}
-              className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors"
+              onClick={handleResetAndClose}
+              className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors"
+              aria-label="Close modal"
             >
               <X size={20} />
             </button>
 
-            <div className="p-10">
+            <div className="p-8">
               {isSuccess ? (
-                <div className="text-center py-12">
-                   <div className="h-20 w-20 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Check size={40} />
-                   </div>
-                   <h3 className="text-2xl font-bold text-slate-900 mb-2">Request Received!</h3>
-                   <p className="text-slate-700 font-medium">Our experts will contact you within 24 hours.</p>
+                <div className="text-center py-6">
+                  <div className="h-16 w-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
+                    <Check size={32} />
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-900 mb-2">Lead Saved &amp; Dispatched!</h3>
+                  <p className="text-slate-600 text-sm font-medium mb-6">
+                    We have registered your request for <strong>{planName}</strong>. Our team replies on WhatsApp within 5 minutes.
+                  </p>
+
+                  <a
+                    href={whatsappLink || 'https://wa.me/919000859695'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 w-full h-12 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-sm shadow-lg shadow-green-500/25 transition-all"
+                  >
+                    <MessageCircle size={18} /> Open WhatsApp Chat Now
+                  </a>
+
+                  <button
+                    onClick={handleResetAndClose}
+                    className="mt-4 text-xs font-semibold text-slate-400 hover:text-slate-600 underline"
+                  >
+                    Done &amp; Close
+                  </button>
                 </div>
               ) : (
                 <>
-                  <div className="mb-8">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-2">Booking for</p>
-                    <h3 className="text-3xl font-black text-slate-900">{planName}</h3>
+                  <div className="mb-6">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider mb-2">
+                      <Clock size={12} /> Fast Turnaround
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900">
+                      Book {planName}
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-1">
+                      Fill 2 simple fields. We will message you on WhatsApp with samples and pricing options.
+                    </p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Full Name</label>
-                       <div className="relative">
-                          <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                           <input 
-                            required
-                            type="text" 
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full h-12 bg-slate-50 border-none rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-300"
-                            placeholder="John Doe"
-                          />
-                       </div>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Full Name */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        Full Name <span className="text-rose-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <User size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <input
+                          required
+                          type="text"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-slate-400"
+                          placeholder="e.g. Rahul Sharma"
+                        />
+                      </div>
                     </div>
 
-                    <div className="space-y-2">
-                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Email Address</label>
-                       <div className="relative">
-                          <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                          <input 
-                            required
-                            type="email" 
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full h-12 bg-slate-50 border-none rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-300"
-                            placeholder="john@example.com"
-                          />
-                       </div>
+                    {/* WhatsApp / Phone Number */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        WhatsApp Number <span className="text-rose-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <Phone size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <input
+                          required
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-slate-400"
+                          placeholder="e.g. 9000859695"
+                        />
+                      </div>
                     </div>
 
-                    <div className="space-y-2">
-                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Phone Number</label>
-                       <div className="relative">
-                          <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                          <input 
-                            required
-                            type="tel" 
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            className="w-full h-12 bg-slate-50 border-none rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-300"
-                            placeholder="+91 9123456789"
-                          />
-                       </div>
+                    {/* Quick Profile Level */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        Your Current Stage
+                      </label>
+                      <select
+                        value={formData.experienceLevel}
+                        onChange={(e) => setFormData({ ...formData, experienceLevel: e.target.value })}
+                        className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      >
+                        <option value="Fresher / College Student">Fresher / College Student</option>
+                        <option value="1-3 Years Experience">1-3 Years Experience (Junior/Mid)</option>
+                        <option value="4-8 Years Experience">4-8 Years Experience (Senior)</option>
+                        <option value="8+ Years / Manager / Lead">8+ Years / Manager / Lead</option>
+                        <option value="Business / Founder">Business / Founder (Website/UI)</option>
+                      </select>
                     </div>
 
-                    <Button 
+                    <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full h-14 rounded-2xl bg-primary hover:bg-primary-dark shadow-lg shadow-primary/20 font-bold"
+                      className="w-full h-12 rounded-xl bg-primary hover:bg-primary-dark shadow-md shadow-primary/20 font-bold text-sm mt-2"
                     >
                       {isSubmitting ? (
                         <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                       ) : (
-                        <>Complete Booking <Send size={18} className="ml-2" /></>
+                        <span className="inline-flex items-center gap-2">
+                          Continue to WhatsApp <Send size={16} />
+                        </span>
                       )}
                     </Button>
+
+                    <div className="flex items-center justify-center gap-2 text-[11px] font-medium text-slate-400 pt-2">
+                      <ShieldCheck size={14} className="text-emerald-500" />
+                      No spam guarantee. Direct 1-on-1 discussion.
+                    </div>
                   </form>
                 </>
               )}

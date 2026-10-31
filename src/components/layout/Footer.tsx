@@ -1,7 +1,24 @@
 import { Link } from 'react-router-dom';
 import { Zap, Linkedin, Instagram, Github, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
+import { useState, useEffect } from 'react';
+import { LeadsViewerModal } from '../admin/LeadsViewerModal';
+import { getStoredLeads } from '../../lib/leads';
+
 export const Footer = () => {
+  const [showLeads, setShowLeads] = useState(false);
+  const [leadCount, setLeadCount] = useState(0);
+
+  useEffect(() => {
+    setLeadCount(getStoredLeads().length);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'l') {
+        setShowLeads((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showLeads]);
   return (
     <footer id="contact" className="bg-slate-50 border-t border-slate-100 pt-20 pb-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -50,15 +67,17 @@ export const Footer = () => {
              <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6">Services</h4>
              <ul className="space-y-4">
                {[
-                 { label: 'Resume Writing', to: '/ats-resume-writing-hyderabad' },
-                 { label: 'LinkedIn Optimization', to: '/linkedin-profile-optimization-hyderabad' },
-                 { label: 'Web Development', to: '/web-development-hyderabad' },
-                 { label: 'UI/UX Design', to: '/ui-ux-design-hyderabad' },
-                 { label: 'Portfolio Website', to: '/portfolio-website-hyderabad' },
+                 { label: 'ATS Resume Writing', to: '/ats-resume-writing-hyderabad' },
+                 { label: 'Fresher Resume Writing', to: '/resume-writing-freshers-hyderabad' },
+                 { label: 'Software Engineer LinkedIn', to: '/linkedin-profile-writer-software-engineers-hyderabad' },
+                 { label: 'Executive Resume Writing', to: '/executive-resume-writing-hyderabad' },
+                 { label: 'Campus Placement Resume', to: '/college-placement-resume-hyderabad' },
+                 { label: 'Web & Portfolio Development', to: '/portfolio-website-hyderabad' },
+                 { label: 'Freelance Portfolio Website', to: '/freelance-portfolio-website-hyderabad' },
                  { label: 'Final Year Projects', to: '/final-year-projects-hyderabad' },
                ].map(item => (
                  <li key={item.label}>
-                   <Link to={item.to} className="text-slate-500 text-sm hover:text-primary transition-colors">{item.label}</Link>
+                   <Link to={item.to} className="text-slate-500 text-xs sm:text-sm hover:text-primary transition-colors">{item.label}</Link>
                  </li>
                ))}
              </ul>
@@ -106,9 +125,18 @@ export const Footer = () => {
               </span>
               <a href="/privacy-policy" className="hover:text-slate-900">Privacy Policy</a>
               <a href="/terms-of-service" className="hover:text-slate-900">Terms of Service</a>
+              <button
+                onClick={() => setShowLeads(true)}
+                className="hover:text-primary transition-colors text-slate-400 font-bold underline cursor-pointer"
+                title="View captured leads (Ctrl+Shift+L)"
+              >
+                Lead Inbox ({leadCount})
+              </button>
            </div>
         </div>
       </div>
+
+      <LeadsViewerModal isOpen={showLeads} onClose={() => setShowLeads(false)} />
     </footer>
   );
 };

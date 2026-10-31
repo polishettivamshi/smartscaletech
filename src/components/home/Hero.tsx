@@ -81,21 +81,21 @@ export const Hero = () => {
               className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6"
             >
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-primary/5 text-primary">
-                  <Users size={20} />
+                <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Zap size={20} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">20+</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Happy Clients</p>
+                  <p className="text-lg font-black text-slate-900 truncate">5 Mins</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Reply Time</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-amber-50 text-amber-500">
-                  <Star size={20} fill="currentColor" />
+                <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <CheckCircle2 size={20} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">4.9/5★</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Client Rating</p>
+                  <p className="text-lg font-black text-slate-900 truncate">100%</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">ATS Verified</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
@@ -103,17 +103,17 @@ export const Hero = () => {
                   <Briefcase size={20} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">1+</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Years Exp.</p>
+                  <p className="text-lg font-black text-slate-900 truncate">Hitech City</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Hyderabad HQ</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-emerald-50 text-emerald-500">
-                  <CheckCircle2 size={20} />
+                <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-amber-50 text-amber-500">
+                  <Users size={20} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">100%</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Satisfaction</p>
+                  <p className="text-lg font-black text-slate-900 truncate">1-on-1</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Direct Founder</p>
                 </div>
               </div>
             </motion.div>
