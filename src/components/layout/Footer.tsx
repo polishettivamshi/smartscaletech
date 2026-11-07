@@ -34,7 +34,7 @@ export const Footer = () => {
               </span>
             </Link>
             <p className="text-slate-500 text-sm leading-relaxed mb-8 max-w-xs">
-              SmartScaleTech is a Hitech City, Hyderabad based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, branding, and web development.
+              Smart Scale Tech (SmartScaleTech) is a Hitech City, Hyderabad based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, branding, and web development.
             </p>
             <div className="flex gap-4">
                {[ 
@@ -54,6 +54,11 @@ export const Footer = () => {
           <div className="md:col-span-2">
             <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6">Quick Links</h4>
             <ul className="space-y-4">
+              <li>
+                <Link to="/request-service" className="text-[#0A66C2] font-bold text-sm hover:underline flex items-center gap-1.5">
+                  <Linkedin size={14} /> Request Service
+                </Link>
+              </li>
               {['Services', 'Portfolio', 'Pricing', 'FAQ', 'About Us'].map(item => (
                 <li key={item}>
                   <a href={`#${item.toLowerCase()}`} className="text-slate-500 text-sm hover:text-primary transition-colors">{item}</a>
@@ -112,7 +117,7 @@ export const Footer = () => {
 
         <div className="border-t border-slate-200 pt-10 flex flex-col sm:flex-row justify-between items-center gap-6">
            <p className="text-slate-400 text-xs font-medium">
-             &copy; {new Date().getFullYear()} SmartScaleTech. All rights reserved.
+             &copy; {new Date().getFullYear()} Smart Scale Tech (SmartScaleTech). All rights reserved.
            </p>
            <div className="flex flex-col sm:flex-row items-center gap-4 text-slate-400 text-xs font-medium">
               <span>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Download, Trash2, Phone, Calendar, ArrowUpRight, ShieldCheck, Activity } from 'lucide-react';
+import { X, Download, Trash2, Phone, Calendar, ArrowUpRight, ShieldCheck, Activity, Mail, Linkedin, FileText, ExternalLink } from 'lucide-react';
 import { getStoredLeads, Lead } from '../../lib/leads';
 import { getLocalAnalyticsCounts } from '../../lib/analytics';
 
@@ -25,12 +25,17 @@ export const LeadsViewerModal = ({ isOpen, onClose }: LeadsViewerModalProps) => 
 
   const handleExportCSV = () => {
     if (leads.length === 0) return;
-    const headers = ['ID', 'Name', 'Phone', 'Service', 'SourcePage', 'Timestamp', 'Note'];
+    const headers = ['ID', 'Name', 'Phone', 'Email', 'Service', 'LinkedIn', 'Role', 'Timeline', 'Budget', 'SourcePage', 'Timestamp', 'Note'];
     const rows = leads.map((l) => [
       `"${l.id}"`,
       `"${l.name.replace(/"/g, '""')}"`,
       `"${l.phone.replace(/"/g, '""')}"`,
+      `"${(l.email || '').replace(/"/g, '""')}"`,
       `"${l.service.replace(/"/g, '""')}"`,
+      `"${(l.linkedInUrl || '').replace(/"/g, '""')}"`,
+      `"${(l.currentRole || '').replace(/"/g, '""')}"`,
+      `"${(l.timeline || '').replace(/"/g, '""')}"`,
+      `"${(l.budget || '').replace(/"/g, '""')}"`,
       `"${l.sourcePage.replace(/"/g, '""')}"`,
       `"${l.timestamp}"`,
       `"${(l.note || '').replace(/"/g, '""')}"`,
@@ -131,28 +136,49 @@ export const LeadsViewerModal = ({ isOpen, onClose }: LeadsViewerModalProps) => 
             leads.map((lead) => (
               <div
                 key={lead.id}
-                className="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-primary/40 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                className="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-primary/40 transition-all flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
               >
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-1.5 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="font-black text-slate-900 text-sm">{lead.name}</span>
                     <span className="px-2 py-0.5 rounded-md bg-primary/10 text-primary font-bold">
                       {lead.service}
                     </span>
+                    {lead.budget && (
+                      <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-semibold text-[10px]">
+                        {lead.budget}
+                      </span>
+                    )}
                   </div>
-                  <div className="flex flex-wrap items-center gap-3 text-slate-500">
+
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-500">
                     <span className="inline-flex items-center gap-1 font-semibold text-slate-700">
-                      <Phone size={13} className="text-green-600" /> {lead.phone}
+                      <Phone size={13} className="text-emerald-600" /> {lead.phone}
                     </span>
-                    <span className="inline-flex items-center gap-1">
+                    {lead.email && (
+                      <a href={`mailto:${lead.email}`} className="inline-flex items-center gap-1 text-slate-600 hover:text-primary hover:underline">
+                        <Mail size={13} /> {lead.email}
+                      </a>
+                    )}
+                    {lead.linkedInUrl && (
+                      <a 
+                        href={lead.linkedInUrl.startsWith('http') ? lead.linkedInUrl : `https://${lead.linkedInUrl}`}
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center gap-1 text-[#0A66C2] font-semibold hover:underline"
+                      >
+                        <Linkedin size={13} /> Profile <ExternalLink size={10} />
+                      </a>
+                    )}
+                    <span className="inline-flex items-center gap-1 text-slate-400">
                       <Calendar size={13} /> {new Date(lead.timestamp).toLocaleString('en-IN')}
                     </span>
-                    <span className="text-slate-400">Page: {lead.sourcePage}</span>
                   </div>
-                  {lead.note && <p className="text-slate-600 italic mt-1">{lead.note}</p>}
+
+                  {lead.note && <p className="text-slate-600 italic bg-white/70 p-2 rounded-lg border border-slate-100">{lead.note}</p>}
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
                   <a
                     href={`https://wa.me/91${lead.phone.replace(/[^0-9]/g, '').slice(-10)}?text=Hello%20${encodeURIComponent(
                       lead.name
@@ -161,13 +187,23 @@ export const LeadsViewerModal = ({ isOpen, onClose }: LeadsViewerModalProps) => 
                     )}!`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-green-500 hover:bg-green-600 text-white font-bold transition-all shadow-sm"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-all shadow-sm"
                   >
-                    Chat <ArrowUpRight size={13} />
+                    WhatsApp <ArrowUpRight size={13} />
                   </a>
+
+                  {lead.email && (
+                    <a
+                      href={`mailto:${lead.email}?subject=Regarding%20your%20SmartScaleTech%20Service%20Request%20(${encodeURIComponent(lead.service)})`}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-bold transition-all"
+                    >
+                      Email
+                    </a>
+                  )}
+
                   <a
                     href={`tel:${lead.phone}`}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold transition-all"
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold transition-all"
                   >
                     Call
                   </a>

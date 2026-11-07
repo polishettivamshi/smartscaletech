@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Linkedin, Bell, ArrowRight, Download, Users, CheckCircle, ExternalLink, Sparkles, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Linkedin, Bell, ArrowRight, Download, Users, CheckCircle, ExternalLink, Sparkles, MessageCircle, FileText } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { TemplateDownloadModal } from './TemplateDownloadModal';
 import { trackEvent } from '../../lib/analytics';
@@ -65,16 +66,22 @@ export const LinkedInCommunitySection = () => {
               </div>
             </div>
 
-            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="pt-4 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
+              <Link to="/request-service" className="flex-1 sm:flex-none">
+                <Button className="w-full h-13 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5">
+                  <FileText size={16} className="mr-2" /> Submit Service Request
+                </Button>
+              </Link>
+
               <a
                 href="https://www.linkedin.com/company/smartscale-tech"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleFollowClick}
-                className="flex-1"
+                className="flex-1 sm:flex-none"
               >
-                <Button className="w-full h-13 rounded-xl bg-[#0A66C2] hover:bg-[#004182] text-white font-bold text-xs shadow-lg shadow-[#0A66C2]/25 transition-all">
-                  <Linkedin size={16} className="mr-2" /> Follow @smartscale-tech
+                <Button className="w-full h-13 px-6 rounded-xl bg-[#0A66C2] hover:bg-[#004182] text-white font-bold text-xs shadow-lg shadow-[#0A66C2]/25 transition-all">
+                  <Linkedin size={16} className="mr-2" /> Follow Company Page
                 </Button>
               </a>
 
@@ -87,17 +94,8 @@ export const LinkedInCommunitySection = () => {
               </Button>
             </div>
 
-            <p className="text-[11px] text-slate-400">
-              Also active on our{' '}
-              <a
-                href="https://whatsapp.com/channel/0029VbCFJRKJJhzXxOaL7g28"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary font-bold hover:underline"
-              >
-                Official WhatsApp Channel
-              </a>{' '}
-              for instant alerts.
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              💡 <strong>Sending a request from LinkedIn?</strong> Use our direct portal above to have your requirement sent directly to founder Vamshi on WhatsApp (+91 90008 59695) or email so we can reply in 5 minutes!
             </p>
           </div>
 

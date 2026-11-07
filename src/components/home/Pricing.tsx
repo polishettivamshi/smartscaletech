@@ -110,6 +110,17 @@ export const Pricing = () => {
               )}
             </AnimatePresence>
           </div>
+
+          <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200/80 rounded-full text-xs font-semibold text-indigo-900 shadow-xs">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Looking for individual services or a custom quote?</span>
+            <a 
+              href="/request-service" 
+              className="text-primary hover:text-primary-dark font-bold underline underline-offset-2 ml-1"
+            >
+              Proposals start at ₹0 (Free) • Individual services from ₹199 →
+            </a>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-8">

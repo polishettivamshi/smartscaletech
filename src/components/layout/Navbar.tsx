@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap, Moon, Sun, ChevronDown, Menu as MenuIcon, X, TrendingUp } from 'lucide-react';
+import { Zap, Moon, Sun, ChevronDown, Menu as MenuIcon, X, TrendingUp, Linkedin } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -59,18 +59,18 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <a
-            href="https://www.linkedin.com/company/smartscale-tech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl border border-slate-200 text-[#0A66C2] hover:bg-[#0A66C2]/5 font-bold text-xs transition-colors"
+          <Link
+            to="/request-service"
+            className="inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white font-bold text-xs shadow-md shadow-[#0A66C2]/20 transition-all hover:-translate-y-0.5"
+            title="Submit Service Request (LinkedIn Portal)"
           >
-            <span>Follow</span>
-          </a>
+            <Linkedin size={15} fill="currentColor" />
+            <span>Request Service</span>
+          </Link>
 
           <a href="/#pricing" className="hidden sm:block">
             <Button className="h-10 rounded-xl px-5 font-black uppercase tracking-wider text-xs shadow-md shadow-primary/20">
-              Get Started
+              Pricing
             </Button>
           </a>
 
@@ -95,6 +95,13 @@ export const Navbar = () => {
           >
              <div className="p-8 space-y-6">
                 <div className="flex flex-col gap-2 pb-2">
+                  <Link
+                    to="/request-service"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#0A66C2] px-4 py-3 rounded-xl shadow-md shadow-[#0A66C2]/20"
+                  >
+                    <Linkedin size={16} fill="currentColor" /> Request Service (LinkedIn)
+                  </Link>
                   <Link
                     to="/free-ats-resume-checker"
                     onClick={() => setIsMenuOpen(false)}

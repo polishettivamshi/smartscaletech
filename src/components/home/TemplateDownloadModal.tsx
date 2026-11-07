@@ -222,7 +222,7 @@ Provided by SmartScaleTech (https://smartscaletech.vercel.app)
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 w-full h-12 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-xs shadow-md shadow-green-500/20"
                   >
-                    <MessageCircle size={16} /> Chat with Vamshi on WhatsApp (₹999 Package)
+                    <MessageCircle size={16} /> Chat with Vamshi on WhatsApp (Services from ₹199)
                   </a>
                   <button
                     onClick={onClose}

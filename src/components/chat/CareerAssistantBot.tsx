@@ -34,7 +34,7 @@ const SUGGESTIONS = [
   '💰 What are your packages & prices?',
   '🎯 How do you make resumes score 98% on ATS?',
   '⚡ What is the turnaround time?',
-  '📲 Connect on WhatsApp (+91 99896 90518)',
+  '📲 Connect on WhatsApp (+91 90008 59695)',
 ];
 
 export const CareerAssistantBot: React.FC = () => {
@@ -129,16 +129,18 @@ export const CareerAssistantBot: React.FC = () => {
       // Seamless local domain fallback
       const q = textToSend.toLowerCase();
       let fallbackText = '';
-      if (q.includes('price') || q.includes('cost') || q.includes('charge') || q.includes('package')) {
-        fallbackText = `Here is our transparent fixed pricing:\n\n• **Freshers ATS Resume**: ₹399 (24-hr turnaround, single column)\n• **Working Pro ATS Resume (1-5 yrs)**: ₹699 (Workday/Greenhouse compliant)\n• **Senior / Tech Lead (5+ yrs)**: ₹1,199 (Executive framing & metrics)\n• **LinkedIn Profile Makeover**: ₹599 (5x search boost)\n• **Career Launch Combo**: ₹1,499 (Resume + LinkedIn + Cover Letter)\n\nAll packages guarantee a **95–98/100 ATS pass score**.`;
+      if (q.includes('request') || q.includes('form') || q.includes('proposal')) {
+        fallbackText = `You can submit your exact project or resume requirement via our official **[LinkedIn Service Request Form](/request-service)**.\n\nYour request sends directly to founder Vamshi on WhatsApp (+91 90008 59695) and email (smartscaletechforyou@gmail.com) for a 5-minute reply!`;
+      } else if (q.includes('whatsapp') || q.includes('contact') || q.includes('call') || q.includes('phone') || q.includes('reach') || q.includes('number')) {
+        fallbackText = `You can chat directly with founder Vamshi on WhatsApp at **+91 90008 59695**.\n\n⚡ We reply within **5 minutes**! Feel free to send your resume PDF for an instant review.`;
+      } else if (q.includes('price') || q.includes('cost') || q.includes('charge') || q.includes('package')) {
+        fallbackText = `Here is our transparent reduced pricing:\n\n• **Proposal & Resume Review**: 100% Free (₹0)\n• **Freshers ATS Resume**: ₹199 (24-hr turnaround, single column)\n• **LinkedIn Profile Makeover**: ₹299 (5x search boost)\n• **Working Pro ATS Resume (1-5 yrs)**: ₹399 (Workday/Greenhouse compliant)\n• **Senior / Tech Lead (5+ yrs)**: ₹699 (Executive framing & metrics)\n• **Career Launch Combo**: ₹699 (Resume + LinkedIn + Cover Letter)\n\nAll packages guarantee a **95–98/100 ATS pass score**.`;
       } else if (q.includes('turnaround') || q.includes('time') || q.includes('deliver') || q.includes('fast')) {
         fallbackText = `Our turnaround time is **24 to 48 hours**. For urgent requirements, same-day delivery is available upon request!`;
-      } else if (q.includes('ats') || q.includes('workday') || q.includes('greenhouse') || q.includes('score')) {
+      } else if (/\bats\b/i.test(q) || q.includes('workday') || q.includes('greenhouse') || q.includes('score')) {
         fallbackText = `We design resumes to pass applicant tracking systems like Workday, Greenhouse, Taleo, and Darwinbox with a benchmark score of **97–98/100** by using clean single-column structure, standard section headers, and high-density role keywords.`;
-      } else if (q.includes('whatsapp') || q.includes('contact') || q.includes('phone') || q.includes('reach')) {
-        fallbackText = `You can chat directly with founder Vamshi on WhatsApp at **+91 99896 90518**.\n\n⚡ We reply within **5 minutes**!`;
       } else {
-        fallbackText = `Thanks for reaching out! SmartScaleTech helps candidates get more interview calls through ATS-optimized resumes (98/100 score) and LinkedIn profile makeovers. Feel free to ask about our packages or message us directly on WhatsApp (+91 99896 90518)!`;
+        fallbackText = `Thanks for reaching out! SmartScaleTech helps candidates get more interview calls through ATS-optimized resumes (98/100 score) and LinkedIn profile makeovers. Feel free to ask about our packages or message us directly on WhatsApp (+91 90008 59695)!`;
       }
 
       const botMsg: ChatMessage = {
@@ -397,7 +399,7 @@ export const CareerAssistantBot: React.FC = () => {
                   </button>
                 </form>
                 <div className="flex items-center justify-between mt-2 px-1 text-[10px] text-slate-400">
-                  <span>Guaranteed 5-min WhatsApp response (+91 99896 90518)</span>
+                  <span>Guaranteed 5-min WhatsApp response (+91 90008 59695)</span>
                   <a href="/dashboard" className="text-primary hover:underline font-bold">
                     View Progress Tracker
                   </a>

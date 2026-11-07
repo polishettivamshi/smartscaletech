@@ -1,10 +1,15 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
-import { ArrowRight, Star, Users, Zap, Briefcase, TrendingUp, CheckCircle2, Linkedin, Search, User } from 'lucide-react';
+import { ArrowRight, Star, Users, Zap, Briefcase, TrendingUp, CheckCircle2, Linkedin, Search, User, Eye, Download } from 'lucide-react';
 import naukriLogo from '/images/naukri_logo.jpg';
 
-export const Hero = () => {
+interface HeroProps {
+  onOpenSamples?: () => void;
+  onOpenTemplates?: () => void;
+}
+
+export const Hero = ({ onOpenSamples, onOpenTemplates }: HeroProps = {}) => {
   return (
     <section className="relative overflow-hidden bg-white pt-10 pb-20 lg:pt-20 lg:pb-32 transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -28,7 +33,8 @@ export const Hero = () => {
               transition={{ duration: 0.5 }}
               className="text-3xl font-black tracking-tight text-slate-900 sm:text-6xl md:text-7xl leading-[1.2]"
             >
-              <span className="block text-primary">SmartScaleTech</span>
+              <span className="block text-primary">Smart Scale Tech</span>
+              <span className="block text-2xl sm:text-3xl font-bold text-slate-500 tracking-normal mt-1 mb-2">(SmartScaleTech)</span>
               <span className="block">ATS Resume Writing</span>
               <span className="block">&amp; Web Development</span>
               <span className="block text-2xl sm:text-4xl md:text-5xl text-slate-900 mt-3">in Hyderabad, India</span>
@@ -40,7 +46,7 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-8 text-lg leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
             >
-              <strong className="text-slate-900">Build your website. Build your career.</strong> SmartScaleTech helps businesses and job seekers in Hitech City, Hyderabad create a powerful digital presence that bypasses algorithms and generates real-world results.
+              <strong className="text-slate-900">Build your website. Build your career.</strong> Smart Scale Tech (SmartScaleTech) helps businesses and job seekers in Hitech City, Hyderabad create a powerful digital presence that bypasses algorithms and generates real-world results.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -72,6 +78,35 @@ export const Hero = () => {
                   View Packages
                 </Button>
               </a>
+            </motion.div>
+
+            {/* Quick value triggers */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+            >
+              {onOpenSamples && (
+                <button
+                  type="button"
+                  onClick={onOpenSamples}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all hover:scale-105 cursor-pointer shadow-xs"
+                >
+                  <Eye size={14} className="text-primary" />
+                  <span>Preview Real Work Samples (95/100 ATS)</span>
+                </button>
+              )}
+              {onOpenTemplates && (
+                <button
+                  type="button"
+                  onClick={onOpenTemplates}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 transition-all hover:scale-105 cursor-pointer shadow-xs"
+                >
+                  <Download size={14} className="text-emerald-600" />
+                  <span>Download Free ATS Template Pack</span>
+                </button>
+              )}
             </motion.div>
             
             {/* Trust Badges */}
