@@ -57,8 +57,8 @@ const RouteEffects = () => {
   if (pathname === '/') {
     return (
       <SEO
-        title="Smart Scale Tech (SmartScaleTech) | ATS Resume Writing & Web Development Hyderabad"
-        description="Smart Scale Tech (SmartScaleTech) is a premier Hitech City, Hyderabad agency for ATS resume writing, LinkedIn optimization, and custom web development across India."
+        title="Smart Scale Tech | Official Website - ATS Resume Writing & Web Development Hyderabad"
+        description="Smart Scale Tech (SmartScaleTech) is the official website for ATS resume writing, LinkedIn profile optimization, and custom web development in Hitech City, Hyderabad, India."
         path="/"
       />
     );

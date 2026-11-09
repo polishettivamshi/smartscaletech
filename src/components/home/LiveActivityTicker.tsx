@@ -79,14 +79,14 @@ export const LiveActivityTicker = () => {
   const current = recentActivities[currentIndex];
 
   return (
-    <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 max-w-[340px] sm:max-w-[380px] pointer-events-auto">
+    <div className="fixed bottom-4 right-18 sm:bottom-8 sm:right-24 z-40 max-w-[calc(100vw-5.5rem)] sm:max-w-[360px] pointer-events-auto">
       <AnimatePresence mode="wait">
         {isVisible && (
           <motion.div
             key={current.id}
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+            initial={{ opacity: 0, x: 20, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 15, scale: 0.95 }}
             transition={{ duration: 0.3 }}
             className="flex items-center gap-3 p-3.5 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-900/10 border border-slate-100/90 text-left"
           >
