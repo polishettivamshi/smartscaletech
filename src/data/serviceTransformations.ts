@@ -1,0 +1,278 @@
+export interface ServiceTransformation {
+  id: string;
+  tabLabel: string;
+  serviceTitle: string;
+  category: 'Career Branding' | 'Tech & Design' | 'Marketing & Strategy';
+  image: string;
+  imageAlt: string;
+  metricLabel: string;
+  beforeScore: string;
+  afterScore: string;
+  summary: string;
+  improvements: string[];
+  serviceSlug?: string;
+}
+
+export interface ServiceShowcase {
+  id: string;
+  serviceTitle: string;
+  category: 'Career Branding' | 'Tech & Design' | 'Marketing & Strategy';
+  image: string;
+  imageAlt: string;
+  badgeLabel: string;
+  summary: string;
+  improvements: string[];
+  serviceSlug?: string;
+}
+
+export type ServiceVisual =
+  | (ServiceTransformation & { kind: 'transformation' })
+  | (ServiceShowcase & { kind: 'showcase' });
+
+export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
+  {
+    id: 'ats-resume',
+    tabLabel: 'ATS Resume',
+    serviceTitle: 'ATS Resume Writing',
+    category: 'Career Branding',
+    image: '/assets/aistudio/Resume_Optimization__Before___After_38faafe1.webp',
+    imageAlt: 'ATS Resume Optimization Before 42% vs After 97% transformation',
+    metricLabel: 'ATS Resume Score',
+    beforeScore: '42%',
+    afterScore: '97%',
+    summary:
+      'Transformed a sparse, unoptimized CV into a single-column, keyword-dense ATS resume with quantified experience and impact-driven project bullets.',
+    improvements: [
+      'Clean single-column ATS hierarchy parseable by Workday, Taleo & Naukri',
+      'Structured Technical Skills matrix aligned to target engineering roles',
+      'Quantified experience and project outcomes (STAR / XYZ impact metrics)',
+    ],
+    serviceSlug: '/ats-resume-writing-hyderabad',
+  },
+  {
+    id: 'linkedin',
+    tabLabel: 'LinkedIn',
+    serviceTitle: 'LinkedIn Optimization',
+    category: 'Career Branding',
+    image: '/assets/aistudio/LinkedIn_Profile_Transformation__Before_and_After_970bdafd.webp',
+    imageAlt: 'LinkedIn Profile Optimization Before 35-40% vs After 95-97% transformation',
+    metricLabel: 'Profile Strength',
+    beforeScore: '35–40%',
+    afterScore: '95–97%',
+    summary:
+      'Upgraded a blank, generic LinkedIn profile into a recruiter magnet with a custom tech banner, keyword-rich headline, and Open-to-Work optimization.',
+    improvements: [
+      'Custom branded header banner & verified professional profile framing',
+      'High-CTR searchable headline packed with core role & stack keywords',
+      'Structured Experience, Skills & Recruiter visibility configuration',
+    ],
+    serviceSlug: '/linkedin-profile-optimization-hyderabad',
+  },
+  {
+    id: 'naukri',
+    tabLabel: 'Naukri Profile',
+    serviceTitle: 'Naukri Profile Optimization',
+    category: 'Career Branding',
+    image: '/assets/aistudio/Naukri_Profile_Transformation_before_and_after_fb24f600.webp',
+    imageAlt: 'Naukri Profile Optimization Before 38% vs After 96% transformation',
+    metricLabel: 'Profile Strength',
+    beforeScore: '38%',
+    afterScore: '96%',
+    summary:
+      'Completed missing career preferences, headline metrics, and recruiter search fields so the profile ranks higher in Naukri Recruiter searches.',
+    improvements: [
+      'Impact-driven profile headline highlighting years of experience & stack',
+      'Complete career preferences (preferred location, role, shift & employment type)',
+      'Structured key skills & basic details for maximum recruiter Nvites',
+    ],
+  },
+  {
+    id: 'indeed',
+    tabLabel: 'Indeed Profile',
+    serviceTitle: 'Indeed Profile Optimization',
+    category: 'Career Branding',
+    image: '/assets/aistudio/Indeed_Profile_Optimization_before_after_490b5e8e.webp',
+    imageAlt: 'Indeed Profile Optimization Before 45% vs After 98% transformation',
+    metricLabel: 'Profile Strength',
+    beforeScore: '45%',
+    afterScore: '98%',
+    summary:
+      'Converted a barebones Indeed profile into a complete, employer-discoverable technical profile with stack tags and quantified backend summary.',
+    improvements: [
+      'Employer-discoverable visibility toggle & complete contact details',
+      'Keyword-rich role title with core cloud, database & framework tags',
+      'Quantified backend engineering summary tailored for direct employer search',
+    ],
+  },
+  {
+    id: 'github',
+    tabLabel: 'GitHub Audit',
+    serviceTitle: 'Github & Portfolio Audit',
+    category: 'Career Branding',
+    image: '/assets/aistudio/GitHub_Profile_Transformation_before_and_after_51bf91d8.webp',
+    imageAlt: 'GitHub Profile Optimization Before 45% vs After 97% transformation',
+    metricLabel: 'Profile Strength',
+    beforeScore: '45%',
+    afterScore: '97%',
+    summary:
+      'Turned an empty default GitHub account into an impressive developer showcase with a custom README, tech badges, and pinned project highlights.',
+    improvements: [
+      'Custom GitHub Profile README with bio, social badges & specialization',
+      'Color-coded tech stack & tooling badges for instant recruiter scanning',
+      'Pinned flagship projects with clean descriptions & live links',
+    ],
+  },
+  {
+    id: 'portfolio',
+    tabLabel: 'Personal Portfolio',
+    serviceTitle: 'Personal Portfolios',
+    category: 'Tech & Design',
+    image: '/assets/aistudio/Personal_Portfolio_Transformation_before_after_cbbb2d79.webp',
+    imageAlt: 'Personal Portfolio Website Transformation Before 42% vs After 98%',
+    metricLabel: 'Portfolio Quality',
+    beforeScore: '42%',
+    afterScore: '98%',
+    summary:
+      'Elevated a plain HTML-style bio page into a high-converting dark-mode developer portfolio with interactive project CTAs and key career stats.',
+    improvements: [
+      'Modern hero layout with clear value proposition & Resume download CTA',
+      'Instant credibility bar highlighting experience, projects & GitHub reach',
+      'Clean responsive navigation with direct Hire Me conversion trigger',
+    ],
+    serviceSlug: '/portfolio-website-hyderabad',
+  },
+  {
+    id: 'ui-ux',
+    tabLabel: 'UI/UX Design',
+    serviceTitle: 'UI/UX Design',
+    category: 'Tech & Design',
+    image: '/assets/aistudio/UI_UX_Design_Transformation__Before_and_After_4e26727a.webp',
+    imageAlt: 'UI/UX Design Transformation Before 45% vs After 98% quality',
+    metricLabel: 'UI/UX Quality',
+    beforeScore: '45%',
+    afterScore: '98%',
+    summary:
+      'Redesigned a cluttered, dated agency layout into a modern conversion-focused interface with clear visual hierarchy and crisp service cards.',
+    improvements: [
+      'High-contrast hero typography with primary & secondary action buttons',
+      'Responsive 4-card service grid replacing plain bullet lists',
+      'Consistent spacing, brand palette & mobile-first user flow',
+    ],
+    serviceSlug: '/ui-ux-design-hyderabad',
+  },
+  {
+    id: 'seo',
+    tabLabel: 'SEO & Growth',
+    serviceTitle: 'SEO & Growth',
+    category: 'Marketing & Strategy',
+    image: '/assets/aistudio/SEO_Optimization__From_Fourth_to_First_18c20dc6.webp',
+    imageAlt: 'Google SEO Optimization Before 3rd-4th position vs After 1st position transformation',
+    metricLabel: 'Google Visibility',
+    beforeScore: '35–45%',
+    afterScore: '95–100%',
+    summary:
+      'Improved search metadata, canonical structure, and Organization schema to lift brand search ranking from 3rd/4th position to the #1 spot.',
+    improvements: [
+      'Structured JSON-LD WebSite, Organization & LocalBusiness schema',
+      'Optimized search title, meta description & official site name display',
+      'Prerendered route HTML & sitemap indexing for top-of-page visibility',
+    ],
+  },
+];
+
+export const SERVICE_SHOWCASES: ServiceShowcase[] = [
+  {
+    id: 'final-year-projects',
+    serviceTitle: 'Final Year Projects',
+    category: 'Tech & Design',
+    image: '/assets/aistudio/final_year_projects_d6bbf1cd.webp',
+    imageAlt:
+      'Final Year Projects for B.Tech, M.Tech and MCA students with Python, Java, MERN, AI/ML implementation and viva support',
+    badgeLabel: 'End-to-End Build',
+    summary:
+      'From project idea to final submission—complete technical implementation, database design, IEEE-style documentation, and viva demo prep.',
+    improvements: [
+      'B.Tech, M.Tech & MCA projects in Python, Java, MERN & AI/ML',
+      'Database design, full source code & clean IEEE-ready documentation',
+      'Live deployment walkthrough & 1-on-1 viva defense coaching',
+    ],
+    serviceSlug: '/final-year-projects-hyderabad',
+  },
+  {
+    id: 'web-development',
+    serviceTitle: 'Web Development',
+    category: 'Tech & Design',
+    image: '/assets/aistudio/web_development_8934074c.webp',
+    imageAlt:
+      'Custom Web Development with React, Python, FastAPI, Django and JavaScript for modern business websites and web apps',
+    badgeLabel: 'Full-Stack Build',
+    summary:
+      'Modern, scalable, high-performance business websites, web apps, landing pages, and e-commerce platforms built with React, Python, FastAPI, and Django.',
+    improvements: [
+      'Business websites, portfolio sites, landing pages & e-commerce stores',
+      'Fast React frontend paired with scalable FastAPI, Django & Python APIs',
+      'Secure architecture, deployment & ongoing maintenance support',
+    ],
+    serviceSlug: '/web-development-hyderabad',
+  },
+];
+
+export const SLUG_TO_TRANSFORMATION_ID: Record<string, string> = {
+  'ats-resume-writing-hyderabad': 'ats-resume',
+  'resume-writing-freshers-hyderabad': 'ats-resume',
+  'executive-resume-writing-hyderabad': 'ats-resume',
+  'college-placement-resume-hyderabad': 'ats-resume',
+  'linkedin-profile-optimization-hyderabad': 'linkedin',
+  'linkedin-profile-writer-software-engineers-hyderabad': 'linkedin',
+  'portfolio-website-hyderabad': 'portfolio',
+  'freelance-portfolio-website-hyderabad': 'portfolio',
+  'ui-ux-design-hyderabad': 'ui-ux',
+  'web-development-hyderabad': 'web-development',
+  'final-year-projects-hyderabad': 'final-year-projects',
+};
+
+export function getTransformationByTitle(title: string): ServiceTransformation | undefined {
+  return SERVICE_TRANSFORMATIONS.find(
+    (item) => item.serviceTitle.toLowerCase() === title.toLowerCase()
+  );
+}
+
+export function getTransformationBySlug(slug: string): ServiceTransformation | undefined {
+  const id = SLUG_TO_TRANSFORMATION_ID[slug];
+  return id ? SERVICE_TRANSFORMATIONS.find((item) => item.id === id) : undefined;
+}
+
+export function getServiceVisualByTitle(title: string): ServiceVisual | undefined {
+  const transformation = SERVICE_TRANSFORMATIONS.find(
+    (item) => item.serviceTitle.toLowerCase() === title.toLowerCase()
+  );
+  if (transformation) {
+    return { ...transformation, kind: 'transformation' };
+  }
+
+  const showcase = SERVICE_SHOWCASES.find(
+    (item) => item.serviceTitle.toLowerCase() === title.toLowerCase()
+  );
+  if (showcase) {
+    return { ...showcase, kind: 'showcase' };
+  }
+
+  return undefined;
+}
+
+export function getServiceVisualBySlug(slug: string): ServiceVisual | undefined {
+  const id = SLUG_TO_TRANSFORMATION_ID[slug];
+  if (!id) return undefined;
+
+  const transformation = SERVICE_TRANSFORMATIONS.find((item) => item.id === id);
+  if (transformation) {
+    return { ...transformation, kind: 'transformation' };
+  }
+
+  const showcase = SERVICE_SHOWCASES.find((item) => item.id === id);
+  if (showcase) {
+    return { ...showcase, kind: 'showcase' };
+  }
+
+  return undefined;
+}

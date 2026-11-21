@@ -22,11 +22,6 @@ export const CTASection = () => {
                    View Plans <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </a>
-              <a href="#portfolio" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full h-14 px-10 rounded-2xl border-white/30 text-white hover:bg-white/10 font-black uppercase tracking-widest text-xs">
-                   Our Portfolio
-                </Button>
-              </a>
            </div>
         </div>
 

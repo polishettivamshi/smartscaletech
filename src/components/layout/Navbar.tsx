@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
-import { Zap, Moon, Sun, ChevronDown, Menu as MenuIcon, X, TrendingUp, Linkedin } from 'lucide-react';
+import { Zap, Menu as MenuIcon, X, Linkedin } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Services', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'About', href: '#about' },
-    { name: 'FAQ', href: '#faq' },
+    { name: 'Services', href: '/#services' },
+    { name: 'How It Works', href: '/#how-it-works' },
+    { name: 'Pricing', href: '/#pricing' },
+    { name: 'About', href: '/#about' },
+    { name: 'FAQ', href: '/#faq' },
   ];
 
   return (
@@ -40,21 +40,14 @@ export const Navbar = () => {
             <Zap size={13} fill="currentColor" /> Free ATS Checker
           </Link>
 
-          <Link
-            to="/dashboard"
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs font-black uppercase tracking-wider shadow-2xs border border-emerald-200"
-          >
-            <TrendingUp size={13} /> Tracker
-          </Link>
-
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.href}
               className="text-[11px] font-black uppercase tracking-[0.15em] text-slate-500 transition-colors hover:text-primary"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -109,30 +102,23 @@ export const Navbar = () => {
                   >
                     <Zap size={16} fill="currentColor" /> Free ATS Resume Checker
                   </Link>
-                  <Link
-                    to="/dashboard"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-4 py-3 rounded-xl"
-                  >
-                    <TrendingUp size={16} /> Candidate Progress Tracker
-                  </Link>
                 </div>
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
+                    to={link.href}
                     onClick={() => setIsMenuOpen(false)}
                     className="flex items-center text-lg font-black uppercase tracking-[0.2em] text-slate-700 hover:text-primary transition-colors py-2"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
                 <div className="pt-4">
-                  <a href="#pricing" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/#pricing" onClick={() => setIsMenuOpen(false)}>
                     <Button className="w-full h-14 rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-xl shadow-primary/20">
                        Get Started
                     </Button>
-                  </a>
+                  </Link>
                 </div>
              </div>
           </motion.div>

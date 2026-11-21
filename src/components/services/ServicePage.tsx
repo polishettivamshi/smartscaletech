@@ -10,9 +10,15 @@ import {
   ListChecks,
   Route,
   ShieldCheck,
+  TrendingUp,
+  Sparkles,
+  ZoomIn,
+  X,
 } from 'lucide-react';
+import { useState } from 'react';
 import { SEO, SITE_URL } from '../../lib/seo';
 import { servicePages, WHATSAPP_URL } from '../../data/servicePages';
+import { getServiceVisualBySlug } from '../../data/serviceTransformations';
 
 const PHONE = '+919000859695';
 
@@ -67,6 +73,8 @@ interface Props {
 
 export const ServicePage = ({ slug }: Props) => {
   const page = servicePages[slug];
+  const visual = getServiceVisualBySlug(slug);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   if (!page) {
     return (
@@ -184,6 +192,100 @@ export const ServicePage = ({ slug }: Props) => {
           </div>
         </div>
       </section>
+
+      {/* Service Visual / Transformation Proof */}
+      {visual && (
+        <section className="bg-slate-50/70 py-20 border-y border-slate-100">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+              <div>
+                {visual.kind === 'transformation' ? (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold mb-3">
+                    <TrendingUp size={14} /> {visual.metricLabel}: {visual.beforeScore} →{' '}
+                    {visual.afterScore}
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-3">
+                    <Sparkles size={14} /> {visual.badgeLabel}
+                  </span>
+                )}
+                <h2 className="text-3xl font-black text-slate-900 sm:text-4xl">
+                  {visual.kind === 'transformation'
+                    ? 'Before vs. After Transformation'
+                    : `${visual.serviceTitle} Showcase`}
+                </h2>
+                <p className="mt-2 text-sm text-slate-600 max-w-2xl">
+                  {visual.summary}
+                </p>
+              </div>
+              {visual.kind === 'transformation' && (
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-black">
+                    Before: {visual.beforeScore}
+                  </span>
+                  <span className="px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-700 text-xs font-black">
+                    After: {visual.afterScore}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <div
+              onClick={() => setIsZoomed(true)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setIsZoomed(true);
+              }}
+              className="group relative rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-xl cursor-zoom-in"
+            >
+              <img
+                src={visual.image}
+                alt={visual.imageAlt}
+                className="w-full h-auto object-contain block"
+                loading="lazy"
+              />
+              <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900/80 text-white text-xs font-bold shadow-md">
+                <ZoomIn size={14} /> Tap to Zoom
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              {visual.improvements.map((point) => (
+                <div
+                  key={point}
+                  className="p-4 rounded-2xl bg-white border border-slate-200/80 flex items-start gap-2.5 text-xs font-semibold text-slate-700"
+                >
+                  <CheckCircle2 size={16} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <span>{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {isZoomed && (
+            <div
+              className="fixed inset-0 z-[130] bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6"
+              onClick={() => setIsZoomed(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setIsZoomed(false)}
+                className="fixed top-4 right-4 z-10 p-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white cursor-pointer"
+                aria-label="Close zoomed preview"
+              >
+                <X size={22} />
+              </button>
+              <img
+                src={visual.image}
+                alt={visual.imageAlt}
+                className="max-w-6xl w-full max-h-[86vh] object-contain rounded-2xl bg-white shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )}
+        </section>
+      )}
 
       {/* Process */}
       <section className="bg-slate-50/50 py-20">

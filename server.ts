@@ -79,7 +79,7 @@ Agency Details & Services:
   * Senior / Tech Lead ATS Resume (5+ yrs): ₹699 - Executive framing, leadership impact, architecture highlights.
   * Request a Proposal / Consultation: 100% FREE (₹0 upfront).
 - ATS Score Guarantee: All re-engineered resumes are targeted and benchmarked to score 95-98/100 on ATS parsers (Workday, Greenhouse, Taleo, Darwinbox).
-- Free Tools: Free ATS Resume Checker, Service Proposal Request, and Candidate Progress Tracker on our website.
+- Free Tools: Free ATS Resume Checker and Service Proposal Request on our website.
 
 Tone & Instructions:
 - Keep answers concise, practical, highly encouraging, and strictly truthful.
@@ -145,10 +145,8 @@ Tone & Instructions:
         reply = `Our **LinkedIn Profile Makeover (₹299)** includes:\n\n1. High-CTR searchable headline with recruiter keywords\n2. First-person story-driven About / Summary hook\n3. Quantified experience bullets that showcase real impact\n4. Top 50 skill optimization for algorithmic discovery\n\nMost clients see a 5x to 10x increase in weekly recruiter search appearances!`;
       } else if (q.includes('hyderabad') || q.includes('location') || q.includes('office') || q.includes('hitech')) {
         reply = `SmartScaleTech is based in **Hitech City, Hyderabad** (near Mindspace & Knowledge City). We help candidates locally across Hyderabad as well as pan-India and globally for remote roles!`;
-      } else if (q.includes('dashboard') || q.includes('tracker') || q.includes('progress')) {
-        reply = `Check out our **Candidate Progress Tracker** on the \`/dashboard\` page! It tracks your ATS score evolution (from initial scan 52/100 to interview-ready 98/100), interview callbacks, and weekly recruiter visibility over time.`;
       } else {
-        reply = `Hello! I'm your **SmartScaleTech Career Advisor** from Hitech City, Hyderabad.\n\nI can help you with:\n• **Free Service Proposal Request** (₹0 upfront)\n• **ATS Resume Writing** (scoring 97–98/100 on Workday, starting from ₹199)\n• **LinkedIn Optimization** (₹299)\n• **Career Launch Combo** (₹699)\n• **Free ATS Scan & Progress Tracker**\n\nHow can I help you accelerate your career search today?`;
+        reply = `Hello! I'm your **SmartScaleTech Career Advisor** from Hitech City, Hyderabad.\n\nI can help you with:\n• **Free Service Proposal Request** (₹0 upfront)\n• **ATS Resume Writing** (scoring 97–98/100 on Workday, starting from ₹199)\n• **LinkedIn Optimization** (₹299)\n• **Career Launch Combo** (₹699)\n• **Free ATS Resume Checker**\n\nHow can I help you accelerate your career search today?`;
       }
 
       return res.json({ reply });
@@ -161,7 +159,7 @@ Tone & Instructions:
   // Client serving in production vs development
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'dist')));
-    app.get('*', (req, res) => {
+    app.use((_req, res) => {
       res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
     });
   } else {

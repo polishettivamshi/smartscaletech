@@ -400,8 +400,8 @@ export const CareerAssistantBot: React.FC = () => {
                 </form>
                 <div className="flex items-center justify-between mt-2 px-1 text-[10px] text-slate-400">
                   <span>Guaranteed 5-min WhatsApp response (+91 90008 59695)</span>
-                  <a href="/dashboard" className="text-primary hover:underline font-bold">
-                    View Progress Tracker
+                  <a href="/free-ats-resume-checker" className="text-primary hover:underline font-bold">
+                    Free ATS Checker
                   </a>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Minus, Send, HelpCircle, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 
 const faqs = [
@@ -14,7 +15,7 @@ const faqs = [
   },
   {
     q: "How long does it take to complete an order?",
-    a: "Usually, we deliver the first draft within 3-5 business days depending on the package selected."
+    a: "Usually, we deliver the first draft within 24-48 hours depending on the package selected."
   },
   {
     q: "Do you offer revisions?",
@@ -91,11 +92,11 @@ export const FAQ = () => {
                   </div>
                </div>
 
-               <a href="#contact">
+               <Link to="/request-service">
                  <Button className="w-full h-12 rounded-2xl bg-primary hover:bg-primary-dark font-bold shadow-lg shadow-primary/20">
                    Contact Us <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-               </a>
+               </Link>
             </div>
           </div>
         </div>

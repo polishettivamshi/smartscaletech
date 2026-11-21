@@ -367,15 +367,6 @@ export const ATSCheckerTool = () => {
                       <Linkedin size={16} /> Share My Score on LinkedIn
                     </button>
 
-                    <a href="/dashboard" className="block">
-                      <button
-                        type="button"
-                        className="w-full h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer border border-slate-200"
-                      >
-                        <TrendingUp size={16} className="text-emerald-600" /> Track Improvements in Career Dashboard
-                      </button>
-                    </a>
-
                     {copiedShare && (
                       <motion.div
                         initial={{ opacity: 0, y: -4 }}

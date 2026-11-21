@@ -16,7 +16,7 @@ export const FounderSection = () => {
                 {/* Image Container with high-end framing */}
                 <div className="relative aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden bg-slate-900">
                   <img
-                    src="/assets/aistudio/Mobile_Background_img_Home_22174709.jpg"
+                    src="/assets/aistudio/Mobile_Background_img_Home_22174709.webp"
                     alt="Vamshi Polishetti - Founder of SmartScaleTech"
                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"

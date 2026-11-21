@@ -71,11 +71,6 @@ const ROUTE_METADATA = {
     description: 'Check your resume score on ATS scanners (Workday, Greenhouse, Taleo) for free. Get instant score, keyword gaps, and formatting suggestions.',
     h1: 'Free ATS Resume Checker & Score Scanner'
   },
-  'dashboard': {
-    title: 'Candidate Career Progress Dashboard | Smart Scale Tech',
-    description: 'Track your ATS score evolution, recruiter search visibility, and interview callbacks over time with Smart Scale Tech Hyderabad.',
-    h1: 'Candidate Career Progress Dashboard'
-  },
   'privacy-policy': {
     title: 'Privacy Policy | Smart Scale Tech',
     description: 'How Smart Scale Tech collects, uses and protects candidate and client information for resume writing and web development services.',

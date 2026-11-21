@@ -13,16 +13,10 @@ import {
   Sparkles
 } from 'lucide-react';
 import { LinkedInServiceRequestForm } from './LinkedInServiceRequestForm';
-import { SEO } from '../../lib/seo';
 
 export const LinkedInServiceRequestPage: React.FC = () => {
   return (
     <main className="bg-slate-50 min-h-screen py-12 lg:py-20 text-slate-800">
-      <SEO
-        title="Request Services | Smart Scale Tech LinkedIn Portal"
-        description="Submit your service request for ATS resume writing, LinkedIn profile optimization, or web development directly to founder Vamshi via WhatsApp (+91 90008 59695) or email."
-        path="/request-service"
-      />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Hero Header */}

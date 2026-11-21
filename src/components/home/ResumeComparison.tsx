@@ -1,127 +1,185 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
-import { XCircle, CheckCircle, ArrowRight, MessageCircle, FileText, Sparkles, AlertCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import {
+  CheckCircle2,
+  ArrowRight,
+  MessageCircle,
+  Sparkles,
+  ZoomIn,
+  X,
+  TrendingUp,
+} from 'lucide-react';
 import { Button } from '../ui/Button';
+import { SERVICE_TRANSFORMATIONS } from '../../data/serviceTransformations';
 
 export const ResumeComparison = () => {
-  const [activeTab, setActiveTab] = useState<'comparison' | 'breakdown'>('comparison');
+  const [activeId, setActiveId] = useState<string>(SERVICE_TRANSFORMATIONS[0].id);
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  const active =
+    SERVICE_TRANSFORMATIONS.find((t) => t.id === activeId) || SERVICE_TRANSFORMATIONS[0];
+
+  const whatsappText = encodeURIComponent(
+    `Hello SmartScaleTech, I saw your ${active.serviceTitle} Before & After transformation (${active.beforeScore} → ${active.afterScore}) and want to upgrade mine.`
+  );
 
   return (
-    <section className="py-24 bg-white border-y border-slate-100">
+    <section id="transformations" className="py-24 bg-white border-y border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles size={14} /> Proven ATS Architecture
+            <Sparkles size={14} /> Real Service Transformations
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Before vs. After: What Actually Gets Interviews
+            Before vs. After: See the Exact Upgrade You Get
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 font-medium">
-            Over 90% of applicants fail automated screening because of layout errors, missing keywords, and passive duty descriptions. Here is how SmartScaleTech transforms a resume:
+            Don&apos;t just take our word for it—select any service below to inspect real before-and-after transformations from 35–45% up to 95–98% readiness.
           </p>
-          <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold">
-            <AlertCircle size={14} className="shrink-0" />
-            <span>[TODO: Replace placeholder text with your actual client before/after PDFs or screenshot snippets]</span>
-          </div>
         </div>
 
-        {/* Comparison Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mb-12">
-          {/* BEFORE CARD */}
-          <div className="p-8 rounded-3xl bg-rose-50/40 border-2 border-rose-200/80 shadow-lg flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-6 border-b border-rose-200/70 mb-6">
-                <div>
-                  <span className="text-[11px] font-black uppercase tracking-wider text-rose-600 block">Typical Candidate Resume</span>
-                  <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
-                    <XCircle className="text-rose-500" size={24} /> Before (Failed ATS)
-                  </h3>
-                </div>
-                <div className="text-right">
-                  <span className="text-2xl font-black text-rose-600">38/100</span>
-                  <span className="block text-[10px] font-bold text-rose-400 uppercase">ATS Parse Score</span>
-                </div>
-              </div>
+        {/* Service Selector Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          {SERVICE_TRANSFORMATIONS.map((item) => {
+            const isActive = item.id === active.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActiveId(item.id)}
+                className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 border ${
+                  isActive
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-lg shadow-slate-900/15'
+                    : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
+                }`}
+              >
+                <span>{item.tabLabel}</span>
+                <span
+                  className={`px-1.5 py-0.5 rounded-md text-[10px] font-black ${
+                    isActive ? 'bg-emerald-500/20 text-emerald-300' : 'bg-emerald-50 text-emerald-700'
+                  }`}
+                >
+                  {item.afterScore}
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
-              {/* Sample Content */}
-              <div className="space-y-4 text-xs font-mono bg-white p-5 rounded-2xl border border-rose-100 text-slate-600 shadow-sm">
-                <div className="p-2 bg-rose-50 rounded border border-rose-200 text-rose-800 font-sans font-bold text-[11px]">
-                  ⚠️ Two-column Canva template with rating bars and tables (Unparsable by Workday &amp; Taleo)
-                </div>
-
-                <div className="opacity-75">
-                  <p className="font-bold text-slate-800 font-sans text-sm">Experience: Software Engineer</p>
-                  <p className="text-slate-400">XYZ Corp · 2023 - Present</p>
-                  <ul className="list-disc pl-4 mt-2 space-y-1 font-sans text-slate-600 text-xs">
-                    <li>Responsible for writing software code and fixing bugs reported by testing team.</li>
-                    <li>Worked on company website using HTML, CSS, JavaScript.</li>
-                    <li>Attended daily standup meetings and coordinated with team members.</li>
-                    <li>Helped manager with ad-hoc tech support tasks.</li>
-                  </ul>
-                </div>
-
-                <div className="pt-2 border-t border-slate-100 text-[11px] font-sans text-rose-600 font-semibold space-y-1">
-                  <p>❌ Zero measurable business impact (no metrics or percentages)</p>
-                  <p>❌ Missing core keywords (REST APIs, Microservices, CI/CD, React)</p>
-                  <p>❌ Passive responsibility language instead of achievements</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-rose-200/60 text-xs font-semibold text-rose-700">
-              Result: Filtered out automatically by ATS before any recruiter or hiring manager reviews it.
-            </div>
-          </div>
-
-          {/* AFTER CARD */}
-          <div className="p-8 rounded-3xl bg-emerald-50/50 border-2 border-emerald-400 shadow-xl shadow-emerald-500/10 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-6 border-b border-emerald-200 mb-6">
-                <div>
-                  <span className="text-[11px] font-black uppercase tracking-wider text-emerald-600 block">SmartScaleTech Re-engineered</span>
-                  <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
-                    <CheckCircle className="text-emerald-500" size={24} /> After (Interview Ready)
-                  </h3>
-                </div>
-                <div className="text-right">
-                  <span className="text-2xl font-black text-emerald-600">98/100</span>
-                  <span className="block text-[10px] font-bold text-emerald-500 uppercase">ATS Pass Rate</span>
-                </div>
-              </div>
-
-              {/* Sample Content */}
-              <div className="space-y-4 text-xs font-mono bg-white p-5 rounded-2xl border border-emerald-200 text-slate-700 shadow-sm">
-                <div className="p-2 bg-emerald-50 rounded border border-emerald-200 text-emerald-800 font-sans font-bold text-[11px]">
-                  ✅ 100% ATS-compliant single-column hierarchy &amp; verified standard headings
-                </div>
-
-                <div>
-                  <p className="font-bold text-slate-900 font-sans text-sm">Full-Stack Software Engineer</p>
-                  <p className="text-slate-400">XYZ Tech Solutions · Hyderabad, IN · 2023 - Present</p>
-                  <ul className="list-disc pl-4 mt-2 space-y-1.5 font-sans text-slate-700 text-xs leading-relaxed">
-                    <li>
-                      Architected 12+ RESTful microservices in <strong>React, Node.js, and PostgreSQL</strong>, cutting average API latency by <strong>42%</strong>.
-                    </li>
-                    <li>
-                      Engineered automated <strong>Docker &amp; GitHub Actions CI/CD</strong> pipelines, accelerating release cycles from bi-weekly to daily.
-                    </li>
-                    <li>
-                      Collaborated with cross-functional product teams to scale platform throughput to handle <strong>50,000+ daily active users</strong> with 99.9% uptime.
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="pt-2 border-t border-slate-100 text-[11px] font-sans text-emerald-700 font-semibold space-y-1">
-                  <p>✅ Built with STAR formula (Situation, Task, Action, Result)</p>
-                  <p>✅ Exact role keywords matched to current Indian tech job market</p>
-                  <p>✅ Passes Naukri, LinkedIn, Workday, and Greenhouse keyword extractors</p>
+        {/* Showcase Panel */}
+        <div className="rounded-[32px] bg-slate-50/70 border border-slate-200/80 p-5 sm:p-8 lg:p-10 shadow-xl shadow-slate-200/40 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Image Showcase */}
+            <div className="lg:col-span-8">
+              <div
+                onClick={() => setIsZoomed(true)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') setIsZoomed(true);
+                }}
+                className="group relative rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-lg cursor-zoom-in"
+              >
+                <img
+                  src={active.image}
+                  alt={active.imageAlt}
+                  className="w-full h-auto object-contain block transition-transform duration-300 group-hover:scale-[1.01]"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 backdrop-blur-sm text-white text-[11px] font-bold shadow-md">
+                  <ZoomIn size={13} /> Tap to Zoom
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-emerald-200 text-xs font-semibold text-emerald-800">
-              Result: Reaches the hiring manager's desk with top-ranking relevancy.
+            {/* Details & Score Jump */}
+            <div className="lg:col-span-4 space-y-6">
+              <div>
+                <span className="inline-block text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full mb-3">
+                  {active.category}
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
+                  {active.serviceTitle}
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                  {active.summary}
+                </p>
+              </div>
+
+              {/* Score Comparison Bar */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-rose-600 block">
+                    Before
+                  </span>
+                  <span className="text-2xl font-black text-rose-700 mt-0.5 block">
+                    {active.beforeScore}
+                  </span>
+                  <span className="text-[11px] text-rose-600/80 font-semibold">
+                    {active.metricLabel}
+                  </span>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 flex items-center gap-1">
+                    After <TrendingUp size={12} />
+                  </span>
+                  <span className="text-2xl font-black text-emerald-700 mt-0.5 block">
+                    {active.afterScore}
+                  </span>
+                  <span className="text-[11px] text-emerald-700/80 font-semibold">
+                    {active.metricLabel}
+                  </span>
+                </div>
+              </div>
+
+              {/* Key Improvements */}
+              <div className="space-y-2.5">
+                <p className="text-xs font-black uppercase tracking-wider text-slate-500">
+                  What We Upgrade
+                </p>
+                {active.improvements.map((point) => (
+                  <div key={point} className="flex items-start gap-2.5 text-xs text-slate-700 font-medium leading-relaxed">
+                    <CheckCircle2 size={15} className="text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{point}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="pt-2 space-y-2.5">
+                <a
+                  href={`https://wa.me/919000859695?text=${whatsappText}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button className="w-full h-12 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs shadow-lg shadow-green-600/20">
+                    <MessageCircle size={16} className="mr-2" /> Get This Upgrade on WhatsApp
+                  </Button>
+                </a>
+
+                {active.serviceSlug ? (
+                  <Link to={active.serviceSlug} className="block">
+                    <Button
+                      variant="outline"
+                      className="w-full h-11 rounded-xl border-slate-300 text-slate-700 hover:bg-white font-bold text-xs"
+                    >
+                      View {active.tabLabel} Service Details <ArrowRight size={14} className="ml-1.5" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/request-service" className="block">
+                    <Button
+                      variant="outline"
+                      className="w-full h-11 rounded-xl border-slate-300 text-slate-700 hover:bg-white font-bold text-xs"
+                    >
+                      Submit Service Request <ArrowRight size={14} className="ml-1.5" />
+                    </Button>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -129,23 +187,53 @@ export const ResumeComparison = () => {
         {/* Action Callout */}
         <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-1 text-center sm:text-left">
-            <h4 className="text-xl sm:text-2xl font-black text-white">Want your existing resume checked?</h4>
+            <h4 className="text-xl sm:text-2xl font-black text-white">Want a quick audit of your current profile or site?</h4>
             <p className="text-slate-300 text-sm font-medium">
-              Send your current draft on WhatsApp for a quick, confidential ATS readability audit.
+              Send your resume, LinkedIn URL, or website link on WhatsApp for a free 5-minute review.
             </p>
           </div>
           <a
-            href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%20I%20would%20like%20a%20free%20quick%20ATS%20audit%20of%20my%20current%20resume."
+            href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%20I%20would%20like%20a%20free%20quick%20audit%20of%20my%20profile%20or%20website."
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0"
           >
             <Button className="h-13 px-8 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-sm shadow-lg shadow-green-500/25">
-              <MessageCircle size={18} className="mr-2" /> Send Resume on WhatsApp
+              <MessageCircle size={18} className="mr-2" /> Send on WhatsApp
             </Button>
           </a>
         </div>
       </div>
+
+      {/* Fullscreen Zoom Modal */}
+      {isZoomed && (
+        <div
+          className="fixed inset-0 z-[130] bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6"
+          onClick={() => setIsZoomed(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setIsZoomed(false)}
+            className="fixed top-4 right-4 z-10 p-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white transition-colors cursor-pointer"
+            aria-label="Close zoomed preview"
+          >
+            <X size={22} />
+          </button>
+          <div
+            className="max-w-6xl w-full max-h-[90vh] flex flex-col items-center gap-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={active.image}
+              alt={active.imageAlt}
+              className="w-full max-h-[82vh] object-contain rounded-2xl shadow-2xl bg-white"
+            />
+            <p className="text-xs sm:text-sm font-bold text-white/90 text-center">
+              {active.serviceTitle}: {active.beforeScore} → {active.afterScore} ({active.metricLabel})
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

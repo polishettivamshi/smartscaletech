@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Bell, ArrowRight, Download, Users, CheckCircle, ExternalLink, Sparkles, MessageCircle, FileText } from 'lucide-react';
+import { Linkedin, Bell, ArrowRight, CheckCircle, ExternalLink, FileText } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { TemplateDownloadModal } from './TemplateDownloadModal';
 import { trackEvent } from '../../lib/analytics';
 
 export const LinkedInCommunitySection = () => {
-  const [showTemplateModal, setShowTemplateModal] = useState(false);
 
   const handleFollowClick = () => {
     trackEvent('cta_click', { cta: 'linkedin_community_follow' });
@@ -84,14 +81,6 @@ export const LinkedInCommunitySection = () => {
                   <Linkedin size={16} className="mr-2" /> Follow Company Page
                 </Button>
               </a>
-
-              <Button
-                onClick={() => setShowTemplateModal(true)}
-                variant="outline"
-                className="h-13 px-5 rounded-xl border-slate-300 text-slate-700 font-bold text-xs hover:bg-white transition-all"
-              >
-                <Download size={15} className="mr-1.5 text-primary" /> Free Template Pack
-              </Button>
             </div>
 
             <p className="text-[11px] text-slate-500 leading-relaxed">
@@ -142,11 +131,6 @@ export const LinkedInCommunitySection = () => {
           </div>
         </div>
       </div>
-
-      <TemplateDownloadModal
-        isOpen={showTemplateModal}
-        onClose={() => setShowTemplateModal(false)}
-      />
     </section>
   );
 };

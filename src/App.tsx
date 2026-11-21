@@ -13,9 +13,7 @@ import { ResumeComparison } from './components/home/ResumeComparison';
 import { FounderSection } from './components/home/FounderSection';
 import { LinkedInCommunitySection } from './components/home/LinkedInCommunitySection';
 import { FreeATSCheckerPage } from './components/tools/FreeATSCheckerPage';
-import { TrustedBy } from './components/home/TrustedBy';
-import { Testimonials } from './components/home/Testimonials';
-import { WhyJoin, HowItWorks, PrivacyPolicy, TermsOfService } from './components/home/HomeSections';
+import { HowItWorks, PrivacyPolicy, TermsOfService } from './components/home/HomeSections';
 import { Pricing } from './components/home/Pricing';
 import { FAQ } from './components/home/FAQ';
 import { CTASection } from './components/home/CTASection';
@@ -24,14 +22,10 @@ import { NotFound } from './components/layout/NotFound';
 import { FloatingActions } from './components/home/FloatingActions';
 import { SEO } from './lib/seo';
 import { serviceRoutes } from './data/serviceRoutes';
-import { DashboardPage } from './components/dashboard/DashboardPage';
 import { CareerAssistantBot } from './components/chat/CareerAssistantBot';
 import { LinkedInServiceRequestPage } from './components/services/LinkedInServiceRequestPage';
 import { TrustGuaranteeBanner } from './components/home/TrustGuaranteeBanner';
-import { CareerRoiCalculator } from './components/home/CareerRoiCalculator';
-import { LiveActivityTicker } from './components/home/LiveActivityTicker';
 import { SampleShowcaseModal } from './components/home/SampleShowcaseModal';
-import { TemplateDownloadModal } from './components/home/TemplateDownloadModal';
 
 // Lazy-loaded so each service page's content stays out of the homepage bundle.
 const ServicePage = lazy(() =>
@@ -74,16 +68,6 @@ const RouteEffects = () => {
     );
   }
 
-  if (pathname === '/dashboard') {
-    return (
-      <SEO
-        title="Candidate Career Progress Dashboard | SmartScaleTech"
-        description="Track your resume ATS score improvements, recruiter search visibility, and interview callbacks over time with SmartScaleTech Hyderabad."
-        path="/dashboard"
-      />
-    );
-  }
-
   if (pathname === '/request-service' || pathname === '/linkedin-service-request') {
     return (
       <SEO
@@ -109,24 +93,16 @@ const RouteEffects = () => {
 
 function HomePage() {
   const [isSamplesOpen, setIsSamplesOpen] = useState(false);
-  const [isTemplatesOpen, setIsTemplatesOpen] = useState(false);
 
   return (
     <main className="bg-page text-page transition-all duration-300">
-      <Hero
-        onOpenSamples={() => setIsSamplesOpen(true)}
-        onOpenTemplates={() => setIsTemplatesOpen(true)}
-      />
+      <Hero onOpenSamples={() => setIsSamplesOpen(true)} />
       <TrustGuaranteeBanner onOpenSamples={() => setIsSamplesOpen(true)} />
-      <TrustedBy />
       <Services />
-      <CareerRoiCalculator />
       <ResumeComparison />
       <LinkedInCommunitySection />
       <HowItWorks />
-      <Testimonials />
       <FounderSection />
-      <WhyJoin />
       <Pricing />
       <FAQ />
       <CTASection />
@@ -135,10 +111,6 @@ function HomePage() {
       <SampleShowcaseModal
         isOpen={isSamplesOpen}
         onClose={() => setIsSamplesOpen(false)}
-      />
-      <TemplateDownloadModal
-        isOpen={isTemplatesOpen}
-        onClose={() => setIsTemplatesOpen(false)}
       />
     </main>
   );
@@ -154,7 +126,6 @@ function App() {
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/free-ats-resume-checker" element={<FreeATSCheckerPage />} />
             <Route path="/request-service" element={<LinkedInServiceRequestPage />} />
             <Route path="/linkedin-service-request" element={<LinkedInServiceRequestPage />} />
@@ -176,7 +147,6 @@ function App() {
         </div>
         <Footer />
         <FloatingActions />
-        <LiveActivityTicker />
         <CareerAssistantBot />
       </div>
     </Router>

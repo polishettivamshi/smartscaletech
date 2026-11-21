@@ -1,24 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Zap, Linkedin, Instagram, Github, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
-import { useState, useEffect } from 'react';
-import { LeadsViewerModal } from '../admin/LeadsViewerModal';
-import { getStoredLeads } from '../../lib/leads';
-
 export const Footer = () => {
-  const [showLeads, setShowLeads] = useState(false);
-  const [leadCount, setLeadCount] = useState(0);
-
-  useEffect(() => {
-    setLeadCount(getStoredLeads().length);
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'l') {
-        setShowLeads((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showLeads]);
   return (
     <footer id="contact" className="bg-slate-50 border-t border-slate-100 pt-20 pb-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -59,9 +42,17 @@ export const Footer = () => {
                   <Linkedin size={14} /> Request Service
                 </Link>
               </li>
-              {['Services', 'Portfolio', 'Pricing', 'FAQ', 'About Us'].map(item => (
-                <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="text-slate-500 text-sm hover:text-primary transition-colors">{item}</a>
+              {[
+                { label: 'Services', to: '/#services' },
+                { label: 'How It Works', to: '/#how-it-works' },
+                { label: 'Pricing', to: '/#pricing' },
+                { label: 'FAQ', to: '/#faq' },
+                { label: 'About Us', to: '/#about' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link to={item.to} className="text-slate-500 text-sm hover:text-primary transition-colors">
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -128,20 +119,11 @@ export const Footer = () => {
                 </a>
                 .
               </span>
-              <a href="/privacy-policy" className="hover:text-slate-900">Privacy Policy</a>
-              <a href="/terms-of-service" className="hover:text-slate-900">Terms of Service</a>
-              <button
-                onClick={() => setShowLeads(true)}
-                className="hover:text-primary transition-colors text-slate-400 font-bold underline cursor-pointer"
-                title="View captured leads (Ctrl+Shift+L)"
-              >
-                Lead Inbox ({leadCount})
-              </button>
+              <Link to="/privacy-policy" className="hover:text-slate-900">Privacy Policy</Link>
+              <Link to="/terms-of-service" className="hover:text-slate-900">Terms of Service</Link>
            </div>
         </div>
       </div>
-
-      <LeadsViewerModal isOpen={showLeads} onClose={() => setShowLeads(false)} />
     </footer>
   );
 };

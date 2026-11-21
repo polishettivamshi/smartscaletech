@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Check, MessageCircle, Clock } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useState } from 'react';
@@ -11,7 +11,6 @@ const plans = [
     scope: "Resume, LinkedIn & Job Portals",
     support: "1-on-1 WhatsApp Support",
     oneTimePrice: "999",
-    monthlyPrice: "499",
     features: [
       "Role-Specific ATS Resume (Word + PDF)",
       "LinkedIn Profile & Headline Re-write",
@@ -28,7 +27,6 @@ const plans = [
     scope: "Website + Career Branding Bundle",
     support: "Direct Developer & Founder Support",
     oneTimePrice: "2,999",
-    monthlyPrice: "1,999",
     features: [
       "Custom Animated Portfolio Website",
       "Full ATS Resume Writing Included",
@@ -45,7 +43,6 @@ const plans = [
     scope: "Full-Stack Company Web Presence",
     support: "30 Days Post-Launch Support",
     oneTimePrice: "5,999",
-    monthlyPrice: "2,999",
     features: [
       "5 Custom Designed Responsive Pages",
       "WhatsApp Lead Capture & Inquiry Forms",
@@ -60,7 +57,6 @@ const plans = [
 ];
 
 export const Pricing = () => {
-  const [billing, setBilling] = useState<'monthly' | 'one-time'>('one-time');
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [paymentPlan, setPaymentPlan] = useState<{ name: string; amount: string } | null>(null);
 
@@ -73,43 +69,7 @@ export const Pricing = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black text-slate-900 mb-4">Simple Transparent Pricing</h2>
-          <p className="text-slate-700 font-medium mb-10">{billing === 'one-time' ? 'One-time Payment • No Hidden Charges' : 'Flexible Monthly Billing • Cancel Anytime'}</p>
-
-          <div className="inline-flex items-center p-1 bg-slate-100 rounded-2xl shadow-inner relative z-0 mb-4">
-            <button
-              onClick={() => setBilling('monthly')}
-              className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all relative z-10 ${billing === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setBilling('one-time')}
-              className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all relative z-10 ${billing === 'one-time' ? 'text-white' : 'text-slate-500'}`}
-            >
-              One-time
-            </button>
-            <motion.div
-              layoutId="activeTab"
-              initial={false}
-              animate={{ x: billing === 'one-time' ? '100%' : '0%' }}
-              className="absolute inset-y-1 left-1 w-[calc(50%-4px)] bg-primary rounded-xl shadow-lg -z-0"
-              transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-            />
-          </div>
-          <div className="h-6">
-            <AnimatePresence mode="wait">
-              {billing === 'one-time' && (
-                <motion.span 
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  className="text-[10px] font-black uppercase text-primary whitespace-nowrap"
-                >
-                  Save up to 40% Today • Limited Time
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </div>
+          <p className="text-slate-700 font-medium mb-6">One-time Payment • No Hidden Charges</p>
 
           <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200/80 rounded-full text-xs font-semibold text-indigo-900 shadow-xs">
             <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -143,9 +103,8 @@ export const Pricing = () => {
                 <h3 className="text-xl font-bold text-slate-900 mb-6 uppercase tracking-wider">{plan.name}</h3>
                 <div className="flex items-center justify-center gap-1">
                   <span className="text-5xl font-black text-slate-900">
-                    ₹{billing === 'one-time' ? plan.oneTimePrice : plan.monthlyPrice}
+                    ₹{plan.oneTimePrice}
                   </span>
-                  {billing === 'monthly' && <span className="text-slate-400 font-bold self-end mb-1">/mo</span>}
                 </div>
               </div>
 
@@ -165,7 +124,7 @@ export const Pricing = () => {
                   onClick={() =>
                     setPaymentPlan({
                       name: plan.name,
-                      amount: billing === 'one-time' ? plan.oneTimePrice : plan.monthlyPrice,
+                      amount: plan.oneTimePrice,
                     })
                   }
                   className={`w-full h-12 rounded-xl font-bold text-sm shadow-md transition-all ${
