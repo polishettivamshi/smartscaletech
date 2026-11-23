@@ -20,16 +20,31 @@ export const Footer = () => {
               Smart Scale Tech (SST / SmartScaleTech) is a Hitech City, Hyderabad based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, final year projects, and web development.
             </p>
             <div className="flex gap-4">
-               {[ 
-                 { Icon: Linkedin, url: "https://www.linkedin.com/company/smartscale-tech" },
-                 { Icon: Instagram, url: "https://www.instagram.com/smartscale.tech" },
-                 { Icon: Github, url: "https://github.com/smartscaletech" },
-                 { Icon: MessageCircle, url: "https://whatsapp.com/channel/0029VbCFJRKJJhzXxOaL7g28" }
-               ].map((item, i) => (
-                 <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all">
-                    <item.Icon size={18} />
-                 </a>
-               ))}
+              {[
+                { Icon: Linkedin, name: 'LinkedIn', url: 'https://www.linkedin.com/company/smartscale-tech' },
+                { Icon: Instagram, name: 'Instagram', url: 'https://www.instagram.com/smartscale.tech' },
+                { Icon: Github, name: 'GitHub', url: 'https://github.com/smartscaletech' },
+                { Icon: MessageCircle, name: 'WhatsApp', url: 'https://whatsapp.com/channel/0029VbCFJRKJJhzXxOaL7g28' },
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.name}
+                  title={item.name}
+                  className="group relative h-10 w-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <item.Icon size={18} />
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-slate-900 px-2.5 py-1 text-[11px] font-bold text-white shadow-lg opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 transition-all duration-150 z-20"
+                  >
+                    {item.name}
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-2 w-2 rotate-45 bg-slate-900" />
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
 
