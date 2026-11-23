@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
-import { ArrowRight, Star, Users, Zap, Briefcase, TrendingUp, CheckCircle2, Linkedin, Search, User, Eye } from 'lucide-react';
+import { ArrowRight, Star, Users, Zap, Briefcase, TrendingUp, CheckCircle2, Linkedin, Globe, Code2, Eye, ShieldCheck } from 'lucide-react';
 import naukriLogo from '/images/naukri_logo.webp';
 
 interface HeroProps {
@@ -33,7 +33,7 @@ export const Hero = ({ onOpenSamples }: HeroProps = {}) => {
               className="text-3xl font-black tracking-tight text-slate-900 sm:text-6xl md:text-7xl leading-[1.2]"
             >
               <span className="block text-primary">Smart Scale Tech</span>
-              <span className="block text-2xl sm:text-3xl font-bold text-slate-500 tracking-normal mt-1 mb-2">(SmartScaleTech)</span>
+              <span className="block text-2xl sm:text-3xl font-bold text-slate-500 tracking-normal mt-1 mb-2">(SmartScaleTech · SST)</span>
               <span className="block">ATS Resume Writing</span>
               <span className="block">&amp; Web Development</span>
               <span className="block text-2xl sm:text-4xl md:text-5xl text-slate-900 mt-3">in Hyderabad, India</span>
@@ -45,7 +45,7 @@ export const Hero = ({ onOpenSamples }: HeroProps = {}) => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-8 text-lg leading-relaxed text-slate-500 max-w-2xl mx-auto lg:mx-0"
             >
-              <strong className="text-slate-900">Build your website. Build your career.</strong> Smart Scale Tech (SmartScaleTech) helps businesses and job seekers in Hitech City, Hyderabad create a powerful digital presence that bypasses algorithms and generates real-world results.
+              <strong className="text-slate-900">Build your website. Build your career.</strong> Smart Scale Tech (SST / SmartScaleTech) helps businesses and job seekers in Hitech City, Hyderabad create a powerful digital presence that bypasses algorithms and generates real-world results.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -103,149 +103,171 @@ export const Hero = ({ onOpenSamples }: HeroProps = {}) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6"
+              className="mt-16 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5 text-left"
             >
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3">
                 <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                   <Zap size={20} />
                 </div>
-                <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">5 Mins</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Reply Time</p>
+                <div>
+                  <p className="text-base sm:text-lg font-black text-slate-900 leading-tight">5 Mins</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider leading-snug mt-0.5">Reply Time</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3">
                 <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <CheckCircle2 size={20} />
                 </div>
-                <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">100%</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">ATS Verified</p>
+                <div>
+                  <p className="text-base sm:text-lg font-black text-slate-900 leading-tight">100%</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider leading-snug mt-0.5">ATS Verified</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3">
                 <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-indigo-50 text-indigo-500">
                   <Briefcase size={20} />
                 </div>
-                <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">Hitech City</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Hyderabad HQ</p>
+                <div>
+                  <p className="text-base sm:text-lg font-black text-slate-900 leading-tight">Hitech City</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider leading-snug mt-0.5">Hyderabad HQ</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3">
                 <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-xl bg-amber-50 text-amber-500">
                   <Users size={20} />
                 </div>
-                <div className="min-w-0">
-                  <p className="text-lg font-black text-slate-900 truncate">1-on-1</p>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider truncate">Direct Founder</p>
+                <div>
+                  <p className="text-base sm:text-lg font-black text-slate-900 leading-tight">1-on-1</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider leading-snug mt-0.5">Direct Founder</p>
                 </div>
               </div>
             </motion.div>
           </div>
 
           {/* Right Content - Visuals */}
-          <div className="relative flex-1 w-full max-w-2xl lg:ml-10 min-h-[500px] lg:min-h-[600px] mt-12 lg:mt-0">
+          <div className="relative flex-1 w-full max-w-2xl lg:ml-10 min-h-[520px] sm:min-h-[550px] lg:min-h-[600px] mt-12 lg:mt-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
-              className="relative w-full h-full min-h-[460px] lg:min-h-[560px] flex items-center justify-center"
+              className="relative w-full h-full min-h-[520px] sm:min-h-[550px] lg:min-h-[580px] flex items-center justify-center"
             >
-              <div className="relative h-full min-h-[440px] w-full flex items-center justify-center p-8 bg-linear-to-br from-indigo-50/70 via-slate-50 to-blue-50/50 rounded-3xl border border-slate-100 shadow-2xl overflow-hidden">
+              <div className="relative h-full min-h-[500px] sm:min-h-[530px] w-full flex items-center justify-center p-8 bg-linear-to-br from-indigo-50/70 via-slate-50 to-blue-50/50 rounded-3xl border border-slate-100 shadow-2xl overflow-hidden">
                 <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
                 <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-indigo-400/10 blur-3xl pointer-events-none" />
               </div>
               
-              {/* Floating Platforms Card (Top) */}
+              {/* Floating Multi-Platform Card (Top) */}
               <motion.div 
-                animate={{ y: [0, -10, 0] }}
+                animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-0 sm:top-4 w-52 sm:w-72 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-30">
-                
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <p className="text-[10px] sm:text-sm font-bold text-slate-900">Profile Performance</p>
-                  <div className="flex gap-0.5 sm:gap-1">
-                    {[1,2,3,4,5].map(i => <Star key={i} size={8} className="text-amber-400 fill-amber-400" />)}
+                className="absolute top-2 sm:top-5 w-64 sm:w-80 bg-white p-4 sm:p-5 rounded-3xl shadow-2xl border border-slate-100 z-30"
+              >
+                <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4">
+                  <p className="text-[11px] sm:text-sm font-bold text-slate-900">Multi-Platform Optimization</p>
+                  <div className="flex items-center gap-0.5 shrink-0" aria-label="Rated 5 out of 5">
+                    {[1,2,3,4,5].map(i => <Star key={i} size={10} className="text-amber-400 fill-amber-400" />)}
                   </div>
                 </div>
 
-                {/* Main Icon Container - This controls the gap for all three */}
-                <div className="flex gap-2 sm:gap-4">
-                  
+                {/* 4-Platform Grid: LinkedIn, Naukri, Indeed, Web & SEO */}
+                <div className="grid grid-cols-4 gap-2 sm:gap-2.5">
                   {/* LinkedIn */}
-                  <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                    <Linkedin size={20} className="text-slate-700" />
-                  </div>
-
-                  {/* Indeed */}
-                  <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
-                    <Search size={20} className="text-slate-700" />
+                  <div className="rounded-xl bg-slate-50 py-2.5 px-1 flex flex-col items-center justify-center border border-slate-100">
+                    <Linkedin size={18} className="text-[#0A66C2]" />
+                    <span className="mt-1 text-[9px] sm:text-[10px] font-bold text-slate-700">LinkedIn</span>
                   </div>
 
                   {/* Naukri */}
-                  <div className="flex-1 aspect-square rounded-lg sm:rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+                  <div className="rounded-xl bg-slate-50 py-2.5 px-1 flex flex-col items-center justify-center border border-slate-100">
                     <img
                       src={naukriLogo}
                       alt="Naukri"
-                      className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
+                      referrerPolicy="no-referrer"
+                      className="h-5 w-5 sm:h-6 sm:w-6 object-contain"
                     />
+                    <span className="mt-1 text-[9px] sm:text-[10px] font-bold text-slate-700">Naukri</span>
                   </div>
 
+                  {/* Indeed */}
+                  <div className="rounded-xl bg-slate-50 py-2.5 px-1 flex flex-col items-center justify-center border border-slate-100">
+                    <Globe size={18} className="text-indigo-600" />
+                    <span className="mt-1 text-[9px] sm:text-[10px] font-bold text-slate-700">Indeed</span>
+                  </div>
+
+                  {/* Web & SEO */}
+                  <div className="rounded-xl bg-slate-50 py-2.5 px-1 flex flex-col items-center justify-center border border-slate-100">
+                    <Code2 size={18} className="text-emerald-600" />
+                    <span className="mt-1 text-[9px] sm:text-[10px] font-bold text-slate-700">Web/SEO</span>
+                  </div>
                 </div>
 
-                <p className="text-[7px] sm:text-[10px] text-slate-500 mt-3 sm:mt-4 text-center lowercase">
-                  Optimized for LinkedIn, Indeed & Naukri
+                <p className="text-[10px] sm:text-[11px] font-medium text-slate-500 mt-3 text-center">
+                  ATS Job Portals, Portfolios &amp; Google Search Ready
                 </p>
               </motion.div>
 
-              {/* Floating Projects Card (Mid-Left) */}
+              {/* Floating Projects & Delivery Card (Mid-Left) */}
               <motion.div 
-                animate={{ x: [0, -10, 0] }}
+                animate={{ x: [0, -8, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute top-[45%] -left-4 sm:left-0 w-40 sm:w-56 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-40"
+                className="absolute top-[37%] sm:top-[42%] -left-1 sm:left-1 w-[166px] sm:w-60 bg-white p-3.5 sm:p-5 rounded-3xl shadow-2xl border border-slate-100 z-40"
               >
-                <p className="text-[9px] sm:text-xs text-slate-500 mb-1">Successful Projects</p>
-                <p className="text-xl sm:text-3xl font-black text-slate-900">20+</p>
-                <div className="flex mt-3 sm:mt-4 gap-1">
-                   {[1,2,3,4,5].map(i => <div key={i} className="h-1 sm:h-1.5 flex-1 rounded-full bg-slate-100 overflow-hidden"><div className="h-full bg-primary w-2/3" /></div>)}
+                <p className="text-[10px] sm:text-xs font-semibold text-slate-500">Projects Delivered</p>
+                <div className="flex items-baseline gap-2 mt-1">
+                  <p className="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums">20+</p>
+                  <span className="text-[10px] sm:text-xs font-bold text-emerald-600">24–48 Hrs</span>
+                </div>
+                <p className="text-[9px] sm:text-[11px] text-slate-500 mt-1">
+                  Resumes · Portfolios · Web
+                </p>
+                <div className="flex mt-3 gap-1">
+                  {[1,2,3,4,5].map(i => (
+                    <div key={i} className="h-1.5 flex-1 rounded-full bg-slate-100 overflow-hidden">
+                      <div className="h-full bg-primary w-4/5" />
+                    </div>
+                  ))}
                 </div>
               </motion.div>
 
-              {/* Floating Profile Card (Mid-Right) */}
+              {/* Floating ATS Resume Score Card (Mid-Right) */}
               <motion.div 
-                animate={{ x: [0, 10, 0] }}
+                animate={{ x: [0, 8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute top-1/2 -right-4 sm:right-0 w-44 sm:w-64 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-50 z-20"
+                className="absolute top-[48%] sm:top-[44%] -right-1 sm:right-1 w-[172px] sm:w-64 bg-white p-3.5 sm:p-5 rounded-3xl shadow-2xl border border-slate-100 z-20"
               >
-                <div className="flex items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
-                  <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-full overflow-hidden bg-slate-100 flex items-center justify-center">
-                     <User size={24} className="text-slate-500" />
+                <div className="flex items-center gap-2 sm:gap-3 mb-2.5 sm:mb-4">
+                  <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
+                    <ShieldCheck size={18} className="text-emerald-600 sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <p className="text-[10px] sm:text-sm font-bold text-slate-900 leading-tight">Profile Score</p>
-                    <p className="text-[7px] sm:text-[10px] text-slate-400 uppercase font-black">Top Ranked</p>
+                    <p className="text-[10px] sm:text-sm font-bold text-slate-900 leading-tight">ATS Resume Score</p>
+                    <p className="text-[9px] sm:text-[11px] text-slate-500 font-medium mt-0.5">Verified Standard</p>
                   </div>
                 </div>
-                <div className="flex justify-between items-end">
-                   <div>
-                     <p className="text-[9px] sm:text-xs text-slate-500 mb-1">Your Growth</p>
-                     <p className="text-lg sm:text-2xl font-black text-primary">98%</p>
-                   </div>
-                   <div className="h-8 w-8 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-primary text-white">
-                      <TrendingUp size={16} className="sm:w-[18px] sm:h-[18px]" />
-                   </div>
+                <div className="flex justify-between items-end gap-2">
+                  <div>
+                    <p className="text-[9px] sm:text-xs text-slate-500 mb-0.5">Benchmark Score</p>
+                    <p className="text-lg sm:text-2xl font-black text-primary tabular-nums leading-none">97/100</p>
+                    <p className="text-[9px] sm:text-[11px] font-semibold text-emerald-600 mt-1.5">+3x Recruiter Views</p>
+                  </div>
+                  <div className="h-8 w-8 sm:h-11 sm:w-11 flex items-center justify-center rounded-full bg-primary text-white shrink-0">
+                    <TrendingUp size={16} />
+                  </div>
                 </div>
               </motion.div>
 
-              {/* Zap Icon with Glow (Bottom Center) */}
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-                <div className="relative">
-                  <div className="h-20 w-20 sm:h-24 sm:w-24 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 sm:h-16 sm:w-16 bg-primary rounded-full flex items-center justify-center text-white shadow-2xl shadow-primary/50 cursor-pointer hover:scale-110 transition-transform">
-                     <Zap size={28} fill="currentColor" />
-                  </div>
-                </div>
+              {/* Interactive ATS Score Check Trigger (Bottom Center) */}
+              <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40">
+                <Link
+                  to="/free-ats-resume-checker"
+                  aria-label="Test your ATS resume score for free"
+                  className="group relative inline-flex items-center gap-2 rounded-full bg-primary hover:bg-indigo-700 text-white px-5 py-3 shadow-2xl shadow-primary/40 transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 whitespace-nowrap shrink-0"
+                >
+                  <Zap size={17} fill="currentColor" className="shrink-0" />
+                  <span className="text-xs sm:text-sm font-bold">Test Your ATS Score Free</span>
+                  <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5 shrink-0" />
+                </Link>
               </div>
             </motion.div>
           </div>

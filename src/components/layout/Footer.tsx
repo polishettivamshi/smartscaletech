@@ -17,7 +17,7 @@ export const Footer = () => {
               </span>
             </Link>
             <p className="text-slate-500 text-sm leading-relaxed mb-8 max-w-xs">
-              Smart Scale Tech (SmartScaleTech) is a Hitech City, Hyderabad based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, branding, and web development.
+              Smart Scale Tech (SST / SmartScaleTech) is a Hitech City, Hyderabad based agency helping businesses and professionals build a powerful digital presence through ATS resume writing, LinkedIn optimization, final year projects, and web development.
             </p>
             <div className="flex gap-4">
                {[ 
@@ -43,10 +43,12 @@ export const Footer = () => {
                 </Link>
               </li>
               {[
+                { label: 'Free ATS Resume Checker', to: '/free-ats-resume-checker' },
+                { label: 'LinkedIn Headline Generator', to: '/linkedin-headline-generator' },
+                { label: 'Job Readiness Audit', to: '/job-readiness-audit' },
+                { label: 'Custom Package Builder', to: '/custom-package-builder' },
                 { label: 'Services', to: '/#services' },
-                { label: 'How It Works', to: '/#how-it-works' },
                 { label: 'Pricing', to: '/#pricing' },
-                { label: 'FAQ', to: '/#faq' },
                 { label: 'About Us', to: '/#about' },
               ].map((item) => (
                 <li key={item.label}>
@@ -70,7 +72,7 @@ export const Footer = () => {
                  { label: 'Campus Placement Resume', to: '/college-placement-resume-hyderabad' },
                  { label: 'Web & Portfolio Development', to: '/portfolio-website-hyderabad' },
                  { label: 'Freelance Portfolio Website', to: '/freelance-portfolio-website-hyderabad' },
-                 { label: 'Final Year Projects', to: '/final-year-projects-hyderabad' },
+                 { label: 'Final Year Projects', to: '/final-year-projects' },
                ].map(item => (
                  <li key={item.label}>
                    <Link to={item.to} className="text-slate-500 text-xs sm:text-sm hover:text-primary transition-colors">{item.label}</Link>

@@ -6,12 +6,16 @@ import { Button } from '../ui/Button';
 
 const faqs = [
   {
+    q: "What is Smart Scale Tech (SST / SmartScaleTech)?",
+    a: "Smart Scale Tech—also known as SST or SmartScaleTech—is a Hitech City, Hyderabad agency founded by Vamshi Polishetti. SST builds ATS-verified resumes, LinkedIn & Naukri profiles, B.Tech/M.Tech final year projects, and fast custom websites."
+  },
+  {
     q: "What is an ATS-friendly resume?",
     a: "It is a resume that is structured and keyword-optimized to pass through Applicant Tracking Systems used by 90% of Fortune 10 companies."
   },
   {
     q: "Do you provide resume writing services in Hyderabad?",
-    a: "Yes. We are based in Hitech City, Hyderabad, Telangana and work with clients across India. Consultations happen over WhatsApp or call, and all deliverables are shared digitally, so location is never a barrier."
+    a: "Yes. SST (Smart Scale Tech) is based in Hitech City, Hyderabad, Telangana and works with clients across India. Consultations happen over WhatsApp or call, and all deliverables are shared digitally, so location is never a barrier."
   },
   {
     q: "How long does it take to complete an order?",

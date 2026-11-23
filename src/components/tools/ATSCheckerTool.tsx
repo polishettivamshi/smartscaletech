@@ -6,31 +6,34 @@ import {
   AlertTriangle,
   ArrowRight,
   MessageCircle,
-  Share2,
   Linkedin,
-  RefreshCw,
   FileText,
   TrendingUp,
-  ShieldCheck,
   Check,
   X,
   Copy,
-  ExternalLink
+  Briefcase,
+  Target,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { scanResumeText, ROLE_KEYWORD_DATABASE, ATSAnalysisResult } from '../../lib/atsScanner';
+import {
+  scanResumeText,
+  scanResumeVsJD,
+  ROLE_KEYWORD_DATABASE,
+  ATSAnalysisResult,
+} from '../../lib/atsScanner';
 import { submitLead } from '../../lib/leads';
 import { trackEvent } from '../../lib/analytics';
 
-const SAMPLE_RESUME = `RAHUL SHARMA
-Full-Stack Developer | Hyderabad, Telangana | rahul.sharma@example.com | +91 9000859695
+const SAMPLE_RESUME = `Vamshi Polishetti
+Full-Stack Developer | Hyderabad, Telangana | polishettivamshi123@gmail.com | +91 9000859695 | linkedin.com/in/polishettivamshi
 
 PROFESSIONAL SUMMARY
 Results-driven software engineer with 2+ years of experience in React, Node.js, and TypeScript. Passionate about building high-performance web applications and scalable RESTful APIs.
 
 SKILLS
 Languages & Frameworks: JavaScript, TypeScript, React, Node.js, Express, HTML5, CSS3, Tailwind CSS
-Databases & Cloud: PostgreSQL, MongoDB, Git, Docker, REST APIs
+Databases & Cloud: PostgreSQL, MongoDB, Git, Docker, REST API
 Methodologies: Agile, CI/CD, Unit Testing
 
 EXPERIENCE
@@ -38,14 +41,27 @@ Software Engineer | TechScale Solutions, Hyderabad | 2023 - Present
 • Engineered 8+ full-stack web applications using React and Node.js, improving client page speed by 35%.
 • Architected scalable REST APIs integrated with PostgreSQL, handling 20,000+ daily queries with 99.8% uptime.
 • Automated release pipelines using Docker and GitHub Actions, cutting deployment time from 40 mins to 8 mins.
-• Collaborated with product designers to implement responsive, mobile-first dashboards.
+
+PROJECTS
+Real-Time Analytics Portal | React, TypeScript, PostgreSQL
+• Delivered an executive analytics dashboard supporting 5,000+ monthly users with 42% faster query performance.
 
 EDUCATION
 B.Tech in Computer Science & Engineering | JNTUH, Hyderabad | 2019 - 2023`;
 
+const SAMPLE_JD = `Senior / Mid-Level Full-Stack Software Engineer (Hyderabad)
+Required Skills & Qualifications:
+- 2+ years experience with React, TypeScript, JavaScript, and Node.js (Express).
+- Strong expertise designing REST API and GraphQL services backed by PostgreSQL or MongoDB.
+- Hands-on experience with Redux, Tailwind CSS, Microservices architecture, and Redis caching.
+- Familiarity with AWS (EC2, S3), Docker, GitHub Actions, and CI/CD pipelines.
+- Experience writing Unit Testing with Jest and Agile/Scrum workflows.`;
+
 export const ATSCheckerTool = () => {
+  const [scanMode, setScanMode] = useState<'role' | 'jd'>('role');
   const [role, setRole] = useState('Full-Stack Developer (MERN / MEAN)');
   const [resumeText, setResumeText] = useState('');
+  const [jobDescription, setJobDescription] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<ATSAnalysisResult | null>(null);
   const [userName, setUserName] = useState('');
@@ -56,54 +72,54 @@ export const ATSCheckerTool = () => {
   const handleScan = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!resumeText.trim()) return;
+    if (scanMode === 'jd' && !jobDescription.trim()) return;
 
     setIsAnalyzing(true);
-    trackEvent('cta_click', { cta: 'run_ats_scan', role });
+    trackEvent('cta_click', { cta: 'run_ats_scan', mode: scanMode, role });
 
     setTimeout(async () => {
-      const scanResult = scanResumeText(resumeText, role);
+      const scanResult =
+        scanMode === 'jd'
+          ? scanResumeVsJD(resumeText, jobDescription, role)
+          : scanResumeText(resumeText, role);
+
       setResult(scanResult);
       setIsAnalyzing(false);
 
-      // Auto-save lead if contact details entered or anonymous audit
-      await submitLead({
-        name: userName.trim() || 'ATS Scanner User',
-        phone: userPhone.trim() || 'Website Audit',
-        service: `ATS Scan: ${role} (Score: ${scanResult.score}/100)`,
-        sourcePage: window.location.pathname,
-        note: `Grade: ${scanResult.grade} | Matched ${scanResult.matchedKeywords.length} keywords`,
-      });
-    }, 800);
+      if (userName.trim() || userPhone.trim()) {
+        await submitLead({
+          name: userName.trim() || 'ATS Scanner User',
+          phone: userPhone.trim() || 'Website Audit',
+          service:
+            scanMode === 'jd'
+              ? `JD Match Scan (Score: ${scanResult.score}/100)`
+              : `ATS Scan: ${role} (Score: ${scanResult.score}/100)`,
+          sourcePage: window.location.pathname,
+          note: `Grade: ${scanResult.grade} | Matched ${scanResult.matchedKeywords.length} keywords | Missing ${scanResult.missingKeywords.length}`,
+        });
+      }
+    }, 600);
   };
 
   const handleLoadSample = () => {
     setResumeText(SAMPLE_RESUME);
     setRole('Full-Stack Developer (MERN / MEAN)');
+    if (scanMode === 'jd') {
+      setJobDescription(SAMPLE_JD);
+    }
   };
 
   const getLinkedInShareText = () => {
     return [
-      `🚀 I just scanned my resume using the Free ATS Resume Checker by SmartScaleTech!`,
+      `🚀 I just scanned my resume using the Free ATS & JD Match Checker by SmartScaleTech!`,
       ``,
-      `📊 My ATS Readiness Score: ${result?.score || 98}/100 (${result?.grade || 'Interview Ready'})`,
-      `🎯 Target Role: ${role}`,
+      `📊 Score: ${result?.score || 97}/100 (${result?.grade || 'Interview Ready'})`,
+      `🎯 Target: ${scanMode === 'jd' ? 'Custom Job Description Match' : role}`,
       ``,
-      `💡 About SmartScaleTech (https://smartscaletech.vercel.app):`,
-      `SmartScaleTech is a Hyderabad (Hitech City) based career acceleration & tech agency helping candidates clear automated ATS screening and land 3x more interview callbacks.`,
+      `Check your resume against Workday/Taleo ATS rules & live job descriptions for free:`,
+      `👉 https://smartscaletech.vercel.app/free-ats-resume-checker`,
       ``,
-      `What SmartScaleTech delivers:`,
-      `✅ ATS Resume Writing & Re-engineering (clears Workday, Taleo, iCIMS, Naukri & LinkedIn)`,
-      `✅ LinkedIn Profile Optimization & Executive Personal Branding`,
-      `✅ Modern Web Development & Custom Portfolio Platforms`,
-      `✅ 1-on-1 direct founder guidance with 24-48 hr fast turnaround`,
-      ``,
-      `Check your resume score for free before applying to jobs:`,
-      `👉 Test your score: https://smartscaletech.vercel.app/free-ats-resume-checker`,
-      ``,
-      `Official Website: https://smartscaletech.vercel.app`,
-      `Follow Company: https://www.linkedin.com/company/smartscale-tech`,
-      ``,
-      `#SmartScaleTech #ATSResume #ResumeWriting #CareerGrowth #HyderabadJobs #TechJobs #JobSearch`
+      `#SmartScaleTech #ATSResume #ResumeChecker #HyderabadJobs #TechCareers`,
     ].join('\n');
   };
 
@@ -118,84 +134,129 @@ export const ATSCheckerTool = () => {
         setTimeout(() => setCopiedShare(false), 5000);
       }
     } catch {
-      // Fallback if clipboard API is restricted
+      // Ignore
     }
 
     const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
       'https://smartscaletech.vercel.app/free-ats-resume-checker'
     )}`;
-    window.open(shareUrl, '_blank');
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
   };
 
   const copyShareTextOnly = async () => {
     trackEvent('cta_click', { cta: 'copy_share_text' });
-    const fullText = getLinkedInShareText();
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(fullText);
-        setCopiedShare(true);
-        setTimeout(() => setCopiedShare(false), 5000);
-      }
+      await navigator.clipboard.writeText(getLinkedInShareText());
+      setCopiedShare(true);
+      setTimeout(() => setCopiedShare(false), 5000);
     } catch {
       // Ignore
     }
   };
 
   const bookRewriteUrl = `https://wa.me/919000859695?text=${encodeURIComponent(
-    `Hello Vamshi,\n\nI just ran my resume through your ATS Scanner for the role *${role}* and scored *${result?.score}/100*.\n\nMissing keywords:\n${result?.missingKeywords.slice(0, 6).join(', ')}\n\nI want to book an expert ATS resume rewrite (₹999). Please advise next steps.`
+    `Hello Vamshi,\n\nI just ran my resume through your ${
+      scanMode === 'jd' ? 'Resume vs Job Description Matcher' : `ATS Scanner for ${role}`
+    } and scored *${result?.score}/100*.\n\nMissing keywords:\n${
+      result?.missingKeywords.slice(0, 8).join(', ') || 'None'
+    }\n\nI want to upgrade my resume to 95+ ATS readiness. Please advise next steps.`
   )}`;
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
       {/* Top Banner */}
       <div className="text-center max-w-3xl mx-auto mb-10">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">
-          <Sparkles size={14} /> 100% Free · Instant ATS Scanner
+          <Sparkles size={14} /> 100% Free · Role Scan + Job Description Matcher
         </span>
         <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          Check Your <span className="text-primary">ATS Resume Score</span> in 10 Seconds
+          Free <span className="text-primary">ATS Resume Checker</span> &amp; JD Matcher
         </h1>
         <p className="mt-4 text-base sm:text-lg text-slate-600 font-medium">
-          See if your resume passes automated screening algorithms used by top tech companies and recruiters in Hyderabad.
+          Check your ATS compatibility score, compare your resume word-for-word against any Job Description, and spot missing keywords in seconds.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Input Panel */}
         <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-100">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
-              <FileText className="text-primary" size={20} /> Paste Resume Text
-            </h3>
+          {/* Mode Switcher */}
+          <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-slate-100 mb-6">
+            <button
+              type="button"
+              onClick={() => setScanMode('role')}
+              className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                scanMode === 'role'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Briefcase size={14} className={scanMode === 'role' ? 'text-primary' : ''} />
+              Role Benchmark Scan
+            </button>
+            <button
+              type="button"
+              onClick={() => setScanMode('jd')}
+              className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                scanMode === 'jd'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Target size={14} className={scanMode === 'jd' ? 'text-primary' : ''} />
+              Resume vs. Job Description
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+              <FileText className="text-primary" size={20} />
+              {scanMode === 'jd' ? 'Paste Resume + Target JD' : 'Paste Resume Text'}
+            </h2>
             <button
               onClick={handleLoadSample}
               type="button"
               className="text-xs font-bold text-primary hover:underline cursor-pointer"
             >
-              Load Sample Resume
+              {scanMode === 'jd' ? 'Load Sample Resume + JD' : 'Load Sample Resume'}
             </button>
           </div>
 
           <form onSubmit={handleScan} className="space-y-4">
-            {/* Target Role Selector */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Target Role in Hyderabad / Tech
-              </label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-              >
-                {Object.keys(ROLE_KEYWORD_DATABASE).map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {scanMode === 'role' ? (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Target Role
+                </label>
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="w-full h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                >
+                  {Object.keys(ROLE_KEYWORD_DATABASE).map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Target Job Description (Paste Requirements / Skills)
+                </label>
+                <textarea
+                  required
+                  rows={5}
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
+                  placeholder="Paste the Job Description from LinkedIn, Naukri, Indeed, or company careers page..."
+                  className="w-full p-4 rounded-2xl bg-indigo-50/40 border border-indigo-200 text-xs sm:text-sm font-sans text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-slate-400 resize-y"
+                />
+              </div>
+            )}
 
-            {/* Optional Contact for saving report */}
+            {/* Optional Contact */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
@@ -205,7 +266,7 @@ export const ATSCheckerTool = () => {
                   type="text"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  placeholder="Rahul Sharma"
+                  placeholder="Enter your name"
                   className="w-full h-10 px-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -226,31 +287,38 @@ export const ATSCheckerTool = () => {
             {/* Resume Text Area */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Resume Content (Text / Copy-Paste)
+                Resume Content (Plain Text / Copy-Paste)
               </label>
               <textarea
                 required
-                rows={9}
+                rows={8}
                 value={resumeText}
                 onChange={(e) => setResumeText(e.target.value)}
-                placeholder="Paste the raw text of your resume here (Summary, Skills, Work Experience, Projects, Education)..."
+                placeholder="Paste the text of your resume here (Summary, Skills, Experience, Projects, Education)..."
                 className="w-full p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-slate-400 resize-y"
               />
             </div>
 
             <Button
               type="submit"
-              disabled={isAnalyzing || !resumeText.trim()}
+              disabled={
+                isAnalyzing ||
+                !resumeText.trim() ||
+                (scanMode === 'jd' && !jobDescription.trim())
+              }
               className="w-full h-13 rounded-2xl bg-primary hover:bg-primary-dark font-bold text-sm shadow-xl shadow-primary/25 transition-all cursor-pointer"
             >
               {isAnalyzing ? (
                 <div className="flex items-center gap-2">
                   <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Scanning ATS Algorithms...</span>
+                  <span>Running ATS &amp; Keyword Check...</span>
                 </div>
               ) : (
                 <span className="flex items-center justify-center gap-2">
-                  Scan ATS Readability &amp; Keywords <ArrowRight size={16} />
+                  {scanMode === 'jd'
+                    ? 'Compare Resume vs. Job Description'
+                    : 'Scan ATS Readability & Keywords'}{' '}
+                  <ArrowRight size={16} />
                 </span>
               )}
             </Button>
@@ -262,15 +330,15 @@ export const ATSCheckerTool = () => {
           <AnimatePresence mode="wait">
             {result ? (
               <motion.div
-                key="results"
-                initial={{ opacity: 0, scale: 0.95 }}
+                key={`${result.mode}-${result.score}`}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-primary/30 shadow-2xl space-y-6"
               >
                 {/* Score Card */}
-                <div className="text-center pb-6 border-b border-slate-100">
+                <div className="text-center pb-5 border-b border-slate-100">
                   <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 block mb-1">
-                    ATS Match Score
+                    {result.mode === 'jd' ? 'Job Description Match Score' : 'ATS Compatibility Score'}
                   </span>
                   <div className="flex items-center justify-center gap-2">
                     <span
@@ -299,34 +367,70 @@ export const ATSCheckerTool = () => {
                   </span>
                 </div>
 
-                {/* Keywords Matched vs Missing */}
-                <div className="space-y-3">
+                {/* Section Completeness Bar */}
+                <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-900">Keywords Detected ({result.matchedKeywords.length})</span>
-                    <span className="text-emerald-600 font-bold">Good Match</span>
+                    <span className="font-bold text-slate-900">Standard ATS Sections</span>
+                    <span className="text-slate-500 font-semibold">{result.wordCount} words</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {['Summary', 'Skills', 'Experience', 'Projects', 'Education'].map((sec) => {
+                      const found = result.sectionsFound.includes(sec);
+                      return (
+                        <span
+                          key={sec}
+                          className={`px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 border ${
+                            found
+                              ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                              : 'bg-rose-50 border-rose-200 text-rose-700'
+                          }`}
+                        >
+                          {found ? <Check size={10} /> : <X size={10} />} {sec}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Keywords Matched */}
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-900">
+                      Keywords Detected ({result.matchedKeywords.length})
+                    </span>
+                    <span className="text-emerald-600 font-bold">Matched</span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {result.matchedKeywords.length > 0 ? (
                       result.matchedKeywords.map((kw) => (
-                        <span key={kw} className="px-2 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold flex items-center gap-1">
+                        <span
+                          key={kw}
+                          className="px-2 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold flex items-center gap-1"
+                        >
                           <Check size={11} /> {kw}
                         </span>
                       ))
                     ) : (
-                      <span className="text-xs text-slate-400 italic">No role keywords detected</span>
+                      <span className="text-xs text-slate-400 italic">No target keywords detected</span>
                     )}
                   </div>
                 </div>
 
+                {/* Missing Keywords */}
                 {result.missingKeywords.length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-slate-900">Missing Core Keywords ({result.missingKeywords.length})</span>
+                      <span className="font-bold text-slate-900">
+                        Missing Keywords ({result.missingKeywords.length})
+                      </span>
                       <span className="text-rose-500 font-bold">Add to Resume</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      {result.missingKeywords.slice(0, 10).map((kw) => (
-                        <span key={kw} className="px-2 py-1 rounded-md bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-semibold flex items-center gap-1">
+                      {result.missingKeywords.slice(0, 12).map((kw) => (
+                        <span
+                          key={kw}
+                          className="px-2 py-1 rounded-md bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-semibold flex items-center gap-1"
+                        >
                           <X size={11} /> {kw}
                         </span>
                       ))}
@@ -334,27 +438,33 @@ export const ATSCheckerTool = () => {
                   </div>
                 )}
 
-                {/* Strengths & Action items */}
+                {/* Risks & Strengths */}
                 <div className="space-y-2 pt-2 border-t border-slate-100 text-xs">
                   {result.risks.map((risk, i) => (
-                    <div key={i} className="flex items-start gap-2 text-rose-700 bg-rose-50/70 p-2.5 rounded-xl border border-rose-100">
+                    <div
+                      key={i}
+                      className="flex items-start gap-2 text-rose-700 bg-rose-50/70 p-2.5 rounded-xl border border-rose-100"
+                    >
                       <AlertTriangle size={15} className="shrink-0 mt-0.5 text-rose-500" />
                       <span>{risk}</span>
                     </div>
                   ))}
                   {result.strengths.map((s, i) => (
-                    <div key={i} className="flex items-start gap-2 text-emerald-800 bg-emerald-50/70 p-2.5 rounded-xl border border-emerald-100">
+                    <div
+                      key={i}
+                      className="flex items-start gap-2 text-emerald-800 bg-emerald-50/70 p-2.5 rounded-xl border border-emerald-100"
+                    >
                       <CheckCircle2 size={15} className="shrink-0 mt-0.5 text-emerald-600" />
                       <span>{s}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* Conversion Action Buttons */}
-                <div className="pt-4 space-y-3">
+                {/* Conversion Buttons */}
+                <div className="pt-3 space-y-3">
                   <a href={bookRewriteUrl} target="_blank" rel="noopener noreferrer" className="block">
                     <Button className="w-full h-12 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-xs shadow-lg shadow-green-500/25">
-                      <MessageCircle size={16} className="mr-1.5" /> Book Expert Rewrite on WhatsApp (₹999)
+                      <MessageCircle size={16} className="mr-1.5" /> Fix Missing Keywords with Vamshi
                     </Button>
                   </a>
 
@@ -368,14 +478,10 @@ export const ATSCheckerTool = () => {
                     </button>
 
                     {copiedShare && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-semibold flex items-start gap-1.5 shadow-xs"
-                      >
+                      <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-semibold flex items-start gap-1.5">
                         <Check size={14} className="text-emerald-600 shrink-0 mt-0.5" />
-                        <span>Post text with SmartScaleTech review copied to clipboard! Paste it into LinkedIn.</span>
-                      </motion.div>
+                        <span>Post text copied to clipboard! Paste it into LinkedIn.</span>
+                      </div>
                     )}
 
                     <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 px-1">
@@ -391,18 +497,14 @@ export const ATSCheckerTool = () => {
                         onClick={copyShareTextOnly}
                         className="flex items-center gap-1 text-slate-600 hover:text-slate-900 font-semibold cursor-pointer"
                       >
-                        <Copy size={12} /> Copy Post Text
+                        <Copy size={12} /> Copy Text
                       </button>
                     </div>
 
                     {showSharePreview && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] font-mono text-slate-700 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto shadow-inner"
-                      >
+                      <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] font-mono text-slate-700 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
                         {getLinkedInShareText()}
-                      </motion.div>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -412,12 +514,18 @@ export const ATSCheckerTool = () => {
                 <div className="h-16 w-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
                   <TrendingUp size={28} />
                 </div>
-                <h4 className="text-lg font-black text-slate-900">Instant AI &amp; Keyword Audit</h4>
+                <h3 className="text-lg font-black text-slate-900">
+                  {scanMode === 'jd'
+                    ? 'Resume vs. Job Description Audit'
+                    : 'Instant ATS & Keyword Audit'}
+                </h3>
                 <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
-                  Select your target role and paste your current draft. You will immediately see your ATS score, detected keywords, and recommendations.
+                  {scanMode === 'jd'
+                    ? 'Paste a live Job Description and your resume to see the exact skill gaps before you hit Apply.'
+                    : 'Select your target role and paste your resume draft. We check keywords, STAR metrics, action verbs, and ATS sections.'}
                 </p>
                 <div className="pt-2 text-[11px] font-bold text-slate-400">
-                  ⚡ Tested for Workday, Taleo, iCIMS, and Naukri.
+                  ⚡ Tested against Workday, Taleo, iCIMS, and Naukri parsing rules.
                 </div>
               </div>
             )}

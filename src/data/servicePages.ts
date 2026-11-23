@@ -104,7 +104,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'ATS resume writing is included in the Career Starter plan at ₹999 one-time, or ₹499 per month. That also covers LinkedIn optimisation, Naukri profile setup and GitHub optimisation.',
+      'ATS resume writing starts at ₹499 individually, or ₹1,500 in the Career Starter bundle (Save ₹396) covering LinkedIn optimisation, Naukri profile setup and GitHub optimisation.',
     faqs: [
       {
         q: 'How do I know if my resume is ATS-friendly?',
@@ -205,7 +205,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'LinkedIn optimization is included in Career Starter at ₹999 one-time, or ₹499 per month, alongside ATS resume writing, Naukri setup and GitHub optimisation.',
+      'LinkedIn optimization starts at ₹499 individually, or ₹1,500 in the Career Starter bundle (Save ₹396) alongside ATS resume writing, Naukri setup and GitHub optimisation.',
     faqs: [
       {
         q: 'How long does LinkedIn optimization take?',
@@ -235,7 +235,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'web-development-hyderabad',
     title: 'Web Development Services in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Custom web development in Hyderabad. Fast, SEO-ready business websites and web apps built in Hitech City. Pricing from ₹5,999. WhatsApp us today.',
+      'Custom web development in Hyderabad. Fast, SEO-ready business websites and web apps built in Hitech City. Pricing from ₹4,999 (or ₹6,000 Business Web + SEO bundle). WhatsApp us today.',
     badge: 'Tech Services',
     h1: 'Web Development Services',
     h1Highlight: 'in Hyderabad',
@@ -297,7 +297,7 @@ export const servicePages: Record<string, ServicePageData> = {
       },
       {
         title: 'Priced for Indian businesses',
-        desc: 'Business Web starts at ₹5,999 for five premium pages, with Google Maps and WhatsApp integration included.',
+        desc: 'Standalone custom websites start at ₹4,999, or ₹6,000 for the Business Web + Technical SEO & Google Search Console bundle (Save ₹998).',
       },
       {
         title: 'Hitech City based, working nationwide',
@@ -306,7 +306,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'Business Web starts at ₹5,999 one-time, or ₹2,999 per month, for five premium pages, custom lead forms, SEO and Google Maps setup, WhatsApp integration and a performance audit.',
+      'Business Web + SEO bundle is ₹6,000 one-time (Save ₹998 off ₹6,998), covering five responsive pages, custom lead forms, Technical SEO & Google Maps/Search Console setup, WhatsApp integration and a performance audit.',
     faqs: [
       {
         q: 'How long does a business website take?',
@@ -437,7 +437,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'portfolio-website-hyderabad',
     title: 'Portfolio Website Development in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Recruiter-ready portfolio websites in Hyderabad. Animated, fast and linked to your resume. Built in Hitech City with free cloud deployment setup. From ₹2,999.',
+      'Recruiter-ready portfolio websites in Hyderabad. Animated, fast and linked to your resume. Built in Hitech City with free cloud deployment setup. From ₹1,999 (or ₹3,000 Portfolio Launch bundle).',
     badge: 'Tech Services',
     h1: 'Portfolio Website Development',
     h1Highlight: 'in Hyderabad',
@@ -509,7 +509,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'Portfolio Launch is ₹2,999 one-time, or ₹1,999 per month, and includes the animated portfolio website, ATS resume writing, LinkedIn and GitHub preparation, SEO optimisation and complete deployment setup.',
+      'Portfolio Launch is ₹3,000 one-time (Save ₹396 off ₹3,396), and includes the animated portfolio website, ATS resume writing, LinkedIn and GitHub preparation, SEO optimisation and complete deployment setup.',
     faqs: [
       {
         q: 'Do I need a portfolio if I have a GitHub profile?',

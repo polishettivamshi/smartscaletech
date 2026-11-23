@@ -182,10 +182,58 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
 
 export const SERVICE_SHOWCASES: ServiceShowcase[] = [
   {
+    id: 'interview-coaching',
+    serviceTitle: 'Interview Coaching',
+    category: 'Career Branding',
+    image: '/assets/aistudio/interview_coaching_72395159.webp',
+    imageAlt:
+      '1-on-1 Interview Coaching with mock interviews, personalized feedback, resume tips and confidence coaching',
+    badgeLabel: '1-on-1 Coaching',
+    summary:
+      'Prepare, practice, and perform in technical and HR rounds with realistic mock interviews, actionable feedback, and profile alignment.',
+    improvements: [
+      'Realistic 1-on-1 technical & HR mock interview sessions',
+      'Personalized answer structuring & confidence-building feedback',
+      'Resume & project storytelling alignment for top tech roles',
+    ],
+  },
+  {
+    id: 'cover-letter-mastery',
+    serviceTitle: 'Cover Letter Mastery',
+    category: 'Career Branding',
+    image: '/assets/aistudio/Cover_Letter_Mastery_Illustration_4198fb9f.webp',
+    imageAlt:
+      'Cover Letter Mastery tailored to target job descriptions for higher recruiter shortlisting',
+    badgeLabel: 'Role-Tailored',
+    summary:
+      'Persuasive, role-specific cover letters engineered to pair seamlessly with your ATS resume and stand out to hiring managers.',
+    improvements: [
+      'Targeted value hook aligned with the exact job description',
+      'Concise achievement storytelling highlighting measurable impact',
+      'Clean editable format ready for portals, LinkedIn & direct emails',
+    ],
+  },
+  {
+    id: 'salary-negotiation',
+    serviceTitle: 'Salary Negotiation Tips',
+    category: 'Career Branding',
+    image: '/assets/aistudio/Salary_Negotiation_Tips_Infographic_1aad5edc.webp',
+    imageAlt:
+      'Salary Negotiation Tips infographic covering CTC benchmarking, counter-offers and compensation strategy',
+    badgeLabel: 'Offer Strategy',
+    summary:
+      'Structured compensation coaching and counter-offer scripts to maximize your base pay, joining bonus, and equity package.',
+    improvements: [
+      'Market CTC benchmarking for your experience & target city',
+      'Word-for-word HR counter-offer email & call negotiation scripts',
+      'Total compensation breakdown across fixed pay, bonus & ESOPs',
+    ],
+  },
+  {
     id: 'final-year-projects',
     serviceTitle: 'Final Year Projects',
     category: 'Tech & Design',
-    image: '/assets/aistudio/final_year_projects_d6bbf1cd.webp',
+    image: '/assets/aistudio/Final_Year_Projects__Ideas_in_Code_c262fb23.webp',
     imageAlt:
       'Final Year Projects for B.Tech, M.Tech and MCA students with Python, Java, MERN, AI/ML implementation and viva support',
     badgeLabel: 'End-to-End Build',
@@ -197,6 +245,22 @@ export const SERVICE_SHOWCASES: ServiceShowcase[] = [
       'Live deployment walkthrough & 1-on-1 viva defense coaching',
     ],
     serviceSlug: '/final-year-projects-hyderabad',
+  },
+  {
+    id: 'ai-integration',
+    serviceTitle: 'AI Integration',
+    category: 'Tech & Design',
+    image: '/assets/aistudio/AI_Integration_Tech_Illustration_b5cebfe1.webp',
+    imageAlt:
+      'Custom AI Integration with intelligent chatbots, workflow automation and database connectivity',
+    badgeLabel: 'AI Automation',
+    summary:
+      'Custom AI workflows, RAG search systems, and domain-trained assistants integrated directly into your product or operations stack.',
+    improvements: [
+      'Custom LLM chatbots & automated lead/support qualification flows',
+      'Document indexing, knowledge-base search & structured extraction',
+      'Secure backend API orchestration with cloud observability',
+    ],
   },
   {
     id: 'web-development',
@@ -214,6 +278,86 @@ export const SERVICE_SHOWCASES: ServiceShowcase[] = [
       'Secure architecture, deployment & ongoing maintenance support',
     ],
     serviceSlug: '/web-development-hyderabad',
+  },
+  {
+    id: 'api-development',
+    serviceTitle: 'API Development & Integration',
+    category: 'Tech & Design',
+    image: '/assets/aistudio/API_Development_and_Integration_Infographic_b3aa9d6c.webp',
+    imageAlt:
+      'API Development & Third-Party API Integration including payments, maps, databases and webhooks',
+    badgeLabel: 'Backend APIs',
+    summary:
+      'High-throughput REST & GraphQL APIs plus reliable third-party integrations (payment gateways, maps, CRMs, webhooks, and cloud storage).',
+    improvements: [
+      'Scalable FastAPI / Node.js / Django APIs with OpenAPI docs & JWT auth',
+      'Third-party payment, maps, email, SMS & webhook integrations',
+      'Rate limiting, database connection pooling & fault-tolerant retries',
+    ],
+  },
+  {
+    id: 'cloud-devops',
+    serviceTitle: 'Cloud Deployment & DevOps',
+    category: 'Tech & Design',
+    image: '/assets/aistudio/Cloud_Deployment___DevOps_Infographic_21d73257.webp',
+    imageAlt:
+      'Cloud Deployment & DevOps with Docker, Kubernetes, CI/CD pipelines and server monitoring',
+    badgeLabel: 'CI/CD & Cloud',
+    summary:
+      'Zero-downtime cloud deployments using Docker, Kubernetes, automated CI/CD pipelines, HTTPS routing, and uptime monitoring.',
+    improvements: [
+      'Docker containerization & automated GitHub Actions CI/CD pipelines',
+      'AWS / GCP / Vercel / VPS production setup with SSL & reverse proxy',
+      'Log monitoring, automated backups & auto-scaling readiness',
+    ],
+  },
+  {
+    id: 'content-strategy',
+    serviceTitle: 'Content Strategy',
+    category: 'Marketing & Strategy',
+    image: '/assets/aistudio/Content_Strategy_Planning_Illustration_8d124a95.webp',
+    imageAlt:
+      'Content Strategy Planning with editorial calendars, target audience mapping and SEO topics',
+    badgeLabel: 'Growth Content',
+    summary:
+      'Data-backed editorial roadmaps, search-intent topic clusters, and high-converting landing copy built to establish authority.',
+    improvements: [
+      'Monthly content calendar mapped to high-intent buyer keywords',
+      'Conversion-focused website copy, case studies & LinkedIn posts',
+      'Clear KPI tracking across organic reach, leads & engagement',
+    ],
+  },
+  {
+    id: 'ad-campaigns',
+    serviceTitle: 'Ad Campaigns',
+    category: 'Marketing & Strategy',
+    image: '/assets/aistudio/Ad_Campaigns_Marketing_Illustration_e01f5573.webp',
+    imageAlt:
+      'Ad Campaigns across Google Ads, Meta Ads and YouTube with ROI-focused targeting',
+    badgeLabel: 'Paid Growth',
+    summary:
+      'ROI-driven Google, Meta, and YouTube ad campaigns engineered with tight audience targeting, creative testing, and conversion tracking.',
+    improvements: [
+      'High-intent Google Search & Meta lead-generation campaign setup',
+      'Pixel & conversion API tracking for accurate cost-per-lead ROI',
+      'A/B tested ad creatives paired with conversion-ready landing pages',
+    ],
+  },
+  {
+    id: 'brand-identity',
+    serviceTitle: 'Brand Identity',
+    category: 'Marketing & Strategy',
+    image: '/assets/aistudio/Brand_Identity_Design_System_2afc4b6a.webp',
+    imageAlt:
+      'Brand Identity Design System covering logo design, color palette, typography and brand assets',
+    badgeLabel: 'Design System',
+    summary:
+      'Cohesive visual identity systems covering custom logos, color palettes, typography pairings, and ready-to-use brand collateral.',
+    improvements: [
+      'Original vector logo suite tailored for digital & print clarity',
+      'Curated brand color system, font pairing & UI component tokens',
+      'Social media banners, business cards & shareable brand guidelines',
+    ],
   },
 ];
 

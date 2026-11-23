@@ -115,7 +115,7 @@ export const PaymentModal = ({ isOpen, onClose, planName, amount }: PaymentModal
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Rahul Sharma"
+                        placeholder="Enter your name"
                         className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
                       />
                     </div>

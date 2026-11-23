@@ -67,9 +67,29 @@ const ROUTE_METADATA = {
     h1: 'Freelance Portfolio Website Development in Hyderabad'
   },
   'free-ats-resume-checker': {
-    title: 'Free ATS Resume Checker & Scanner | Smart Scale Tech',
-    description: 'Check your resume score on ATS scanners (Workday, Greenhouse, Taleo) for free. Get instant score, keyword gaps, and formatting suggestions.',
-    h1: 'Free ATS Resume Checker & Score Scanner'
+    title: 'Free ATS Resume Checker & Job Description Matcher | Smart Scale Tech',
+    description: 'Check your resume score on ATS scanners (Workday, Greenhouse, Taleo, Naukri) free in 10 seconds. Compare your resume directly against any Job Description.',
+    h1: 'Free ATS Resume Checker & Job Description Matcher'
+  },
+  'ats-checker': {
+    title: 'Free ATS Resume Checker & Job Description Matcher | Smart Scale Tech',
+    description: 'Check your resume score on ATS scanners (Workday, Greenhouse, Taleo, Naukri) free in 10 seconds. Compare your resume directly against any Job Description.',
+    h1: 'Free ATS Resume Checker & Job Description Matcher'
+  },
+  'linkedin-headline-generator': {
+    title: 'Free LinkedIn & Naukri Headline Generator | Smart Scale Tech',
+    description: 'Generate 4 recruiter-searchable LinkedIn and Naukri headlines under 220 characters plus a matching About section tailored to your role and skills.',
+    h1: 'Free LinkedIn & Naukri Headline Generator'
+  },
+  'job-readiness-audit': {
+    title: 'Free 60-Second Job Readiness Audit | Smart Scale Tech',
+    description: 'Score your resume ATS health, LinkedIn visibility, Naukri strength, and portfolio readiness in 60 seconds and fix what blocks interview calls.',
+    h1: 'Free 60-Second Job Readiness Audit'
+  },
+  'custom-package-builder': {
+    title: 'Custom Service Package & Price Estimator | Smart Scale Tech',
+    description: 'Build your own ATS resume, LinkedIn optimization, portfolio website, or web development bundle and unlock automatic 10% to 20% bundle discounts.',
+    h1: 'Custom Career & Tech Package Builder'
   },
   'privacy-policy': {
     title: 'Privacy Policy | Smart Scale Tech',
@@ -111,7 +131,8 @@ for (const route of routes) {
     fs.mkdirSync(targetDir, { recursive: true });
   }
 
-  const pageUrl = `${SITE_URL}/${route}`;
+  const canonicalRoute = route === 'ats-checker' ? 'free-ats-resume-checker' : route;
+  const pageUrl = `${SITE_URL}/${canonicalRoute}`;
 
   let pageHtml = template
     // Unique Title

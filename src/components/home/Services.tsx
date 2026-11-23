@@ -102,7 +102,7 @@ const services: ServiceGroup[] = [
         title: "Final Year Projects",
         desc: "Complete end-to-end development of academic projects with scalable architecture and documentation.",
         icon: <GraduationCap size={20} className="text-cyan-600" />,
-        link: "/final-year-projects-hyderabad"
+        link: "/final-year-projects"
       },
       {
         title: "Personal Portfolios",
@@ -167,26 +167,99 @@ const services: ServiceGroup[] = [
   }
 ];
 
+type AudiencePath = 'all' | 'job-seekers' | 'business';
+
 export const Services = () => {
   const [selectedVisual, setSelectedVisual] =
     useState<ServiceVisual | null>(null);
+  const [audiencePath, setAudiencePath] = useState<AudiencePath>('all');
+
+  const JOB_SEEKER_TITLES = new Set([
+    'ATS Resume Writing',
+    'LinkedIn Optimization',
+    'Naukri Profile Optimization',
+    'Indeed Profile Optimization',
+    'Interview Coaching',
+    'Github & Portfolio Audit',
+    'Cover Letter Mastery',
+    'Salary Negotiation Tips',
+    'Final Year Projects',
+    'Personal Portfolios',
+  ]);
+
+  const BUSINESS_TITLES = new Set([
+    'Web Development',
+    'UI/UX Design',
+    'AI Integration',
+    'API Development & Integration',
+    'Cloud Deployment & DevOps',
+    'SEO & Growth',
+    'Content Strategy',
+    'Ad Campaigns',
+    'Brand Identity',
+  ]);
+
+  const filteredGroups = services
+    .map((group) => ({
+      ...group,
+      items: group.items.filter((item) => {
+        if (audiencePath === 'all') return true;
+        if (audiencePath === 'job-seekers') return JOB_SEEKER_TITLES.has(item.title);
+        return BUSINESS_TITLES.has(item.title);
+      }),
+    }))
+    .filter((group) => group.items.length > 0);
 
   return (
     <section id="services" className="py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">SmartScaleTech Services in Hitech City, Hyderabad</h2>
-          <p className="text-slate-500">ATS resume writing, LinkedIn optimization, web development, UI/UX design, and SEO services for job seekers and businesses in Hitech City, Hyderabad, India.</p>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
+          <div className="max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">
+              Dual-Track Services
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3 tracking-tight">
+              Choose Your Path: Career Growth or Business Web
+            </h2>
+            <p className="text-slate-500 text-sm sm:text-base">
+              ATS resume writing, LinkedIn optimization, final year projects, custom web development, and SEO in Hitech City, Hyderabad.
+            </p>
+          </div>
+
+          {/* Dual-Audience Segmented Filter */}
+          <div className="inline-flex flex-wrap items-center gap-1 p-1.5 rounded-2xl bg-slate-100 border border-slate-200/80 self-start lg:self-auto">
+            {[
+              { id: 'all' as const, label: 'All Services (19)' },
+              { id: 'job-seekers' as const, label: 'Job Seekers & Students' },
+              { id: 'business' as const, label: 'Businesses & Startups' },
+            ].map((tab) => {
+              const active = audiencePath === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setAudiencePath(tab.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                    active
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="space-y-24">
-          {services.map((group, groupIdx) => (
-            <div key={groupIdx}>
-              <div className="flex items-center gap-3 mb-12 border-b border-slate-100 pb-6">
+        <div className="space-y-20">
+          {filteredGroups.map((group) => (
+            <div key={group.category}>
+              <div className="flex items-center gap-3 mb-10 border-b border-slate-100 pb-5">
                 <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-100 text-slate-900 shadow-sm">
                   {group.icon}
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 uppercase tracking-wider">{group.category}</h3>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">{group.category}</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
@@ -237,7 +310,7 @@ export const Services = () => {
                               src={visual.image}
                               alt={visual.imageAlt}
                               loading="lazy"
-                              className="w-full aspect-video object-cover object-top transition-transform duration-300 group-hover/img:scale-105"
+                              className="w-full aspect-video object-cover object-center transition-transform duration-300 group-hover/img:scale-105"
                             />
                             <div className="px-3 py-2 flex items-center justify-between bg-slate-50 text-[11px] font-bold text-slate-700 group-hover/img:text-primary">
                               <span className="inline-flex items-center gap-1">

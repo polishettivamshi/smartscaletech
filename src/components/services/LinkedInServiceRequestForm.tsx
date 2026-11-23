@@ -88,11 +88,13 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [generatedUrls, setGeneratedUrls] = useState<{ whatsapp: string; mailto: string; summary: string } | null>(null);
   const [copied, setCopied] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    if (errorMessage) setErrorMessage(null);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -101,15 +103,28 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
   };
 
   const handleSubmit = async (preferredChannel: 'whatsapp' | 'email') => {
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.email.trim()) {
-      alert('Please fill in your Name, Phone Number, and Email Address.');
+    const cleanName = formData.name.trim();
+    const cleanPhone = formData.phone.trim();
+    const cleanEmail = formData.email.trim();
+
+    if (!cleanName || !cleanPhone || !cleanEmail) {
+      setErrorMessage('Please fill in your Name, Phone Number, and Email Address.');
       return;
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    setErrorMessage(null);
     setIsSubmitting(true);
     try {
       const { whatsappUrl, mailtoUrl, summaryText } = await submitLinkedInServiceRequest({
         ...formData,
+        name: cleanName,
+        phone: cleanPhone,
+        email: cleanEmail,
         sourcePage,
       });
 
@@ -124,12 +139,9 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
       if (preferredChannel === 'whatsapp') {
         window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      } else {
-        window.location.href = mailtoUrl;
       }
-    } catch (err) {
-      console.error('Submission failed:', err);
-      alert('Failed to submit request. Please reach out to us directly on WhatsApp: +91 90008 59695');
+    } catch {
+      setErrorMessage('Failed to submit request. Please reach out directly on WhatsApp: +91 90008 59695');
     } finally {
       setIsSubmitting(false);
     }
@@ -296,7 +308,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="e.g. Rahul Sharma"
+                  placeholder="e.g. Enter your name"
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
                 />
               </div>
@@ -332,7 +344,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="e.g. rahul@example.com"
+                  placeholder="e.g. yourname@gmail.com"
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
                 />
               </div>
@@ -349,7 +361,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
                   name="linkedInUrl"
                   value={formData.linkedInUrl}
                   onChange={handleChange}
-                  placeholder="e.g. linkedin.com/in/rahul-sharma"
+                  placeholder="e.g. linkedin.com/in/your-profile"
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-[#0A66C2] focus:ring-2 focus:ring-[#0A66C2]/20 bg-slate-50/50"
                 />
               </div>
@@ -483,6 +495,15 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
             </p>
           </div>
         </div>
+
+        {errorMessage && (
+          <div
+            role="alert"
+            className="rounded-2xl bg-rose-50 border border-rose-200 px-4 py-3 text-xs sm:text-sm font-semibold text-rose-700"
+          >
+            {errorMessage}
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-4">

@@ -13,6 +13,7 @@ interface BookingModalProps {
 export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const [whatsappLink, setWhatsappLink] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -22,12 +23,20 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const cleanName = formData.name.trim();
+    const cleanPhone = formData.phone.trim();
+    if (!cleanName || !cleanPhone) {
+      setFormError('Please enter your name and WhatsApp number.');
+      return;
+    }
+
+    setFormError(null);
     setIsSubmitting(true);
 
     try {
       const { whatsappUrl } = await submitLead({
-        name: formData.name.trim(),
-        phone: formData.phone.trim(),
+        name: cleanName,
+        phone: cleanPhone,
         service: planName || 'General Inquiry',
         sourcePage: window.location.pathname || '/',
         note: `Level: ${formData.experienceLevel}`,
@@ -39,11 +48,11 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
       // Attempt to open WhatsApp window safely
       try {
         window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      } catch (err) {
-        console.warn('Popup blocked:', err);
+      } catch {
+        // Ignore popup block; direct button is shown below
       }
-    } catch (err) {
-      console.error('Lead submission failed:', err);
+    } catch {
+      setFormError('Unable to submit right now. Please message +91 90008 59695 on WhatsApp.');
     } finally {
       setIsSubmitting(false);
     }
@@ -135,7 +144,7 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-slate-400"
-                          placeholder="e.g. Rahul Sharma"
+                          placeholder="e.g. User Name"
                         />
                       </div>
                     </div>
@@ -175,6 +184,15 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                         <option value="Business / Founder">Business / Founder (Website/UI)</option>
                       </select>
                     </div>
+
+                    {formError && (
+                      <div
+                        role="alert"
+                        className="rounded-xl bg-rose-50 border border-rose-200 px-3 py-2 text-xs font-semibold text-rose-700"
+                      >
+                        {formError}
+                      </div>
+                    )}
 
                     <Button
                       type="submit"

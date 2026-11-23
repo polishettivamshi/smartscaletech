@@ -1,7 +1,6 @@
 /**
  * Lead capture utility for SmartScaleTech.
- * Stores leads locally in localStorage and sends to a webhook (e.g. Google Sheet / Formspree) if configured.
- * Also formats WhatsApp and Email notifications so founder Vamshi receives request data instantly.
+ * Sends service requests to backend/webhook if configured and formats WhatsApp/Email dispatch links.
  */
 
 import { trackEvent } from './analytics';
@@ -26,27 +25,31 @@ export interface Lead {
   note?: string;
 }
 
-const STORAGE_KEY = 'smartscaletech_leads_v1';
+const LEGACY_STORAGE_KEY = 'smartscaletech_leads_v1';
 export const FOUNDER_WHATSAPP = '919000859695';
 export const FOUNDER_EMAIL = 'smartscaletechforyou@gmail.com';
 
-export function getStoredLeads(): Lead[] {
+function clearLegacyLeadStorage(): void {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    console.error('Failed to read leads from storage:', e);
-    return [];
+    if (typeof window !== 'undefined' && window.localStorage.getItem(LEGACY_STORAGE_KEY)) {
+      window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+    }
+  } catch {
+    // Ignore storage access errors
   }
 }
 
-export function saveLeadLocally(lead: Lead): void {
+function isSafeWebhookUrl(rawUrl: unknown): rawUrl is string {
+  if (typeof rawUrl !== 'string' || !rawUrl.trim()) return false;
   try {
-    const current = getStoredLeads();
-    const updated = [lead, ...current];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  } catch (e) {
-    console.error('Failed to save lead locally:', e);
+    const parsed = new URL(rawUrl.trim());
+    return (
+      parsed.protocol === 'https:' ||
+      (parsed.protocol === 'http:' &&
+        (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'))
+    );
+  } catch {
+    return false;
   }
 }
 
@@ -99,6 +102,8 @@ export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestP
   mailtoUrl: string;
   summaryText: string;
 }> {
+  clearLegacyLeadStorage();
+
   const lead: Lead = {
     ...data,
     id: `req_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
@@ -112,11 +117,9 @@ export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestP
     ].filter(Boolean).join(' | '),
   };
 
-  // 1. Save to local storage inbox
-  saveLeadLocally(lead);
   trackEvent('form_submit', { service: lead.service, sourcePage: lead.sourcePage, type: 'linkedin_service_request' });
 
-  // 2. Dispatch to backend API
+  // 1. Dispatch to backend API
   try {
     await fetch('/api/service-request', {
       method: 'POST',
@@ -127,11 +130,11 @@ export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestP
     console.warn('Backend service request post error, continuing with client dispatch:', err);
   }
 
-  // 3. Format WhatsApp link
+  // 2. Format WhatsApp link
   const summaryText = formatServiceRequestText(data, lead.timestamp);
   const whatsappUrl = `https://wa.me/${FOUNDER_WHATSAPP}?text=${encodeURIComponent(summaryText)}`;
 
-  // 4. Format direct mailto link to smartscaletechforyou@gmail.com
+  // 3. Format direct mailto link to smartscaletechforyou@gmail.com
   const emailSubject = `[LinkedIn Service Request] ${data.service} - ${data.name}`;
   const emailBody = `Hello SmartScaleTech Team,\n\nI would like to submit a service request:\n\n` +
     `Service: ${data.service}\n` +
@@ -155,19 +158,19 @@ export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestP
 }
 
 export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Promise<{ lead: Lead; whatsappUrl: string }> {
+  clearLegacyLeadStorage();
+
   const lead: Lead = {
     ...leadData,
     id: `lead_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
     timestamp: new Date().toISOString(),
   };
 
-  // 1. Always save locally so no lead is lost
-  saveLeadLocally(lead);
   trackEvent('form_submit', { service: lead.service, sourcePage: lead.sourcePage });
 
-  // 2. Dispatch to custom webhook if configured (Google Sheet Webhook, Formspree, etc.)
+  // 1. Dispatch to custom webhook if configured with a safe HTTPS endpoint
   const webhookUrl = (import.meta as any).env?.VITE_LEAD_WEBHOOK_URL;
-  if (webhookUrl) {
+  if (isSafeWebhookUrl(webhookUrl)) {
     try {
       await fetch(webhookUrl, {
         method: 'POST',
@@ -176,7 +179,7 @@ export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Prom
         mode: 'no-cors',
       });
     } catch (err) {
-      console.warn('Webhook post failed, lead saved locally:', err);
+      console.warn('Webhook post failed, continuing with WhatsApp dispatch:', err);
     }
   }
 

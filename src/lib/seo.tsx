@@ -8,8 +8,12 @@ interface SEOProps {
   title: string;
   description: string;
   path: string;
+  keywords?: string;
   jsonLd?: JsonLd[];
 }
+
+const DEFAULT_KEYWORDS =
+  'sst, sst smart scale tech, sst hyderabad, smart scale tech, smartscaletech, smart scale tech official website, free ats resume checker, ats resume writing hyderabad, linkedin profile optimization hyderabad, web development hyderabad, final year projects hyderabad';
 
 function setMeta(attr: 'name' | 'property', key: string, content: string): void {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
@@ -44,9 +48,9 @@ function syncHomeFaqSchema(isHome: boolean): void {
 
 /**
  * Per-route head manager. Googlebot renders client-side JS, so it reads the
- * title, description, canonical and JSON-LD this injects on mount.
+ * title, description, keywords, canonical and JSON-LD this injects on mount.
  */
-export const SEO = ({ title, description, path, jsonLd = [] }: SEOProps) => {
+export const SEO = ({ title, description, path, keywords, jsonLd = [] }: SEOProps) => {
   const jsonLdString = JSON.stringify(jsonLd);
 
   useEffect(() => {
@@ -56,6 +60,7 @@ export const SEO = ({ title, description, path, jsonLd = [] }: SEOProps) => {
     syncHomeFaqSchema(path === '/');
 
     setMeta('name', 'description', description);
+    setMeta('name', 'keywords', keywords || DEFAULT_KEYWORDS);
     setMeta('property', 'og:title', title);
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:url', url);
@@ -81,7 +86,7 @@ export const SEO = ({ title, description, path, jsonLd = [] }: SEOProps) => {
     });
 
     return () => created.forEach((script) => script.remove());
-  }, [title, description, path, jsonLdString]);
+  }, [title, description, path, keywords, jsonLdString]);
 
   return null;
 };

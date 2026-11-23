@@ -1,57 +1,98 @@
-import { Users, Rocket, TrendingUp } from 'lucide-react';
+import { MessageCircle, FileCode2, RefreshCw, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const HowItWorks = () => {
-  const steps = [
+  const timeline = [
     {
-      id: 1,
-      name: 'Free Consultation',
-      description: 'Discuss your goals with our experts and get a customized roadmap.',
-      icon: Users,
-      color: 'bg-primary/10 text-primary',
+      hour: 'Hour 0',
+      name: '10-Min WhatsApp Discovery Brief',
+      deliverable: 'Goal & Scope Locked',
+      description:
+        'Share your current resume, target role, or business website goal directly with Founder Vamshi on WhatsApp—no lengthy forms.',
+      icon: MessageCircle,
+      color: 'bg-emerald-50 text-emerald-600 border-emerald-200/70',
     },
     {
-      id: 2,
-      name: 'Strategic Execution',
-      description: 'We build your website, optimize your profile, and craft your brand.',
-      icon: Rocket,
-      color: 'bg-accent/10 text-accent',
+      hour: 'Hour 12',
+      name: 'First ATS Draft or Live Wireframe',
+      deliverable: 'Reviewable Prototype',
+      description:
+        'Receive your restructured ATS keyword resume draft or interactive portfolio/website wireframe so we align early on direction.',
+      icon: FileCode2,
+      color: 'bg-primary/10 text-primary border-primary/20',
     },
     {
-      id: 3,
-      name: 'Growth & Success',
-      description: 'Launch your digital presence and start seeing real-world results.',
-      icon: TrendingUp,
-      color: 'bg-emerald-100 text-emerald-600',
+      hour: 'Hour 24–36',
+      name: 'Unlimited 1-on-1 Revisions',
+      deliverable: '90+ ATS & Pixel Polish',
+      description:
+        'Fine-tune phrasing, metrics, visual layout, and mobile responsiveness together directly until every section passes review.',
+      icon: RefreshCw,
+      color: 'bg-indigo-50 text-indigo-600 border-indigo-200/70',
+    },
+    {
+      hour: 'Hour 48',
+      name: 'Complete Source & File Handover',
+      deliverable: 'Word, PDF & Live Deploy',
+      description:
+        'Walk away with editable Word + PDF files, full GitHub source code, and free ₹0/month cloud deployment with walkthrough.',
+      icon: CheckCircle2,
+      color: 'bg-amber-50 text-amber-600 border-amber-200/70',
     },
   ];
 
   return (
-    <section id="how-it-works" className="bg-slate-50/50 py-24">
+    <section id="how-it-works" className="bg-slate-50/70 py-24 border-y border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">How It Works</h2>
-          <p className="text-slate-500">Your journey to a powerful digital presence in 3 simple steps.</p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+          <div className="max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">
+              Fast, Transparent Execution
+            </p>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              Your 48-Hour Delivery Timeline
+            </h2>
+            <p className="mt-3 text-base text-slate-600">
+              From your first WhatsApp message to editable resumes, portfolios, and live websites—every milestone has a clear deliverable.
+            </p>
+          </div>
+
+          <a
+            href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%20I%20would%20like%20to%20start%20my%2048-hour%20delivery%20plan."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-primary text-white text-xs font-bold transition-colors whitespace-nowrap shrink-0 self-start md:self-auto"
+          >
+            Start Hour 0 on WhatsApp <ArrowRight size={14} />
+          </a>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
-          {steps.map((step, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {timeline.map((step, idx) => (
             <motion.div
-              key={step.name}
-              initial={{ opacity: 0, y: 20 }}
+              key={step.hour}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
+              transition={{ delay: idx * 0.08 }}
               viewport={{ once: true }}
-              className="relative flex flex-col items-center p-10 bg-white rounded-[40px] shadow-xl shadow-slate-200/50 border border-slate-100"
+              className="relative flex flex-col justify-between p-7 bg-white rounded-3xl shadow-sm border border-slate-200/80 hover:shadow-xl transition-all duration-300"
             >
-              <div className={`flex h-20 w-20 items-center justify-center rounded-[24px] ${step.color} mb-8`}>
-                <step.icon size={32} />
+              <div>
+                <div className="flex items-center justify-between gap-3 mb-6">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border ${step.color}`}>
+                    <step.icon size={22} />
+                  </div>
+                  <span className="text-sm font-black text-slate-900 tabular-nums">{step.hour}</span>
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-900 leading-snug">{step.name}</h3>
+                <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">{step.description}</p>
               </div>
-              <div className="absolute top-10 right-10 text-6xl font-black text-slate-100 opacity-50 select-none">
-                {step.id}
+
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-400 font-semibold">Output</span>
+                <span className="font-bold text-slate-900">{step.deliverable}</span>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900">{step.name}</h3>
-              <p className="mt-4 text-center text-slate-500 leading-relaxed">{step.description}</p>
             </motion.div>
           ))}
         </div>

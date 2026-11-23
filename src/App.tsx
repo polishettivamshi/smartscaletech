@@ -3,16 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Fragment, lazy, Suspense, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { FreeResumeAuditBanner } from './components/layout/FreeResumeAuditBanner';
 import { Hero } from './components/home/Hero';
 import { Services } from './components/home/Services';
 import { ResumeComparison } from './components/home/ResumeComparison';
+import { FreeToolsSection } from './components/home/FreeToolsSection';
 import { FounderSection } from './components/home/FounderSection';
-import { LinkedInCommunitySection } from './components/home/LinkedInCommunitySection';
 import { FreeATSCheckerPage } from './components/tools/FreeATSCheckerPage';
+import { LinkedInHeadlineGeneratorPage } from './components/tools/LinkedInHeadlineGeneratorPage';
+import { JobReadinessAuditPage } from './components/tools/JobReadinessAuditPage';
+import { CustomPackageBuilderPage } from './components/tools/CustomPackageBuilderPage';
 import { HowItWorks, PrivacyPolicy, TermsOfService } from './components/home/HomeSections';
 import { Pricing } from './components/home/Pricing';
 import { FAQ } from './components/home/FAQ';
@@ -26,6 +29,8 @@ import { CareerAssistantBot } from './components/chat/CareerAssistantBot';
 import { LinkedInServiceRequestPage } from './components/services/LinkedInServiceRequestPage';
 import { TrustGuaranteeBanner } from './components/home/TrustGuaranteeBanner';
 import { SampleShowcaseModal } from './components/home/SampleShowcaseModal';
+import { VerifiedBenchmarksSection } from './components/home/VerifiedBenchmarksSection';
+import { FinalYearProjectsPage } from './components/services/FinalYearProjectsPage';
 
 // Lazy-loaded so each service page's content stays out of the homepage bundle.
 const ServicePage = lazy(() =>
@@ -51,8 +56,9 @@ const RouteEffects = () => {
   if (pathname === '/') {
     return (
       <SEO
-        title="Smart Scale Tech | Official Website - ATS Resume Writing & Web Development Hyderabad"
-        description="Smart Scale Tech (SmartScaleTech) is the official website for ATS resume writing, LinkedIn profile optimization, and custom web development in Hitech City, Hyderabad, India."
+        title="Smart Scale Tech (SST) | SmartScaleTech - ATS Resume & Web Development Hyderabad"
+        description="Smart Scale Tech (SST / SmartScaleTech) is the official website for ATS resume writing, free ATS checker, LinkedIn optimization, final year projects & web development in Hitech City, Hyderabad."
+        keywords="sst, sst smart scale tech, sst hyderabad, smart scale tech, smart scale tech official website, smartscaletech, smart scale tech hyderabad, free ats resume checker, ats resume writing hyderabad, linkedin profile optimization hyderabad, web development hyderabad, portfolio website hyderabad, final year projects hyderabad"
         path="/"
       />
     );
@@ -61,8 +67,9 @@ const RouteEffects = () => {
   if (pathname === '/privacy-policy') {
     return (
       <SEO
-        title="Privacy Policy | SmartScaleTech"
-        description="How SmartScaleTech collects, uses and protects your information when you use our resume, LinkedIn and web development services."
+        title="Privacy Policy | Smart Scale Tech (SST)"
+        description="How Smart Scale Tech (SST / SmartScaleTech) collects, uses and protects your information when you use our resume, LinkedIn and web development services."
+        keywords="sst privacy policy, smart scale tech privacy policy, smartscaletech confidential resume writing"
         path="/privacy-policy"
       />
     );
@@ -71,8 +78,9 @@ const RouteEffects = () => {
   if (pathname === '/request-service' || pathname === '/linkedin-service-request') {
     return (
       <SEO
-        title="Request Services | Smart Scale Tech LinkedIn Portal"
-        description="Submit your service request for ATS resume writing, LinkedIn profile optimization, or web development directly to founder Vamshi via WhatsApp (+91 90008 59695) or email."
+        title="Request Services | Smart Scale Tech (SST) Hyderabad"
+        description="Submit your service request to Smart Scale Tech (SST) for ATS resume writing, LinkedIn profile optimization, final year projects, or web development via WhatsApp (+91 90008 59695)."
+        keywords="sst request service, smart scale tech contact, book ats resume hyderabad, smartscaletech proposal, linkedin optimization booking hyderabad"
         path="/request-service"
       />
     );
@@ -81,8 +89,9 @@ const RouteEffects = () => {
   if (pathname === '/terms-of-service') {
     return (
       <SEO
-        title="Terms of Service | SmartScaleTech"
-        description="The terms that apply to your use of SmartScaleTech and any resume writing, optimization or web development services requested through this site."
+        title="Terms of Service | Smart Scale Tech (SST)"
+        description="The terms that apply to your use of Smart Scale Tech (SST / SmartScaleTech) and any resume writing, optimization or web development services requested through this site."
+        keywords="sst terms of service, smart scale tech terms, smartscaletech hyderabad terms"
         path="/terms-of-service"
       />
     );
@@ -100,9 +109,10 @@ function HomePage() {
       <TrustGuaranteeBanner onOpenSamples={() => setIsSamplesOpen(true)} />
       <Services />
       <ResumeComparison />
-      <LinkedInCommunitySection />
+      <FreeToolsSection />
       <HowItWorks />
       <FounderSection />
+      <VerifiedBenchmarksSection onOpenSamples={() => setIsSamplesOpen(true)} />
       <Pricing />
       <FAQ />
       <CTASection />
@@ -127,20 +137,27 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/free-ats-resume-checker" element={<FreeATSCheckerPage />} />
+            <Route path="/ats-checker" element={<Navigate to="/free-ats-resume-checker" replace />} />
+            <Route path="/linkedin-headline-generator" element={<LinkedInHeadlineGeneratorPage />} />
+            <Route path="/job-readiness-audit" element={<JobReadinessAuditPage />} />
+            <Route path="/custom-package-builder" element={<CustomPackageBuilderPage />} />
+            <Route path="/final-year-projects" element={<FinalYearProjectsPage />} />
             <Route path="/request-service" element={<LinkedInServiceRequestPage />} />
             <Route path="/linkedin-service-request" element={<LinkedInServiceRequestPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/404" element={<NotFound />} />
             {serviceRoutes.map((slug) => (
-              <Route
-                path={`/${slug}`}
-                element={
-                  <Suspense fallback={<div className="min-h-[60vh]" />}>
-                    <ServicePage slug={slug} />
-                  </Suspense>
-                }
-              />
+              <Fragment key={slug}>
+                <Route
+                  path={`/${slug}`}
+                  element={
+                    <Suspense fallback={<div className="min-h-[60vh]" />}>
+                      <ServicePage slug={slug} />
+                    </Suspense>
+                  }
+                />
+              </Fragment>
             ))}
             <Route path="*" element={<NotFound />} />
           </Routes>
