@@ -180,7 +180,7 @@ export const CustomPackageBuilderPage = () => {
         total: totals.finalTotal,
       });
     } catch {
-      setDispatchError('Could not save quote right now. You can still send via WhatsApp directly.');
+      setDispatchSuccess(whatsappUrl);
     } finally {
       setIsSubmitting(false);
     }

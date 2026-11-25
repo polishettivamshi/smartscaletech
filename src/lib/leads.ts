@@ -71,75 +71,68 @@ export interface LinkedInServiceRequestPayload {
 }
 
 export function formatServiceRequestText(data: LinkedInServiceRequestPayload, timestamp?: string): string {
-  const timeStr = timestamp 
+  const timeStr = timestamp
     ? new Date(timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
     : new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-  return `💼 *NEW LINKEDIN SERVICE REQUEST* — SmartScaleTech
-━━━━━━━━━━━━━━━━━━━━━
-📋 *Requested Service:* ${data.service}
-👤 *Client Name:* ${data.name}
-📧 *Email:* ${data.email}
-📱 *WhatsApp/Phone:* ${data.phone}
-${data.linkedInUrl ? `🔗 *LinkedIn Profile:* ${data.linkedInUrl}` : ''}
-${data.currentRole ? `💼 *Current Role:* ${data.currentRole}` : ''}
-${data.companyOrCollege ? `🏢 *Company / College:* ${data.companyOrCollege}` : ''}
-${data.experienceLevel ? `📊 *Experience Level:* ${data.experienceLevel}` : ''}
-${data.targetRole ? `🎯 *Target Role/Domain:* ${data.targetRole}` : ''}
-${data.timeline ? `⏱️ *Required Timeline:* ${data.timeline}` : ''}
-${data.budget ? `💰 *Budget Range:* ${data.budget}` : ''}
-${data.resumeLink ? `📎 *Resume / Brief Link:* ${data.resumeLink}` : ''}
-${data.projectBrief ? `\n📝 *Project / Service Brief:*\n"${data.projectBrief}"` : ''}
-━━━━━━━━━━━━━━━━━━━━━
-⏰ *Submitted At:* ${timeStr}
-🌐 *Source:* ${data.sourcePage || 'LinkedIn Service Form'}
-_Please reply back directly via WhatsApp or Email._`;
+  const lines = [
+    '💼 *NEW SERVICE REQUEST* — SmartScaleTech',
+    '━━━━━━━━━━━━━━━━━━━━━',
+    `📋 *Requested Service:* ${data.service}`,
+    `👤 *Client Name:* ${data.name}`,
+    `📧 *Email:* ${data.email}`,
+    `📱 *WhatsApp/Phone:* ${data.phone}`,
+    data.linkedInUrl ? `🔗 *LinkedIn / Website:* ${data.linkedInUrl}` : '',
+    data.currentRole ? `💼 *Current Role:* ${data.currentRole}` : '',
+    data.companyOrCollege ? `🏢 *Company / College:* ${data.companyOrCollege}` : '',
+    data.experienceLevel ? `📊 *Experience Level:* ${data.experienceLevel}` : '',
+    data.targetRole ? `🎯 *Target Role/Domain:* ${data.targetRole}` : '',
+    data.timeline ? `⏱️ *Required Timeline:* ${data.timeline}` : '',
+    data.budget ? `💰 *Budget Range:* ${data.budget}` : '',
+    data.resumeLink ? `📎 *Resume / Brief Link:* ${data.resumeLink}` : '',
+    data.projectBrief ? `\n📝 *Project / Service Brief:*\n"${data.projectBrief}"` : '',
+    '━━━━━━━━━━━━━━━━━━━━━',
+    `⏰ *Submitted At:* ${timeStr}`,
+    `🌐 *Source:* ${data.sourcePage || 'Service Request Form'}`,
+    '_Please reply back directly via WhatsApp or Email._',
+  ];
+
+  return lines.filter(Boolean).join('\n');
 }
 
-export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestPayload): Promise<{
+export function buildServiceRequestDispatch(data: LinkedInServiceRequestPayload): {
   lead: Lead;
   whatsappUrl: string;
   mailtoUrl: string;
   summaryText: string;
-}> {
-  clearLegacyLeadStorage();
-
+} {
+  const timestamp = new Date().toISOString();
   const lead: Lead = {
     ...data,
     id: `req_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
-    timestamp: new Date().toISOString(),
+    timestamp,
     sourcePage: data.sourcePage || '/request-service',
     note: [
       data.linkedInUrl ? `LinkedIn: ${data.linkedInUrl}` : null,
       data.timeline ? `Timeline: ${data.timeline}` : null,
       data.budget ? `Budget: ${data.budget}` : null,
       data.projectBrief ? `Brief: ${data.projectBrief}` : null,
-    ].filter(Boolean).join(' | '),
+    ]
+      .filter(Boolean)
+      .join(' | '),
   };
 
-  trackEvent('form_submit', { service: lead.service, sourcePage: lead.sourcePage, type: 'linkedin_service_request' });
-
-  const response = await fetch('/api/service-request', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(lead),
-  });
-  if (!response.ok) {
-    throw new Error('Service request email delivery failed');
-  }
-
-  // 2. Format WhatsApp link
   const summaryText = formatServiceRequestText(data, lead.timestamp);
   const whatsappUrl = `https://wa.me/${FOUNDER_WHATSAPP}?text=${encodeURIComponent(summaryText)}`;
 
-  // 3. Format direct mailto link to smartscaletechforyou@gmail.com
-  const emailSubject = `[LinkedIn Service Request] ${data.service} - ${data.name}`;
-  const emailBody = `Hello SmartScaleTech Team,\n\nI would like to submit a service request:\n\n` +
+  const emailSubject = `[SmartScaleTech Request] ${data.service} - ${data.name}`;
+  const emailBody =
+    `Hello SmartScaleTech Team,\n\nI would like to submit a service request:\n\n` +
     `Service: ${data.service}\n` +
     `Name: ${data.name}\n` +
     `Email: ${data.email}\n` +
     `Phone/WhatsApp: ${data.phone}\n` +
-    (data.linkedInUrl ? `LinkedIn Profile: ${data.linkedInUrl}\n` : '') +
+    (data.linkedInUrl ? `LinkedIn / Website: ${data.linkedInUrl}\n` : '') +
     (data.currentRole ? `Current Role: ${data.currentRole}\n` : '') +
     (data.companyOrCollege ? `Company/College: ${data.companyOrCollege}\n` : '') +
     (data.experienceLevel ? `Experience Level: ${data.experienceLevel}\n` : '') +
@@ -155,6 +148,38 @@ export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestP
   return { lead, whatsappUrl, mailtoUrl, summaryText };
 }
 
+export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestPayload): Promise<{
+  lead: Lead;
+  whatsappUrl: string;
+  mailtoUrl: string;
+  summaryText: string;
+  emailDelivered: boolean;
+}> {
+  clearLegacyLeadStorage();
+
+  const dispatch = buildServiceRequestDispatch(data);
+
+  trackEvent('form_submit', {
+    service: dispatch.lead.service,
+    sourcePage: dispatch.lead.sourcePage,
+    type: 'linkedin_service_request',
+  });
+
+  let emailDelivered = false;
+  try {
+    const response = await fetch('/api/service-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dispatch.lead),
+    });
+    emailDelivered = response.ok;
+  } catch {
+    emailDelivered = false;
+  }
+
+  return { ...dispatch, emailDelivered };
+}
+
 export interface ProjectInquiryPayload {
   name: string;
   email: string;
@@ -166,9 +191,11 @@ export interface ProjectInquiryPayload {
   details: string;
 }
 
-export async function submitProjectInquiry(data: ProjectInquiryPayload): Promise<{
+export function buildProjectInquiryDispatch(data: ProjectInquiryPayload): {
   whatsappUrl: string;
-}> {
+  mailtoUrl: string;
+  projectBrief: string;
+} {
   const projectBrief = [
     `Course / Degree: ${data.course?.trim() || 'Not specified'}`,
     `Project domain: ${data.domain}`,
@@ -176,29 +203,6 @@ export async function submitProjectInquiry(data: ProjectInquiryPayload): Promise
     `Target deadline: ${data.deadline?.trim() || 'Not specified'}`,
     `Project requirements: ${data.details.trim()}`,
   ].join('\n');
-
-  const response = await fetch('/api/service-request', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name: data.name.trim(),
-      email: data.email.trim(),
-      phone: data.phone.trim(),
-      service: 'Final Year Project Inquiry',
-      timeline: data.deadline?.trim(),
-      projectBrief,
-      sourcePage: '/final-year-projects',
-    }),
-  });
-  if (!response.ok) {
-    throw new Error('Project inquiry email delivery failed');
-  }
-
-  trackEvent('form_submit', {
-    service: 'Final Year Project Inquiry',
-    sourcePage: '/final-year-projects',
-    type: 'project_inquiry',
-  });
 
   const summaryText = `🧑‍💻 *NEW PROJECT INQUIRY* — SmartScaleTech
 ━━━━━━━━━━━━━━━━━━━━━
@@ -215,12 +219,57 @@ ${data.details.trim()}
 ━━━━━━━━━━━━━━━━━━━━━
 _Please reply back directly via WhatsApp or Email._`;
 
+  const emailSubject = `[Final Year Project Inquiry] ${data.domain} - ${data.name.trim()}`;
+  const emailBody = `Hello SmartScaleTech Team,\n\nName: ${data.name.trim()}\nEmail: ${data.email.trim()}\nPhone/WhatsApp: ${data.phone.trim()}\n\n${projectBrief}\n\nRegards,\n${data.name.trim()}`;
+
   return {
+    projectBrief,
     whatsappUrl: `https://wa.me/${FOUNDER_WHATSAPP}?text=${encodeURIComponent(summaryText)}`,
+    mailtoUrl: `mailto:${FOUNDER_EMAIL}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`,
   };
 }
 
-export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Promise<{ lead: Lead; whatsappUrl: string }> {
+export async function submitProjectInquiry(data: ProjectInquiryPayload): Promise<{
+  whatsappUrl: string;
+  mailtoUrl: string;
+  emailDelivered: boolean;
+}> {
+  const { projectBrief, whatsappUrl, mailtoUrl } = buildProjectInquiryDispatch(data);
+
+  trackEvent('form_submit', {
+    service: 'Final Year Project Inquiry',
+    sourcePage: '/final-year-projects',
+    type: 'project_inquiry',
+  });
+
+  let emailDelivered = false;
+  try {
+    const response = await fetch('/api/service-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.name.trim(),
+        email: data.email.trim(),
+        phone: data.phone.trim(),
+        service: 'Final Year Project Inquiry',
+        timeline: data.deadline?.trim(),
+        projectBrief,
+        sourcePage: '/final-year-projects',
+      }),
+    });
+    emailDelivered = response.ok;
+  } catch {
+    emailDelivered = false;
+  }
+
+  return { whatsappUrl, mailtoUrl, emailDelivered };
+}
+
+export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Promise<{
+  lead: Lead;
+  whatsappUrl: string;
+  emailDelivered: boolean;
+}> {
   clearLegacyLeadStorage();
 
   const lead: Lead = {
@@ -231,13 +280,29 @@ export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Prom
 
   trackEvent('form_submit', { service: lead.service, sourcePage: lead.sourcePage });
 
-  const response = await fetch('/api/lead', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(lead),
-  });
-  if (!response.ok) {
-    throw new Error('Lead email delivery failed');
+  const text = `*New Lead from SmartScaleTech Website*
+━━━━━━━━━━━━━━━━━━━━━
+👤 *Name:* ${lead.name}
+📱 *WhatsApp/Phone:* ${lead.phone}
+🎯 *Service:* ${lead.service}
+📄 *Source Page:* ${lead.sourcePage}
+⏰ *Time:* ${new Date(lead.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
+${lead.note ? `💬 *Note:* ${lead.note}` : ''}
+━━━━━━━━━━━━━━━━━━━━━
+_Please confirm availability and package pricing._`;
+
+  const whatsappUrl = `https://wa.me/${FOUNDER_WHATSAPP}?text=${encodeURIComponent(text)}`;
+
+  let emailDelivered = false;
+  try {
+    const response = await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead),
+    });
+    emailDelivered = response.ok;
+  } catch {
+    emailDelivered = false;
   }
 
   // Dispatch to an additional custom webhook if configured.
@@ -255,20 +320,5 @@ export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Prom
     }
   }
 
-  // 3. Format WhatsApp direct message for immediate notification
-  const text = `*New Lead from SmartScaleTech Website*
-━━━━━━━━━━━━━━━━━━━━━
-👤 *Name:* ${lead.name}
-📱 *WhatsApp/Phone:* ${lead.phone}
-🎯 *Service:* ${lead.service}
-📄 *Source Page:* ${lead.sourcePage}
-⏰ *Time:* ${new Date(lead.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
-${lead.note ? `💬 *Note:* ${lead.note}` : ''}
-━━━━━━━━━━━━━━━━━━━━━
-_Please confirm availability and package pricing._`;
-
-  const encoded = encodeURIComponent(text);
-  const whatsappUrl = `https://wa.me/${FOUNDER_WHATSAPP}?text=${encoded}`;
-
-  return { lead, whatsappUrl };
+  return { lead, whatsappUrl, emailDelivered };
 }

@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import {
   cleanField,
   isValidEmail,
+  MailerError,
   sendLeadEmail as sendBrandedLeadEmail,
 } from './api/_lib/mailer';
 
@@ -72,9 +73,11 @@ async function startServer() {
         founderWhatsApp: '919000859695',
         founderEmail: 'smartscaletechforyou@gmail.com',
       });
-    } catch {
-      console.error('[Service Request Error] Email delivery failed');
-      return res.status(503).json({ error: 'Unable to send your request by email right now. Please contact us directly.' });
+    } catch (err) {
+      const code = err instanceof MailerError ? err.code : 'EMAIL_DELIVERY_FAILED';
+      const detail = err instanceof Error ? err.message : 'Unknown email error';
+      console.error(`[Service Request Error] ${code}: ${detail}`);
+      return res.status(503).json({ code, error: 'Unable to send your request by email right now. Please contact us directly.' });
     }
   });
 
@@ -98,9 +101,11 @@ async function startServer() {
 
       await sendBrandedLeadEmail(data, 'Website lead');
       return res.status(200).json({ success: true, message: 'Lead emailed successfully' });
-    } catch {
-      console.error('[Lead Error] Email delivery failed');
-      return res.status(503).json({ error: 'Unable to send your request by email right now. Please contact us directly.' });
+    } catch (err) {
+      const code = err instanceof MailerError ? err.code : 'EMAIL_DELIVERY_FAILED';
+      const detail = err instanceof Error ? err.message : 'Unknown email error';
+      console.error(`[Lead Error] ${code}: ${detail}`);
+      return res.status(503).json({ code, error: 'Unable to send your request by email right now. Please contact us directly.' });
     }
   });
 
@@ -251,7 +256,18 @@ Tone & Instructions:
 
   // Client serving in production vs development
   if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.resolve(__dirname, 'dist')));
+    app.use(
+      express.static(path.resolve(__dirname, 'dist'), {
+        maxAge: '7d',
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'no-cache');
+          } else if (filePath.includes('/assets/') || filePath.includes('/videos/')) {
+            res.setHeader('Cache-Control', 'public, max-age=604800, stale-while-revalidate=2592000');
+          }
+        },
+      })
+    );
     app.use((_req, res) => {
       res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
     });

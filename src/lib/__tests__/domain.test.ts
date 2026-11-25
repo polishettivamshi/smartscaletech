@@ -14,7 +14,11 @@ import {
   ALL_STRUCTURED_SERVICES,
   resolveServiceEntry,
 } from '../../data/serviceCatalog';
-import { formatServiceRequestText } from '../leads';
+import {
+  formatServiceRequestText,
+  buildServiceRequestDispatch,
+  buildProjectInquiryDispatch,
+} from '../leads';
 
 describe('calculateBundleTotals', () => {
   it('uses the startup offer prices for every core service and add-on', () => {
@@ -205,5 +209,28 @@ describe('formatServiceRequestText', () => {
     assert.match(output, /ananya@example\.com/);
     assert.match(output, /\+91 98765 43210/);
     assert.match(output, /Need a fast React site for our clinic\./);
+  });
+
+  it('builds synchronous WhatsApp and mailto dispatch links for service requests and project inquiries', () => {
+    const dispatch = buildServiceRequestDispatch({
+      name: 'Vamshi',
+      phone: '9000859695',
+      email: 'vamshi@example.com',
+      service: 'Web Development',
+      projectBrief: 'Need a fast SaaS landing page.',
+    });
+    assert.ok(dispatch.whatsappUrl.startsWith('https://wa.me/919000859695?text='));
+    assert.ok(dispatch.mailtoUrl.startsWith('mailto:smartscaletechforyou@gmail.com?subject='));
+    assert.match(decodeURIComponent(dispatch.whatsappUrl), /Web Development/);
+
+    const project = buildProjectInquiryDispatch({
+      name: 'Kiran',
+      email: 'kiran@example.com',
+      phone: '9876543210',
+      domain: 'AI / Machine Learning',
+      details: 'Fake news detection with transformer.',
+    });
+    assert.ok(project.whatsappUrl.startsWith('https://wa.me/919000859695?text='));
+    assert.ok(project.mailtoUrl.startsWith('mailto:smartscaletechforyou@gmail.com?subject='));
   });
 });

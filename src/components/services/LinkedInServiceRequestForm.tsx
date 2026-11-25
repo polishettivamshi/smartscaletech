@@ -11,7 +11,11 @@ import {
   Copy,
   Check,
 } from 'lucide-react';
-import { submitLinkedInServiceRequest, LinkedInServiceRequestPayload } from '../../lib/leads';
+import {
+  buildServiceRequestDispatch,
+  submitLinkedInServiceRequest,
+  LinkedInServiceRequestPayload,
+} from '../../lib/leads';
 import { StatusBanner } from '../ui/StatusBanner';
 import { Button } from '../ui/Button';
 import { OfferPrice } from '../ui/OfferPrice';
@@ -80,6 +84,8 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [emailDelivered, setEmailDelivered] = useState<boolean | null>(null);
+  const [submittedChannel, setSubmittedChannel] = useState<'whatsapp' | 'email'>('whatsapp');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [generatedUrls, setGeneratedUrls] = useState<{
     whatsapp: string;
@@ -117,37 +123,65 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
       return;
     }
 
+    const payload: LinkedInServiceRequestPayload = {
+      ...formData,
+      name: cleanName,
+      phone: cleanPhone,
+      email: cleanEmail,
+      sourcePage,
+    };
+
     setErrorMessage(null);
+    setSubmittedChannel(preferredChannel);
+
+    // Build WhatsApp and mailto URLs synchronously inside the click gesture
+    // so mobile/desktop browsers do not block the WhatsApp redirect.
+    const instantDispatch = buildServiceRequestDispatch(payload);
+
+    if (preferredChannel === 'whatsapp') {
+      setGeneratedUrls({
+        whatsapp: instantDispatch.whatsappUrl,
+        mailto: instantDispatch.mailtoUrl,
+        summary: instantDispatch.summaryText,
+      });
+      setEmailDelivered(null);
+      setIsSuccess(true);
+      if (onSuccess) onSuccess();
+
+      try {
+        window.open(instantDispatch.whatsappUrl, '_blank', 'noopener,noreferrer');
+      } catch {
+        // Direct WhatsApp button remains rendered in the confirmation card
+      }
+
+      // Best-effort background email notification without blocking WhatsApp
+      submitLinkedInServiceRequest(payload)
+        .then((res) => setEmailDelivered(res.emailDelivered))
+        .catch(() => setEmailDelivered(false));
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      const { whatsappUrl, mailtoUrl, summaryText } = await submitLinkedInServiceRequest({
-        ...formData,
-        name: cleanName,
-        phone: cleanPhone,
-        email: cleanEmail,
-        sourcePage,
-      });
+      const { whatsappUrl, mailtoUrl, summaryText, emailDelivered: sent } =
+        await submitLinkedInServiceRequest(payload);
 
       setGeneratedUrls({
         whatsapp: whatsappUrl,
         mailto: mailtoUrl,
         summary: summaryText,
       });
-
+      setEmailDelivered(sent);
       setIsSuccess(true);
       if (onSuccess) onSuccess();
-
-      if (preferredChannel === 'whatsapp') {
-        try {
-          window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-        } catch {
-          // Graceful fallback: direct WhatsApp link rendered on confirmation card
-        }
-      }
     } catch {
-      setErrorMessage(
-        'We could not email your request right now. Please message +91 90008 59695 directly on WhatsApp.'
-      );
+      setGeneratedUrls({
+        whatsapp: instantDispatch.whatsappUrl,
+        mailto: instantDispatch.mailtoUrl,
+        summary: instantDispatch.summaryText,
+      });
+      setEmailDelivered(false);
+      setIsSuccess(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -161,19 +195,48 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
   };
 
   if (isSuccess && generatedUrls) {
+    const isEmailFallback = submittedChannel === 'email' && emailDelivered === false;
+
     return (
       <div className="bg-white rounded-2xl p-6 sm:p-10 border border-[#D8D3C9] text-center space-y-6">
-        <div className="w-14 h-14 rounded-full bg-[#16845B]/15 text-[#16845B] mx-auto flex items-center justify-center">
-          <CheckCircle2 size={30} />
+        <div
+          className={`w-14 h-14 rounded-full mx-auto flex items-center justify-center ${
+            isEmailFallback
+              ? 'bg-[#D9541E]/15 text-[#D9541E]'
+              : 'bg-[#16845B]/15 text-[#16845B]'
+          }`}
+        >
+          {isEmailFallback ? <Mail size={28} /> : <CheckCircle2 size={30} />}
         </div>
 
         <div className="space-y-2 max-w-lg mx-auto">
           <h3 className="text-2xl font-extrabold text-[#111111]">
-            Service Request Sent
+            {submittedChannel === 'whatsapp'
+              ? 'Brief Ready for WhatsApp'
+              : emailDelivered
+                ? 'Service Request Sent'
+                : 'Send via Your Email App or WhatsApp'}
           </h3>
           <p className="text-[#57534E] text-sm leading-relaxed">
-            Thank you, <strong className="text-[#111111]">{formData.name}</strong>. Your inquiry for{' '}
-            <strong className="text-[#D9541E]">{formData.service}</strong> has been emailed to our studio.
+            {submittedChannel === 'whatsapp' ? (
+              <>
+                Thank you, <strong className="text-[#111111]">{formData.name}</strong>. Your brief for{' '}
+                <strong className="text-[#D9541E]">{formData.service}</strong> is ready—tap{' '}
+                <strong>Send via WhatsApp</strong> below if WhatsApp didn&apos;t open automatically.
+                {emailDelivered === true && ' A copy was also emailed to our studio.'}
+              </>
+            ) : emailDelivered ? (
+              <>
+                Thank you, <strong className="text-[#111111]">{formData.name}</strong>. Your inquiry for{' '}
+                <strong className="text-[#D9541E]">{formData.service}</strong> has been emailed to our studio.
+              </>
+            ) : (
+              <>
+                Automated email dispatch is temporarily unavailable on the server, so we&apos;ve
+                pre-filled your brief for <strong className="text-[#D9541E]">{formData.service}</strong>.
+                Tap <strong>Open Email App</strong> or <strong>Send via WhatsApp</strong> below to send it in one tap.
+              </>
+            )}
           </p>
         </div>
 
@@ -219,6 +282,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
           type="button"
           onClick={() => {
             setIsSuccess(false);
+            setEmailDelivered(null);
             setGeneratedUrls(null);
           }}
           className="text-xs text-[#57534E] hover:text-[#111111] font-semibold underline underline-offset-4 cursor-pointer"

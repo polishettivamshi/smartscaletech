@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Eye } from 'lucide-react';
 import { Button } from '../ui/Button';
@@ -6,18 +7,69 @@ interface HeroProps {
   onOpenSamples?: () => void;
 }
 
+const HERO_POSTER_SRC = '/assets/hero-poster.webp';
+const HERO_VIDEO_SRC = '/videos/hero-bg.mp4';
+
 export const Hero = ({ onOpenSamples }: HeroProps = {}) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [hasVideoError, setHasVideoError] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      video.pause();
+      return;
+    }
+
+    const startPlayback = () => {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          // Autoplay may be blocked in low-power mode; poster stays visible cleanly.
+        });
+      }
+    };
+
+    startPlayback();
+    video.addEventListener('canplay', startPlayback);
+    return () => {
+      video.removeEventListener('canplay', startPlayback);
+    };
+  }, []);
+
   return (
     <section className="relative isolate flex min-h-[calc(100svh-4.5rem)] items-center overflow-hidden bg-[#F3EEE3] py-10 sm:min-h-[calc(100svh-5rem)] sm:py-14 lg:py-20">
-      <video
-        src="/videos/SmartScaleTech%20Hero%20Section.mp4"
+      <img
+        src={HERO_POSTER_SRC}
+        alt=""
         aria-hidden="true"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
+        loading="eager"
+        decoding="sync"
+        fetchPriority="high"
+        className="absolute inset-0 -z-30 h-full w-full object-cover"
       />
+      {!hasVideoError && (
+        <video
+          ref={videoRef}
+          src={HERO_VIDEO_SRC}
+          poster={HERO_POSTER_SRC}
+          aria-hidden="true"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          onError={() => setHasVideoError(true)}
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
+        />
+      )}
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[#F3EEE3]/25" />
       <div className="relative mx-0 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl space-y-5 rounded-3xl border border-white/50 bg-white/45 p-4 shadow-xl backdrop-blur-sm sm:p-6 lg:p-8">

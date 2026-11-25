@@ -1,4 +1,4 @@
-import { cleanField, isValidEmail, sendLeadEmail } from './_lib/mailer';
+import { cleanField, isValidEmail, MailerError, sendLeadEmail } from './_lib/mailer';
 
 interface ApiRequest {
   method?: string;
@@ -35,9 +35,12 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
   try {
     await sendLeadEmail(payload, 'Website lead');
     return res.status(200).json({ success: true, message: 'Lead emailed successfully' });
-  } catch {
-    console.error('[Lead Error] Email delivery failed');
+  } catch (err) {
+    const code = err instanceof MailerError ? err.code : 'EMAIL_DELIVERY_FAILED';
+    const detail = err instanceof Error ? err.message : 'Unknown email error';
+    console.error(`[Lead Error] ${code}: ${detail}`);
     return res.status(503).json({
+      code,
       error: 'Unable to send your request by email right now. Please contact us directly.',
     });
   }

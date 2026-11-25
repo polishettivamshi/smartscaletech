@@ -14,7 +14,7 @@ import { SEO } from '../../lib/seo';
 import { Breadcrumb } from '../ui/Breadcrumb';
 import { Button } from '../ui/Button';
 import { OfferPrice } from '../ui/OfferPrice';
-import { submitProjectInquiry } from '../../lib/leads';
+import { buildProjectInquiryDispatch, submitProjectInquiry } from '../../lib/leads';
 
 const PROJECT_DOMAINS = [
   'AI / Machine Learning',
@@ -63,6 +63,7 @@ export const FinalYearProjectsPage = () => {
   const [dispatchError, setDispatchError] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [whatsappFallbackUrl, setWhatsappFallbackUrl] = useState('');
+  const [mailtoFallbackUrl, setMailtoFallbackUrl] = useState('');
 
   const handleProjectRequest = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,43 +71,52 @@ export const FinalYearProjectsPage = () => {
     setDispatchError('');
     setEmailSent(false);
     setWhatsappFallbackUrl('');
+    setMailtoFallbackUrl('');
   };
 
   const dispatchProjectRequest = async (channel: 'email' | 'whatsapp') => {
     if (isSubmitting) return;
-    setIsSubmitting(true);
     setDispatchError('');
     setEmailSent(false);
     setWhatsappFallbackUrl('');
-    const whatsappWindow = channel === 'whatsapp' ? window.open('about:blank', '_blank') : null;
+    setMailtoFallbackUrl('');
 
+    const payload = {
+      name: projectRequest.name.trim(),
+      email: projectRequest.email.trim(),
+      phone: projectRequest.phone.trim(),
+      course: projectRequest.course,
+      domain: projectRequest.domain,
+      technologies: projectRequest.technologies,
+      deadline: projectRequest.deadline,
+      details: projectRequest.details,
+    };
+
+    const instant = buildProjectInquiryDispatch(payload);
+
+    if (channel === 'whatsapp') {
+      try {
+        window.open(instant.whatsappUrl, '_blank', 'noopener,noreferrer');
+      } catch {
+        // Fallback link below
+      }
+      setWhatsappFallbackUrl(instant.whatsappUrl);
+      submitProjectInquiry(payload).catch(() => {});
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      const { whatsappUrl } = await submitProjectInquiry({
-        name: projectRequest.name.trim(),
-        email: projectRequest.email.trim(),
-        phone: projectRequest.phone.trim(),
-        course: projectRequest.course,
-        domain: projectRequest.domain,
-        technologies: projectRequest.technologies,
-        deadline: projectRequest.deadline,
-        details: projectRequest.details,
-      });
-
-      if (channel === 'whatsapp') {
-        if (whatsappWindow) {
-          whatsappWindow.opener = null;
-          whatsappWindow.location.href = whatsappUrl;
-        } else {
-          setWhatsappFallbackUrl(whatsappUrl);
-        }
-      } else {
+      const { whatsappUrl, mailtoUrl, emailDelivered } = await submitProjectInquiry(payload);
+      if (emailDelivered) {
         setEmailSent(true);
+      } else {
+        setMailtoFallbackUrl(mailtoUrl);
+        setWhatsappFallbackUrl(whatsappUrl);
       }
     } catch {
-      whatsappWindow?.close();
-      setDispatchError(
-        'We could not send your request right now. Please try again or contact us directly on WhatsApp.'
-      );
+      setMailtoFallbackUrl(instant.mailtoUrl);
+      setWhatsappFallbackUrl(instant.whatsappUrl);
     } finally {
       setIsSubmitting(false);
     }
@@ -373,14 +383,34 @@ export const FinalYearProjectsPage = () => {
                     Your project inquiry has been sent to our team by email.
                   </p>
                 )}
-                {whatsappFallbackUrl && (
+                {mailtoFallbackUrl && (
+                  <div className="flex flex-wrap items-center gap-4">
+                    <a
+                      href={mailtoFallbackUrl}
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#111111] underline"
+                    >
+                      <Mail size={15} /> Open Pre-filled Email App
+                    </a>
+                    {whatsappFallbackUrl && (
+                      <a
+                        href={whatsappFallbackUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#D9541E] underline"
+                      >
+                        <MessageCircle size={15} /> Send via WhatsApp
+                      </a>
+                    )}
+                  </div>
+                )}
+                {!mailtoFallbackUrl && whatsappFallbackUrl && (
                   <a
                     href={whatsappFallbackUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-sm font-semibold text-[#D9541E] underline"
                   >
-                    WhatsApp did not open automatically. Open the prepared message.
+                    Open prepared brief on WhatsApp →
                   </a>
                 )}
                 {dispatchError && (

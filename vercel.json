@@ -32,11 +32,23 @@
       "headers": [
         { "key": "Content-Type", "value": "application/manifest+json" }
       ]
+    },
+    {
+      "source": "/videos/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=2592000" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!api/|[\\w-]+\\.\\w+).*)",
+      "source": "/((?!api/|videos/|assets/|.*\\.(?:mp4|webm|webp|png|jpg|jpeg|svg|ico|xml|txt|webmanifest|json|js|css|html)$).*)",
       "destination": "/index.html"
     }
   ]
