@@ -3,6 +3,7 @@
 
 User-agent: *
 Allow: /
+Allow: /final-year-projects
 Disallow: /admin/
 Disallow: /private/
 

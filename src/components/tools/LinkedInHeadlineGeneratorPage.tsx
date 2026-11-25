@@ -1,18 +1,16 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Linkedin,
-  Sparkles,
   Copy,
   Check,
   MessageCircle,
   ArrowRight,
-  CheckCircle2,
   UserCheck,
-  Search,
 } from 'lucide-react';
 import { SEO, SITE_URL } from '../../lib/seo';
 import { Button } from '../ui/Button';
+import { Breadcrumb } from '../ui/Breadcrumb';
+import { Accordion } from '../ui/Accordion';
 import { trackEvent } from '../../lib/analytics';
 
 const ROLE_PRESETS: Record<string, { skills: string[]; highlight: string }> = {
@@ -30,11 +28,11 @@ const ROLE_PRESETS: Record<string, { skills: string[]; highlight: string }> = {
   },
   'Software Engineering Fresher': {
     skills: ['Java', 'Python', 'React', 'SQL', 'DSA', 'Git'],
-    highlight: 'B.Tech CS 2025/2026 Grad | 3+ Deployed Full-Stack Projects',
+    highlight: 'CS Graduate | Deployed Full-Stack Projects',
   },
   'Data Analyst / BI': {
     skills: ['SQL', 'Python', 'Power BI', 'Tableau', 'Excel', 'ETL'],
-    highlight: 'Turning Raw Business Data into Executive Dashboards',
+    highlight: 'Turning Operational Data into Executive Dashboards',
   },
   'UI/UX Designer': {
     skills: ['Figma', 'Design Systems', 'User Research', 'Prototyping', 'SaaS UX'],
@@ -66,16 +64,16 @@ const EXPERIENCE_LEVELS = [
 
 const PAGE_FAQS = [
   {
-    q: 'Why does a LinkedIn headline matter more than a job title?',
-    a: 'LinkedIn Recruiter search algorithms weight your headline heavily. Replacing generic lines like "Looking for opportunities" with exact role keywords, stack skills, and proof points dramatically increases profile search appearances.',
+    q: 'Why does a LinkedIn headline matter more than a generic job title?',
+    a: 'Recruiter Boolean filters scan headlines heavily. Replacing generic lines like "Looking for opportunities" with target role keywords, core tools, and concrete domain scope increases relevance.',
   },
   {
-    q: 'Can I also use these generated headlines on Naukri and Indeed?',
-    a: 'Yes. The keyword-separated headlines work directly as your Naukri Resume Headline and LinkedIn Headline, both of which drive recruiter search ranking.',
+    q: 'Can I reuse these headlines on Naukri and Indeed?',
+    a: 'Yes. The keyword-separated formats fit both LinkedIn Headlines (up to 220 characters) and Naukri Resume Headlines directly.',
   },
   {
-    q: 'What is included in the paid SmartScaleTech LinkedIn Makeover?',
-    a: 'In addition to a custom headline, founder Vamshi rewrites your About story, restructures experience/project bullets, adds a custom tech banner, optimizes 50 skill tags, and audits your Naukri profile.',
+    q: 'What is included in the paid LinkedIn Optimization service?',
+    a: 'We craft your headline, first-person About narrative, STAR experience bullets, curated 50-skill matrix, custom profile banner, and ready-to-paste handover without needing your password.',
   },
 ];
 
@@ -95,17 +93,9 @@ const headlineJsonLd = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-      { '@type': 'ListItem', position: 2, name: 'LinkedIn Headline Generator', item: `${SITE_URL}/linkedin-headline-generator` },
+      { '@type': 'ListItem', position: 2, name: 'Free Tools', item: `${SITE_URL}/tools` },
+      { '@type': 'ListItem', position: 3, name: 'LinkedIn Headline Generator', item: `${SITE_URL}/linkedin-headline-generator` },
     ],
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: PAGE_FAQS.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
   },
 ];
 
@@ -114,7 +104,7 @@ export const LinkedInHeadlineGeneratorPage = () => {
   const [experience, setExperience] = useState('1–3 Years Experience');
   const [skillsText, setSkillsText] = useState('Python, FastAPI, Django, PostgreSQL, AWS, Docker');
   const [highlight, setHighlight] = useState('2+ Yrs Building Scalable REST APIs & Cloud Systems');
-  const [location, setLocation] = useState('Hyderabad • Immediate Joiner / Open to Roles');
+  const [location, setLocation] = useState('Hyderabad · Open to Roles');
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handlePresetChange = (selectedRole: string) => {
@@ -155,15 +145,15 @@ export const LinkedInHeadlineGeneratorPage = () => {
 
   const generatedHeadlines = useMemo(() => {
     const topSkills = parsedSkills.join(', ') || 'Core Tech Stack';
-    const topThree = parsedSkills.slice(0, 3).join(' • ') || 'Modern Stack';
+    const topThree = parsedSkills.slice(0, 3).join(' · ') || 'Modern Stack';
     const cleanRole = role.trim() || 'Software Engineer';
-    const cleanHighlight = highlight.trim() || 'Delivering Production-Grade Software';
+    const cleanHighlight = highlight.trim() || 'Delivering Production Software';
     const cleanLocation = location.trim();
 
     return [
       {
         id: 'recruiter-seo',
-        badge: 'Best for Recruiter Search (LinkedIn + Naukri)',
+        badge: 'Recruiter Search Format (LinkedIn + Naukri)',
         text: `${cleanRole} (${expShort}) | ${topSkills} | ${cleanHighlight}${
           cleanLocation ? ` | ${cleanLocation}` : ''
         }`.slice(0, 220),
@@ -177,15 +167,15 @@ export const LinkedInHeadlineGeneratorPage = () => {
       },
       {
         id: 'fresher-high-signal',
-        badge: 'High-Signal Concise Stack',
-        text: `${cleanRole} | ${topThree} | ${cleanHighlight} | Open to ${cleanRole} Opportunities`.slice(
+        badge: 'Concise Stack Headline',
+        text: `${cleanRole} | ${topThree} | ${cleanHighlight} | Open to ${cleanRole} Roles`.slice(
           0,
           220
         ),
       },
       {
         id: 'naukri-short',
-        badge: 'Compact Naukri Resume Headline (< 140 chars)',
+        badge: 'Compact Naukri Headline (< 140 chars)',
         text: `${cleanRole} (${expShort}) with hands-on expertise in ${topSkills}. ${cleanHighlight}.`.slice(
           0,
           140
@@ -202,12 +192,12 @@ export const LinkedInHeadlineGeneratorPage = () => {
         highlight.trim() || 'Focused on building reliable, scalable products.'
       }`,
       ``,
-      `What I bring to an engineering team:`,
-      `• Core Technical Stack: ${skillsLine}`,
-      `• End-to-end ownership from architecture and clean code to testing and cloud deployment`,
-      `• Clear collaboration across product, design, and backend teams`,
+      `Core Focus Areas:`,
+      `• Primary Stack: ${skillsLine}`,
+      `• End-to-end ownership from clean implementation and testing to cloud deployment`,
+      `• Clear collaboration across engineering, product, and design teams`,
       ``,
-      `Currently exploring ${cleanRole} opportunities (${location || 'India / Remote'}). Connect or message me directly on LinkedIn.`,
+      `Exploring ${cleanRole} opportunities (${location || 'India / Remote'}). Connect or message me directly on LinkedIn.`,
     ].join('\n');
   }, [role, experience, parsedSkills, highlight, location]);
 
@@ -223,52 +213,60 @@ export const LinkedInHeadlineGeneratorPage = () => {
   };
 
   const whatsappUrl = `https://wa.me/919000859695?text=${encodeURIComponent(
-    `Hello Vamshi,\n\nI used the SmartScaleTech LinkedIn Headline Generator for my target role: *${role}* (${experience}).\nSkills: ${parsedSkills.join(
+    `Hello SmartScaleTech,\n\nI used the LinkedIn Headline Generator for target role: *${role}* (${experience}).\nSkills: ${parsedSkills.join(
       ', '
-    )}\n\nI want to upgrade my full LinkedIn profile + custom tech banner + Naukri profile. Please share details.`
+    )}\n\nI would like details on the LinkedIn & Naukri Profile Makeover.`
   )}`;
 
   return (
-    <main className="bg-page text-page min-h-screen pt-24 pb-20">
+    <main className="bg-[#F3EEE3] text-[#111111] min-h-screen pt-10 sm:pt-14 pb-20">
       <SEO
-        title="Free LinkedIn & Naukri Headline Generator | Smart Scale Tech (SST)"
-        description="Generate recruiter-searchable LinkedIn and Naukri profile headlines tailored to your tech role, skills, and experience in seconds. Built by Smart Scale Tech (SST) Hyderabad."
-        keywords="linkedin headline generator free, naukri headline generator, software engineer linkedin headline examples, recruiter searchable linkedin summary, sst linkedin optimizer, smart scale tech hyderabad"
+        title="Free LinkedIn & Naukri Headline Generator | SmartScaleTech (SST)"
+        description="Generate Boolean-friendly LinkedIn and Naukri profile headlines tailored to your target engineering or design role in seconds."
         path="/linkedin-headline-generator"
         jsonLd={headlineJsonLd}
       />
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
-        {/* Hero Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0A66C2]/10 text-[#0A66C2] text-xs font-bold uppercase tracking-wider mb-4">
-            <Linkedin size={14} /> Free Career Branding Tool
-          </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Free <span className="text-primary">LinkedIn &amp; Naukri</span> Headline Generator
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumb
+          items={[
+            { label: 'Home', to: '/' },
+            { label: 'Free Tools', to: '/tools' },
+            { label: 'LinkedIn Headline Generator' },
+          ]}
+          className="mb-7"
+        />
+
+        <div className="max-w-3xl mb-10">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+            Free Career Utility · 220-Character Safe
+          </p>
+          <h1 className="text-hero-display font-extrabold text-[#111111]">
+            LinkedIn &amp; Naukri Headline Generator
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-medium">
-            Stop using &ldquo;Looking for opportunities.&rdquo; Craft keyword-rich, recruiter-searchable headlines under 220 characters in seconds.
+          <p className="mt-3 text-base text-[#57534E] leading-relaxed">
+            Replace generic bio filler with clear role keywords, primary technical tools, and
+            recruiter-scannable value hooks.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Input Panel */}
-          <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xl shadow-slate-100 space-y-5">
+          {/* Controls */}
+          <div className="lg:col-span-5 bg-white rounded-2xl p-6 sm:p-7 border border-[#D8D3C9] space-y-5">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                Quick Role Preset
-              </label>
+              <span className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-2">
+                Role Preset
+              </span>
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {Object.keys(ROLE_PRESETS).map((preset) => (
                   <button
                     key={preset}
                     type="button"
                     onClick={() => handlePresetChange(preset)}
-                    className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer border ${
+                    className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-colors cursor-pointer border ${
                       role === preset
-                        ? 'bg-slate-900 text-white border-slate-900'
-                        : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                        ? 'bg-[#111111] text-white border-[#111111]'
+                        : 'bg-[#F3EEE3]/50 text-[#57534E] border-[#D8D3C9] hover:text-[#111111]'
                     }`}
                   >
                     {preset}
@@ -277,21 +275,26 @@ export const LinkedInHeadlineGeneratorPage = () => {
               </div>
               <input
                 type="text"
+                aria-label="Target role"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 placeholder="e.g. Full-Stack React Developer"
-                className="w-full h-11 px-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full h-11 px-4 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label
+                htmlFor="hl-exp"
+                className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5"
+              >
                 Experience Level
               </label>
               <select
+                id="hl-exp"
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
-                className="w-full h-11 px-3 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full h-11 px-3 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E]"
               >
                 {EXPERIENCE_LEVELS.map((lvl) => (
                   <option key={lvl} value={lvl}>
@@ -302,15 +305,19 @@ export const LinkedInHeadlineGeneratorPage = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Top 4–6 Searchable Skills (comma separated)
+              <label
+                htmlFor="hl-skills"
+                className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5"
+              >
+                Core Skills (Comma Separated)
               </label>
               <input
+                id="hl-skills"
                 type="text"
                 value={skillsText}
                 onChange={(e) => setSkillsText(e.target.value)}
-                placeholder="Python, FastAPI, React, PostgreSQL, AWS"
-                className="w-full h-11 px-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="Python, FastAPI, React, PostgreSQL"
+                className="w-full h-11 px-4 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E]"
               />
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {QUICK_SKILLS.map((sk) => (
@@ -318,7 +325,7 @@ export const LinkedInHeadlineGeneratorPage = () => {
                     key={sk}
                     type="button"
                     onClick={() => addQuickSkill(sk)}
-                    className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-primary/10 hover:text-primary text-[10px] font-bold text-slate-600 cursor-pointer transition-colors"
+                    className="px-2 py-0.5 rounded bg-[#F3EEE3] hover:bg-[#D9541E]/15 text-[11px] font-semibold text-[#111111] cursor-pointer"
                   >
                     + {sk}
                   </button>
@@ -327,74 +334,76 @@ export const LinkedInHeadlineGeneratorPage = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Key Achievement or Value Hook
+              <label
+                htmlFor="hl-highlight"
+                className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5"
+              >
+                Key Focus or Proof Point
               </label>
               <input
+                id="hl-highlight"
                 type="text"
                 value={highlight}
                 onChange={(e) => setHighlight(e.target.value)}
-                placeholder="e.g. 2+ Yrs Building Scalable APIs | 99.9% Uptime"
-                className="w-full h-11 px-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full h-11 px-4 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                City / Availability Tag (Optional)
+              <label
+                htmlFor="hl-location"
+                className="block text-xs font-bold text-[#111111] uppercase tracking-wider mb-1.5"
+              >
+                Location / Availability Tag
               </label>
               <input
+                id="hl-location"
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                placeholder="Hyderabad • Open to Opportunities"
-                className="w-full h-11 px-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full h-11 px-4 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E]"
               />
             </div>
           </div>
 
-          {/* Generated Outputs */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xl space-y-4">
+          {/* Outputs */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#D8D3C9] space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
-                  <Sparkles size={18} className="text-primary" /> Ready-to-Use Headlines
+                <h2 className="text-lg font-extrabold text-[#111111]">
+                  Generated Headline Options
                 </h2>
-                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
-                  LinkedIn 220-char safe
-                </span>
+                <span className="text-[11px] font-bold text-[#16845B]">220-char LinkedIn limit</span>
               </div>
 
               <div className="space-y-3">
                 {generatedHeadlines.map((item) => (
                   <div
                     key={item.id}
-                    className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-primary/40 transition-colors space-y-2"
+                    className="p-4 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] space-y-2"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-primary">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#D9541E]">
                         {item.badge}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-400">
+                      <span className="text-[11px] font-semibold text-[#57534E] tabular-nums">
                         {item.text.length} chars
                       </span>
                     </div>
-                    <p className="text-sm font-bold text-slate-900 leading-relaxed">
-                      {item.text}
-                    </p>
-                    <div className="pt-1 flex justify-end">
+                    <p className="text-sm font-bold text-[#111111] leading-relaxed">{item.text}</p>
+                    <div className="flex justify-end">
                       <button
                         type="button"
                         onClick={() => copyText(item.id, item.text)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-primary text-xs font-bold text-slate-700 hover:text-primary cursor-pointer transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#D8D3C9] hover:border-[#111111] text-xs font-bold text-[#111111] cursor-pointer"
                       >
                         {copiedId === item.id ? (
                           <>
-                            <Check size={13} className="text-emerald-600" /> Copied!
+                            <Check size={13} className="text-[#16845B]" /> Copied
                           </>
                         ) : (
                           <>
-                            <Copy size={13} /> Copy Headline
+                            <Copy size={13} /> Copy
                           </>
                         )}
                       </button>
@@ -404,58 +413,46 @@ export const LinkedInHeadlineGeneratorPage = () => {
               </div>
             </div>
 
-            {/* Generated About Summary */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-lg space-y-3">
+            <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#D8D3C9] space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
-                  <UserCheck size={18} className="text-[#0A66C2]" /> Matching LinkedIn &ldquo;About&rdquo; Starter
+                <h3 className="text-base font-extrabold text-[#111111] flex items-center gap-2">
+                  <UserCheck size={17} className="text-[#D9541E]" /> Matching &ldquo;About&rdquo; Draft
                 </h3>
                 <button
                   type="button"
                   onClick={() => copyText('about', generatedAbout)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-primary text-xs font-bold text-slate-700 hover:text-primary cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F3EEE3] border border-[#D8D3C9] text-xs font-bold text-[#111111] cursor-pointer"
                 >
-                  {copiedId === 'about' ? (
-                    <>
-                      <Check size={13} className="text-emerald-600" /> Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={13} /> Copy About Text
-                    </>
-                  )}
+                  {copiedId === 'about' ? 'Copied' : 'Copy About'}
                 </button>
               </div>
-              <pre className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-sans text-slate-700 whitespace-pre-wrap leading-relaxed">
+              <pre className="p-4 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] text-xs font-sans text-[#57534E] whitespace-pre-wrap leading-relaxed">
                 {generatedAbout}
               </pre>
             </div>
 
-            {/* Upgrade CTA */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl">
-              <div className="space-y-1 text-center sm:text-left">
-                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
-                  35–40% → 95–97% Profile Strength
-                </span>
-                <h3 className="text-lg sm:text-xl font-black">
-                  Want Complete LinkedIn + Custom Tech Banner + Naukri Makeover?
-                </h3>
-                <p className="text-xs text-slate-300">
-                  We rewrite your entire profile, design a custom header banner, and optimize 50 search skills in 24–48 hrs.
+            <div className="p-6 sm:p-7 rounded-2xl bg-[#161616] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#E87A4E]">
+                  Complete LinkedIn &amp; Naukri Makeover
                 </p>
+                <h3 className="text-lg font-extrabold mt-1">
+                  Want our studio to rewrite your full profile &amp; header banner?
+                </h3>
               </div>
-              <div className="flex flex-col sm:flex-row gap-2.5 shrink-0 w-full sm:w-auto">
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-                  <Button className="w-full sm:w-auto h-11 px-5 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-xs">
-                    <MessageCircle size={15} className="mr-1.5" /> WhatsApp Vamshi
+              <div className="flex flex-wrap gap-2.5 shrink-0">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="primary" size="md">
+                    <MessageCircle size={15} /> Discuss on WhatsApp
                   </Button>
                 </a>
-                <Link to="/custom-package-builder" className="w-full sm:w-auto">
+                <Link to="/services/linkedin-optimization">
                   <Button
                     variant="outline"
-                    className="w-full sm:w-auto h-11 px-4 rounded-xl border-white/25 text-white hover:bg-white/10 font-bold text-xs"
+                    size="md"
+                    className="border-white/25 text-white hover:bg-white/10"
                   >
-                    Build Bundle <ArrowRight size={14} className="ml-1" />
+                    Details <ArrowRight size={14} />
                   </Button>
                 </Link>
               </div>
@@ -463,63 +460,14 @@ export const LinkedInHeadlineGeneratorPage = () => {
           </div>
         </div>
 
-        {/* Cross-linking & SEO FAQ */}
-        <section className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-7 rounded-3xl bg-white border border-slate-200 space-y-4">
-            <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
-              <Search size={18} className="text-primary" /> Frequently Asked Questions
-            </h2>
-            <dl className="space-y-4">
-              {PAGE_FAQS.map((faq) => (
-                <div key={faq.q} className="border-b border-slate-100 pb-3 last:border-b-0 last:pb-0">
-                  <dt className="text-sm font-bold text-slate-900">{faq.q}</dt>
-                  <dd className="mt-1 text-xs text-slate-600 leading-relaxed">{faq.a}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="p-7 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
-            <h2 className="text-xl font-black text-slate-900">More Free Career Tools</h2>
-            <div className="space-y-3">
-              <Link
-                to="/free-ats-resume-checker"
-                className="flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-200 hover:border-primary transition-all group"
-              >
-                <div>
-                  <p className="text-sm font-bold text-slate-900 group-hover:text-primary">
-                    Free ATS Resume &amp; JD Match Checker
-                  </p>
-                  <p className="text-xs text-slate-500">Compare your resume directly against any Job Description</p>
-                </div>
-                <ArrowRight size={16} className="text-slate-400 group-hover:text-primary" />
-              </Link>
-              <Link
-                to="/job-readiness-audit"
-                className="flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-200 hover:border-primary transition-all group"
-              >
-                <div>
-                  <p className="text-sm font-bold text-slate-900 group-hover:text-primary">
-                    60-Second Job Readiness Self-Audit
-                  </p>
-                  <p className="text-xs text-slate-500">Find the #1 bottleneck blocking your interview calls</p>
-                </div>
-                <ArrowRight size={16} className="text-slate-400 group-hover:text-primary" />
-              </Link>
-              <Link
-                to="/custom-package-builder"
-                className="flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-200 hover:border-primary transition-all group"
-              >
-                <div>
-                  <p className="text-sm font-bold text-slate-900 group-hover:text-primary flex items-center gap-1.5">
-                    Custom Package Builder <CheckCircle2 size={14} className="text-emerald-600" />
-                  </p>
-                  <p className="text-xs text-slate-500">Pick only the services you need and save up to 20%</p>
-                </div>
-                <ArrowRight size={16} className="text-slate-400 group-hover:text-primary" />
-              </Link>
-            </div>
-          </div>
+        <section className="mt-14 bg-white rounded-2xl border border-[#D8D3C9] p-7 sm:p-9">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-[#111111] mb-6">
+            Headline &amp; Profile FAQs
+          </h2>
+          <Accordion
+            items={PAGE_FAQS.map((f) => ({ question: f.q, answer: f.a }))}
+            defaultOpenIndex={0}
+          />
         </section>
       </div>
     </main>

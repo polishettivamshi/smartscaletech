@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { X, Check, Phone, User, Send, ShieldCheck, Clock, MessageCircle } from 'lucide-react';
+import { Check, Phone, User, Send, ShieldCheck, MessageCircle } from 'lucide-react';
+import { Dialog } from '../ui/Dialog';
 import { Button } from '../ui/Button';
+import { StatusBanner } from '../ui/StatusBanner';
 import { submitLead } from '../../lib/leads';
 
 interface BookingModalProps {
@@ -18,15 +19,17 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    experienceLevel: 'Fresher / Entry-Level',
+    experienceLevel: 'Fresher / College Student',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const cleanName = formData.name.trim();
     const cleanPhone = formData.phone.trim();
-    if (!cleanName || !cleanPhone) {
-      setFormError('Please enter your name and WhatsApp number.');
+    if (!cleanName || cleanPhone.length < 7) {
+      setFormError('Please enter your full name and a valid WhatsApp/phone number.');
       return;
     }
 
@@ -44,15 +47,8 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
 
       setWhatsappLink(whatsappUrl);
       setIsSuccess(true);
-
-      // Attempt to open WhatsApp window safely
-      try {
-        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      } catch {
-        // Ignore popup block; direct button is shown below
-      }
     } catch {
-      setFormError('Unable to submit right now. Please message +91 90008 59695 on WhatsApp.');
+      setFormError('Unable to save request right now. Please message +91 90008 59695 on WhatsApp.');
     } finally {
       setIsSubmitting(false);
     }
@@ -60,165 +56,141 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
 
   const handleResetAndClose = () => {
     setIsSuccess(false);
-    setFormData({ name: '', phone: '', experienceLevel: 'Fresher / Entry-Level' });
+    setFormError(null);
+    setFormData({ name: '', phone: '', experienceLevel: 'Fresher / College Student' });
     onClose();
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={handleResetAndClose}
-            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100"
-          >
-            <button
-              onClick={handleResetAndClose}
-              className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors"
-              aria-label="Close modal"
+    <Dialog
+      isOpen={isOpen}
+      onClose={handleResetAndClose}
+      maxWidthClass="max-w-md"
+      subtitle="Project & Career Brief"
+      title={isSuccess ? 'Request Registered' : `Discuss ${planName || 'Your Scope'}`}
+    >
+      <div className="p-6 sm:p-7">
+        {isSuccess ? (
+          <div className="text-center py-3">
+            <div className="h-14 w-14 bg-[#16845B]/15 text-[#16845B] rounded-full flex items-center justify-center mx-auto mb-4">
+              <Check size={28} />
+            </div>
+            <h4 className="text-xl font-extrabold text-[#111111] mb-2">Lead Saved &amp; Ready</h4>
+            <p className="text-[#57534E] text-sm mb-6 leading-relaxed">
+              We have registered your inquiry for <strong>{planName}</strong>. Continue directly on
+              WhatsApp to share files or confirm timeline.
+            </p>
+
+            <a
+              href={whatsappLink || 'https://wa.me/919000859695'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-[#111111] hover:bg-[#D9541E] text-white font-semibold text-sm transition-colors"
             >
-              <X size={20} />
+              <MessageCircle size={17} /> Open WhatsApp Chat Now
+            </a>
+
+            <button
+              type="button"
+              onClick={handleResetAndClose}
+              className="mt-4 text-xs font-semibold text-[#57534E] hover:text-[#111111] underline underline-offset-4 cursor-pointer"
+            >
+              Done &amp; Close
             </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
+              Share your name and WhatsApp number so we can send tailored work samples and scope
+              options without lengthy forms.
+            </p>
 
-            <div className="p-8">
-              {isSuccess ? (
-                <div className="text-center py-6">
-                  <div className="h-16 w-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
-                    <Check size={32} />
-                  </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-2">Lead Saved &amp; Dispatched!</h3>
-                  <p className="text-slate-600 text-sm font-medium mb-6">
-                    We have registered your request for <strong>{planName}</strong>. Our team replies on WhatsApp within 5 minutes.
-                  </p>
+            <div className="space-y-1.5">
+              <label
+                htmlFor="booking-name"
+                className="text-xs font-bold text-[#111111] uppercase tracking-wider block"
+              >
+                Full Name <span className="text-[#D9541E]">*</span>
+              </label>
+              <div className="relative">
+                <User
+                  size={16}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B6862]"
+                />
+                <input
+                  id="booking-name"
+                  required
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full h-11 bg-[#F3EEE3]/45 border border-[#D8D3C9] rounded-xl pl-10 pr-3 text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E] focus:border-transparent"
+                  placeholder="Your full name"
+                />
+              </div>
+            </div>
 
-                  <a
-                    href={whatsappLink || 'https://wa.me/919000859695'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 w-full h-12 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-sm shadow-lg shadow-green-500/25 transition-all"
-                  >
-                    <MessageCircle size={18} /> Open WhatsApp Chat Now
-                  </a>
+            <div className="space-y-1.5">
+              <label
+                htmlFor="booking-phone"
+                className="text-xs font-bold text-[#111111] uppercase tracking-wider block"
+              >
+                WhatsApp Number <span className="text-[#D9541E]">*</span>
+              </label>
+              <div className="relative">
+                <Phone
+                  size={16}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B6862]"
+                />
+                <input
+                  id="booking-phone"
+                  required
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full h-11 bg-[#F3EEE3]/45 border border-[#D8D3C9] rounded-xl pl-10 pr-3 text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E] focus:border-transparent"
+                  placeholder="e.g. 9000859695"
+                />
+              </div>
+            </div>
 
-                  <button
-                    onClick={handleResetAndClose}
-                    className="mt-4 text-xs font-semibold text-slate-400 hover:text-slate-600 underline"
-                  >
-                    Done &amp; Close
-                  </button>
-                </div>
-              ) : (
+            <div className="space-y-1.5">
+              <label
+                htmlFor="booking-stage"
+                className="text-xs font-bold text-[#111111] uppercase tracking-wider block"
+              >
+                Current Profile / Track
+              </label>
+              <select
+                id="booking-stage"
+                value={formData.experienceLevel}
+                onChange={(e) => setFormData({ ...formData, experienceLevel: e.target.value })}
+                className="w-full h-11 bg-[#F3EEE3]/45 border border-[#D8D3C9] rounded-xl px-3 text-xs sm:text-sm font-medium text-[#111111] focus:outline-none focus:ring-2 focus:ring-[#D9541E] focus:border-transparent"
+              >
+                <option value="Fresher / College Student">Fresher / College Student</option>
+                <option value="1-3 Years Experience">1–3 Years Experience (Junior/Mid)</option>
+                <option value="4-8 Years Experience">4–8 Years Experience (Senior)</option>
+                <option value="8+ Years / Manager / Lead">8+ Years / Lead / Manager</option>
+                <option value="Business / Founder">Business / Startup Founder (Web/UI/AI)</option>
+              </select>
+            </div>
+
+            {formError && <StatusBanner tone="error">{formError}</StatusBanner>}
+
+            <Button type="submit" disabled={isSubmitting} variant="primary" size="lg" className="w-full">
+              {isSubmitting ? 'Saving Request...' : (
                 <>
-                  <div className="mb-6">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider mb-2">
-                      <Clock size={12} /> Fast Turnaround
-                    </div>
-                    <h3 className="text-2xl font-black text-slate-900">
-                      Book {planName}
-                    </h3>
-                    <p className="text-xs text-slate-500 mt-1">
-                      Fill 2 simple fields. We will message you on WhatsApp with samples and pricing options.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Full Name */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                        Full Name <span className="text-rose-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <User size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input
-                          required
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-slate-400"
-                          placeholder="e.g. User Name"
-                        />
-                      </div>
-                    </div>
-
-                    {/* WhatsApp / Phone Number */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                        WhatsApp Number <span className="text-rose-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <Phone size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input
-                          required
-                          type="tel"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-slate-400"
-                          placeholder="e.g. 9000859695"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Quick Profile Level */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                        Your Current Stage
-                      </label>
-                      <select
-                        value={formData.experienceLevel}
-                        onChange={(e) => setFormData({ ...formData, experienceLevel: e.target.value })}
-                        className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-3 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      >
-                        <option value="Fresher / College Student">Fresher / College Student</option>
-                        <option value="1-3 Years Experience">1-3 Years Experience (Junior/Mid)</option>
-                        <option value="4-8 Years Experience">4-8 Years Experience (Senior)</option>
-                        <option value="8+ Years / Manager / Lead">8+ Years / Manager / Lead</option>
-                        <option value="Business / Founder">Business / Founder (Website/UI)</option>
-                      </select>
-                    </div>
-
-                    {formError && (
-                      <div
-                        role="alert"
-                        className="rounded-xl bg-rose-50 border border-rose-200 px-3 py-2 text-xs font-semibold text-rose-700"
-                      >
-                        {formError}
-                      </div>
-                    )}
-
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full h-12 rounded-xl bg-primary hover:bg-primary-dark shadow-md shadow-primary/20 font-bold text-sm mt-2"
-                    >
-                      {isSubmitting ? (
-                        <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      ) : (
-                        <span className="inline-flex items-center gap-2">
-                          Continue to WhatsApp <Send size={16} />
-                        </span>
-                      )}
-                    </Button>
-
-                    <div className="flex items-center justify-center gap-2 text-[11px] font-medium text-slate-400 pt-2">
-                      <ShieldCheck size={14} className="text-emerald-500" />
-                      No spam guarantee. Direct 1-on-1 discussion.
-                    </div>
-                  </form>
+                  Save &amp; Continue to WhatsApp <Send size={15} />
                 </>
               )}
+            </Button>
+
+            <div className="flex items-center justify-center gap-2 text-[11px] font-medium text-[#57534E] pt-1">
+              <ShieldCheck size={14} className="text-[#16845B]" />
+              No automated spam. Direct 1-on-1 conversation.
             </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
+          </form>
+        )}
+      </div>
+    </Dialog>
   );
 };

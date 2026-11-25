@@ -1,6 +1,6 @@
 /**
  * Lead capture utility for SmartScaleTech.
- * Sends service requests to backend/webhook if configured and formats WhatsApp/Email dispatch links.
+ * Sends lead notifications through the backend and formats WhatsApp/Email links.
  */
 
 import { trackEvent } from './analytics';
@@ -119,15 +119,13 @@ export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestP
 
   trackEvent('form_submit', { service: lead.service, sourcePage: lead.sourcePage, type: 'linkedin_service_request' });
 
-  // 1. Dispatch to backend API
-  try {
-    await fetch('/api/service-request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(lead),
-    });
-  } catch (err) {
-    console.warn('Backend service request post error, continuing with client dispatch:', err);
+  const response = await fetch('/api/service-request', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lead),
+  });
+  if (!response.ok) {
+    throw new Error('Service request email delivery failed');
   }
 
   // 2. Format WhatsApp link
@@ -157,6 +155,71 @@ export async function submitLinkedInServiceRequest(data: LinkedInServiceRequestP
   return { lead, whatsappUrl, mailtoUrl, summaryText };
 }
 
+export interface ProjectInquiryPayload {
+  name: string;
+  email: string;
+  phone: string;
+  course?: string;
+  domain: string;
+  technologies?: string;
+  deadline?: string;
+  details: string;
+}
+
+export async function submitProjectInquiry(data: ProjectInquiryPayload): Promise<{
+  whatsappUrl: string;
+}> {
+  const projectBrief = [
+    `Course / Degree: ${data.course?.trim() || 'Not specified'}`,
+    `Project domain: ${data.domain}`,
+    `Preferred technologies: ${data.technologies?.trim() || 'Not specified'}`,
+    `Target deadline: ${data.deadline?.trim() || 'Not specified'}`,
+    `Project requirements: ${data.details.trim()}`,
+  ].join('\n');
+
+  const response = await fetch('/api/service-request', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: data.name.trim(),
+      email: data.email.trim(),
+      phone: data.phone.trim(),
+      service: 'Final Year Project Inquiry',
+      timeline: data.deadline?.trim(),
+      projectBrief,
+      sourcePage: '/final-year-projects',
+    }),
+  });
+  if (!response.ok) {
+    throw new Error('Project inquiry email delivery failed');
+  }
+
+  trackEvent('form_submit', {
+    service: 'Final Year Project Inquiry',
+    sourcePage: '/final-year-projects',
+    type: 'project_inquiry',
+  });
+
+  const summaryText = `🧑‍💻 *NEW PROJECT INQUIRY* — SmartScaleTech
+━━━━━━━━━━━━━━━━━━━━━
+👤 *Client Name:* ${data.name.trim()}
+📧 *Email:* ${data.email.trim()}
+📱 *WhatsApp/Phone:* ${data.phone.trim()}
+🎓 *Course / Degree:* ${data.course?.trim() || 'Not specified'}
+📋 *Project Domain:* ${data.domain}
+🛠️ *Preferred Technologies:* ${data.technologies?.trim() || 'Not specified'}
+⏱️ *Target Deadline:* ${data.deadline?.trim() || 'Not specified'}
+
+📝 *Project Requirements:*
+${data.details.trim()}
+━━━━━━━━━━━━━━━━━━━━━
+_Please reply back directly via WhatsApp or Email._`;
+
+  return {
+    whatsappUrl: `https://wa.me/${FOUNDER_WHATSAPP}?text=${encodeURIComponent(summaryText)}`,
+  };
+}
+
 export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Promise<{ lead: Lead; whatsappUrl: string }> {
   clearLegacyLeadStorage();
 
@@ -168,7 +231,16 @@ export async function submitLead(leadData: Omit<Lead, 'id' | 'timestamp'>): Prom
 
   trackEvent('form_submit', { service: lead.service, sourcePage: lead.sourcePage });
 
-  // 1. Dispatch to custom webhook if configured with a safe HTTPS endpoint
+  const response = await fetch('/api/lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lead),
+  });
+  if (!response.ok) {
+    throw new Error('Lead email delivery failed');
+  }
+
+  // Dispatch to an additional custom webhook if configured.
   const webhookUrl = (import.meta as any).env?.VITE_LEAD_WEBHOOK_URL;
   if (isSafeWebhookUrl(webhookUrl)) {
     try {

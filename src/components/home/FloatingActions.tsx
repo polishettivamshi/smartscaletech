@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { MessageCircle, ArrowUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -14,30 +13,28 @@ export const FloatingActions = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2">
+    <div className="fixed bottom-16 right-4 sm:right-6 z-40 flex items-center gap-2">
       {showScrollTop && (
-        <motion.button
+        <button
           type="button"
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="h-11 w-11 rounded-full bg-white/95 backdrop-blur-sm border border-slate-200 text-slate-600 flex items-center justify-center shadow-lg transition-colors hover:bg-slate-50 hover:text-primary cursor-pointer"
+          className="h-10 w-10 rounded-xl bg-white border border-[#D8D3C9] text-[#111111] flex items-center justify-center shadow-md transition-colors hover:border-[#111111] hover:text-[#D9541E] cursor-pointer"
           title="Back to top"
           aria-label="Scroll back to top"
         >
-          <ArrowUp size={18} />
-        </motion.button>
+          <ArrowUp size={16} />
+        </button>
       )}
 
       <a
         href="https://wa.me/919000859695"
         target="_blank"
         rel="noopener noreferrer"
-        className="h-11 px-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-2 shadow-lg shadow-emerald-600/25 transition-all hover:-translate-y-0.5 text-xs font-bold whitespace-nowrap"
+        className="advisor-glow h-10 px-4 rounded-xl bg-[#111111] hover:bg-[#D9541E] text-white flex items-center gap-2 transition-colors text-xs font-bold whitespace-nowrap"
         title="Chat on WhatsApp (+91 90008 59695)"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle size={18} fill="currentColor" />
+        <MessageCircle size={15} />
         <span className="hidden sm:inline">WhatsApp</span>
       </a>
     </div>

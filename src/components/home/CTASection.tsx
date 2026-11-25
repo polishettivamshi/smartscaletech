@@ -1,36 +1,74 @@
-import { Button } from '../ui/Button';
+import { Link } from 'react-router-dom';
 import { ArrowRight, MessageCircle } from 'lucide-react';
+import { Button } from '../ui/Button';
 
 export const CTASection = () => {
   return (
-    <section className="py-12 bg-white px-4">
-      <div className="mx-auto max-w-7xl bg-primary rounded-[40px] p-8 md:p-16 overflow-hidden relative shadow-2xl shadow-primary/20 border border-transparent">
-        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
-           <div className="text-center lg:text-left max-w-2xl">
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-[1.1]">Ready to transform your digital presence with SmartScaleTech?</h2>
-              <p className="text-white/90 font-bold text-lg">Join 20+ professionals already winning with SmartScaleTech's ATS resume, LinkedIn optimization, and web development solutions.</p>
-           </div>
-           
-           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <a href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%0A%0AI%27m%20interested%20in%20your%20services.%0A%0AService%20Required%3A%0A%5BATS%20Resume%20%2F%20LinkedIn%20Optimization%20%2F%20Portfolio%20%2F%20Website%20%2F%20Other%5D%0A%0AName%3A%0AEmail%3A%0APhone%3A%0A%0ACurrent%20Role%2FBusiness%3A%0A%0AMy%20Requirement%3A%0A%0APreferred%20Time%20for%20Discussion%3A%0A%0APlease%20get%20in%20touch%20with%20me." target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-                <Button className="w-full h-14 px-10 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-black uppercase tracking-widest text-xs shadow-lg shadow-green-500/30">
-                   <MessageCircle className="mr-2 h-4 w-4" /> Chat Now
-                </Button>
-              </a>
-              <a href="#pricing" className="w-full sm:w-auto">
-                <Button variant="outline" className="w-full h-14 px-10 rounded-2xl bg-white border-0 text-primary hover:bg-slate-50 font-black uppercase tracking-widest text-xs">
-                   View Plans <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </a>
-           </div>
+    <section className="py-16 sm:py-24 bg-[#161616] text-white border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 pb-10 border-b border-white/15">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#E87A4E] mb-4">
+              Start Today · Hitech City &amp; Remote
+            </p>
+            <h2 className="text-section-display font-extrabold text-white">
+              Let&apos;s build something that matters.
+            </h2>
+            <p className="mt-4 text-base text-white/75 leading-relaxed">
+              Launch a clean business website, ship an AI workflow integration, or prepare an
+              ATS-ready resume and developer portfolio with direct founder collaboration.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3.5 shrink-0">
+            <Link to="/request-service">
+              <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                Start a Project <ArrowRight size={16} />
+              </Button>
+            </Link>
+            <a
+              href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%20I%20would%20like%20to%20discuss%20a%20project."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto border-white/25 text-white hover:bg-white/10 hover:border-white"
+              >
+                <MessageCircle size={16} /> Talk to Us
+              </Button>
+            </a>
+          </div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 h-full w-1/3 bg-linear-to-l from-white/10 to-transparent pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 h-64 w-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-0 left-1/4 h-32 w-32 bg-primary-dark/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="pt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs text-white/70">
+          <div>
+            <span className="block text-[10px] font-bold uppercase tracking-widest text-white/45 mb-1">
+              Business Solutions
+            </span>
+            Web Engineering · UI/UX Systems · APIs · AI Workflows · SEO
+          </div>
+          <div>
+            <span className="block text-[10px] font-bold uppercase tracking-widest text-white/45 mb-1">
+              Career Solutions
+            </span>
+            ATS Resumes · LinkedIn &amp; Naukri · Developer Portfolios · Projects
+          </div>
+          <div>
+            <span className="block text-[10px] font-bold uppercase tracking-widest text-white/45 mb-1">
+              Direct Contact
+            </span>
+            <a
+              href="mailto:smartscaletechforyou@gmail.com"
+              className="underline underline-offset-4 hover:text-white"
+            >
+              smartscaletechforyou@gmail.com
+            </a>{' '}
+            · +91 90008 59695
+          </div>
+        </div>
       </div>
     </section>
   );
 };
-

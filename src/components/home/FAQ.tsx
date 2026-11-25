@@ -1,106 +1,137 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { Plus, Minus, Send, HelpCircle, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, MessageCircle } from 'lucide-react';
+import { Accordion, AccordionItemData } from '../ui/Accordion';
 import { Button } from '../ui/Button';
+import { SectionHeading } from '../ui/SectionHeading';
 
-const faqs = [
+type FaqCategory = 'All' | 'Business' | 'Career';
+
+const FAQS: (AccordionItemData & { category: Exclude<FaqCategory, 'All'> })[] = [
   {
-    q: "What is Smart Scale Tech (SST / SmartScaleTech)?",
-    a: "Smart Scale Tech—also known as SST or SmartScaleTech—is a Hitech City, Hyderabad agency founded by Vamshi Polishetti. SST builds ATS-verified resumes, LinkedIn & Naukri profiles, B.Tech/M.Tech final year projects, and fast custom websites."
+    category: 'Business',
+    question: 'What is Smart Scale Tech (SST / SmartScaleTech)?',
+    answer:
+      'Smart Scale Tech—also searched as SST or SmartScaleTech—is an independent Hitech City, Hyderabad studio founded by Vamshi Polishetti. We engineer custom business websites, UI/UX systems, API & AI integrations, alongside ATS-ready resumes, LinkedIn optimization, and B.Tech/M.Tech final year projects.',
   },
   {
-    q: "What is an ATS-friendly resume?",
-    a: "It is a resume that is structured and keyword-optimized to pass through Applicant Tracking Systems used by 90% of Fortune 10 companies."
+    category: 'Business',
+    question: 'Do we get full ownership of website code and designs?',
+    answer:
+      'Yes. We build clean React, TypeScript, Node.js, or Python codebases without proprietary CMS lock-in. Upon project completion, full source files and deployment walkthroughs are handed over directly to your team.',
   },
   {
-    q: "Do you provide resume writing services in Hyderabad?",
-    a: "Yes. SST (Smart Scale Tech) is based in Hitech City, Hyderabad, Telangana and works with clients across India. Consultations happen over WhatsApp or call, and all deliverables are shared digitally, so location is never a barrier."
+    category: 'Business',
+    question: 'How long does a business website or custom web app take?',
+    answer:
+      'Focused business websites typically launch within 5 to 10 working days depending on page count and content readiness. Custom web apps, APIs, or AI workflow integrations are scoped by milestone before work begins.',
   },
   {
-    q: "How long does it take to complete an order?",
-    a: "Usually, we deliver the first draft within 24-48 hours depending on the package selected."
+    category: 'Career',
+    question: 'What makes a resume ATS-friendly for Indian & global hiring portals?',
+    answer:
+      'Automated parsers such as Workday, Taleo, Greenhouse, and Naukri extract plain text top-to-bottom. We replace fragile multi-column graphics and icons with crisp single-column typography, role-aligned technical keywords, and quantified STAR bullet points.',
   },
   {
-    q: "Do you offer revisions?",
-    a: "Yes, all our packages include unlimited revisions until you are 100% satisfied with the result."
+    category: 'Career',
+    question: 'How fast are career profiles and resumes delivered?',
+    answer:
+      'Your first structured ATS resume or LinkedIn draft arrives within 24–48 hours, followed by unlimited iterative refinements until you are confident in every bullet.',
   },
   {
-    q: "Will my information be kept confidential?",
-    a: "Absolutely. We follow strict data protection policies and never share your details with third parties."
+    category: 'Career',
+    question: 'Do you require my LinkedIn account password?',
+    answer:
+      'No. You never share account credentials. We deliver your headline variations, About rewrite, STAR experience bullets, skill list, and custom header banner ready to copy and paste securely.',
   },
   {
-    q: "Do you build custom websites?",
-    a: "Yes, we specialize in custom web applications, SaaS platforms, and professional portfolios tailored to your specific needs."
-  }
+    category: 'Career',
+    question: 'Do you support remote clients outside Hyderabad?',
+    answer:
+      'Yes. While our studio operates from Hitech City, Hyderabad, we work digitally via WhatsApp and video consultations with engineers, freshers, and founders across India and abroad.',
+  },
 ];
 
 export const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [category, setCategory] = useState<FaqCategory>('All');
+
+  const filteredFaqs =
+    category === 'All' ? FAQS : FAQS.filter((item) => item.category === category);
 
   return (
-    <section id="faq" className="py-24 bg-white">
+    <section id="faq" className="py-20 sm:py-24 bg-white border-b border-[#D8D3C9]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-7">
-            <h2 className="text-4xl font-black text-slate-900 mb-12">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              {faqs.map((faq, idx) => (
-                <div key={idx} className="border-b border-slate-100 last:border-0">
+            <SectionHeading
+              eyebrow="Common Questions"
+              title="Clear answers before"
+              highlight="we get started."
+            />
+
+            {/* Category filter tabs */}
+            <div
+              role="tablist"
+              aria-label="Filter FAQs by category"
+              className="mt-8 mb-6 inline-flex items-center gap-1 p-1 rounded-xl bg-[#F3EEE3] border border-[#D8D3C9]"
+            >
+              {(['All', 'Business', 'Career'] as FaqCategory[]).map((cat) => {
+                const active = category === cat;
+                return (
                   <button
-                    onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                    className="flex w-full items-center justify-between py-6 text-left"
+                    key={cat}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setCategory(cat)}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                      active ? 'bg-[#111111] text-white' : 'text-[#57534E] hover:text-[#111111]'
+                    }`}
                   >
-                    <span className={`text-sm font-bold transition-colors ${openIndex === idx ? 'text-primary' : 'text-slate-700'}`}>
-                      {faq.q}
-                    </span>
-                    <div className={`h-6 w-6 rounded-lg flex items-center justify-center transition-colors ${openIndex === idx ? 'bg-primary/5 text-primary' : 'text-slate-300'}`}>
-                      {openIndex === idx ? <Minus size={16} /> : <Plus size={16} />}
-                    </div>
+                    {cat}
                   </button>
-                  <AnimatePresence>
-                    {openIndex === idx && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden"
-                      >
-                        <p className="pb-6 text-sm leading-relaxed text-slate-700 font-medium">
-                          {faq.a}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
+                );
+              })}
             </div>
+
+            <Accordion key={category} items={filteredFaqs} defaultOpenIndex={0} />
           </div>
 
           <div className="lg:col-span-5">
-            <div className="bg-slate-50/50 p-10 rounded-[40px] border border-slate-100 sticky top-32">
-               <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">Have more questions?</h3>
-                  <p className="text-slate-700 font-bold text-sm">We're here to help you succeed!</p>
-               </div>
-               
-               <div className="relative mb-8">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-32 w-32 bg-primary/10 rounded-full blur-3xl" />
-                  <div className="relative h-48 w-full flex items-center justify-center">
-                     <div className="h-40 w-40 bg-white rounded-3xl shadow-xl border border-slate-50 flex items-center justify-center text-primary relative translate-x-4 rotate-6">
-                        <HelpCircle size={64} fill="currentColor" fillOpacity={0.1} />
-                     </div>
-                     <div className="absolute h-32 w-32 bg-primary rounded-3xl shadow-2xl flex items-center justify-center text-white -translate-x-4 -rotate-12">
-                        <Send size={48} />
-                     </div>
-                  </div>
-               </div>
+            <div className="bg-[#F3EEE3] border border-[#D8D3C9] rounded-2xl p-8 sm:p-10 lg:sticky lg:top-28">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+                Direct Studio Desk
+              </p>
+              <h3 className="text-2xl font-extrabold text-[#111111]">
+                Have a specific project or career requirement?
+              </h3>
+              <p className="mt-3 text-sm text-[#57534E] leading-relaxed">
+                Send your current resume, project brief, or website URL. We respond directly with
+                practical recommendations, realistic turnaround, and transparent pricing.
+              </p>
 
-               <Link to="/request-service">
-                 <Button className="w-full h-12 rounded-2xl bg-primary hover:bg-primary-dark font-bold shadow-lg shadow-primary/20">
-                   Contact Us <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-               </Link>
+              <div className="mt-7 space-y-3">
+                <Link to="/request-service" className="block">
+                  <Button variant="primary" size="lg" className="w-full">
+                    Start a Project <ArrowRight size={16} />
+                  </Button>
+                </Link>
+                <a
+                  href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%20I%20have%20a%20question%20about%20your%20services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button variant="secondary" size="lg" className="w-full">
+                    <MessageCircle size={16} /> Chat on WhatsApp
+                  </Button>
+                </a>
+              </div>
+
+              <div className="mt-6 pt-5 border-t border-[#D8D3C9] text-xs text-[#57534E] flex items-center justify-between">
+                <span>Hitech City, Hyderabad</span>
+                <span className="font-semibold text-[#111111]">Mon–Sat · IST</span>
+              </div>
             </div>
           </div>
         </div>

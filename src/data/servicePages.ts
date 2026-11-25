@@ -104,7 +104,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'ATS resume writing starts at ₹499 individually, or ₹1,500 in the Career Starter bundle (Save ₹396) covering LinkedIn optimisation, Naukri profile setup and GitHub optimisation.',
+      'ATS resume writing is ₹239 in the Exclusive Startup Launch Offer (save ₹60 off ₹299), or ₹899 in the Career Starter bundle (save ₹147 off ₹1,046) covering LinkedIn optimisation, Naukri profile setup and GitHub optimisation.',
     faqs: [
       {
         q: 'How do I know if my resume is ATS-friendly?',
@@ -205,7 +205,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'LinkedIn optimization starts at ₹499 individually, or ₹1,500 in the Career Starter bundle (Save ₹396) alongside ATS resume writing, Naukri setup and GitHub optimisation.',
+      'LinkedIn optimization is ₹319 in the Exclusive Startup Launch Offer (save ₹80 off ₹399), or ₹899 in the Career Starter bundle (save ₹147 off ₹1,046) alongside ATS resume writing, Naukri setup and GitHub optimisation.',
     faqs: [
       {
         q: 'How long does LinkedIn optimization take?',
@@ -235,7 +235,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'web-development-hyderabad',
     title: 'Web Development Services in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Custom web development in Hyderabad. Fast, SEO-ready business websites and web apps built in Hitech City. Pricing from ₹4,999 (or ₹6,000 Business Web + SEO bundle). WhatsApp us today.',
+      'Custom web development in Hyderabad. Fast, SEO-ready business websites and web apps built in Hitech City. Exclusive Startup Launch Offer from ₹7,999 (save ₹2,000 off ₹9,999); Business Web + SEO bundle ₹4,999 (save ₹499 off ₹5,498). WhatsApp us today.',
     badge: 'Tech Services',
     h1: 'Web Development Services',
     h1Highlight: 'in Hyderabad',
@@ -297,7 +297,7 @@ export const servicePages: Record<string, ServicePageData> = {
       },
       {
         title: 'Priced for Indian businesses',
-        desc: 'Standalone custom websites start at ₹4,999, or ₹6,000 for the Business Web + Technical SEO & Google Search Console bundle (Save ₹998).',
+        desc: 'Custom websites start at ₹7,999 in the Exclusive Startup Launch Offer (save ₹2,000 off ₹9,999), or ₹4,999 for the Business Web + Technical SEO & Google Search Console bundle (save ₹499 off ₹5,498).',
       },
       {
         title: 'Hitech City based, working nationwide',
@@ -306,7 +306,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'Business Web + SEO bundle is ₹6,000 one-time (Save ₹998 off ₹6,998), covering five responsive pages, custom lead forms, Technical SEO & Google Maps/Search Console setup, WhatsApp integration and a performance audit.',
+      'Business Web + SEO bundle is ₹4,999 one-time (save ₹499 off ₹5,498), covering five responsive pages, custom lead forms, Technical SEO & Google Maps/Search Console setup, WhatsApp integration and a performance audit.',
     faqs: [
       {
         q: 'How long does a business website take?',
@@ -407,7 +407,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'UI/UX design is quoted per project depending on scope and screen count, and is bundled into our website plans when the design work is part of a build. Message us on WhatsApp for a scoped quote.',
+      'Focused UI/UX design starts at ₹3,199 in the Exclusive Startup Launch Offer (save ₹800 off ₹3,999), with larger projects quoted according to scope and screen count. Message us on WhatsApp for a scoped quote.',
     faqs: [
       {
         q: 'What do I receive at the end?',
@@ -437,7 +437,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'portfolio-website-hyderabad',
     title: 'Portfolio Website Development in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Recruiter-ready portfolio websites in Hyderabad. Animated, fast and linked to your resume. Built in Hitech City with free cloud deployment setup. From ₹1,999 (or ₹3,000 Portfolio Launch bundle).',
+      'Recruiter-ready portfolio websites in Hyderabad. Animated, fast and linked to your resume. Built in Hitech City with free cloud deployment setup. Startup Launch Offer from ₹2,399 (save ₹600 off ₹2,999), or ₹1,999 in the Portfolio Launch bundle (save ₹247 off ₹2,246).',
     badge: 'Tech Services',
     h1: 'Portfolio Website Development',
     h1Highlight: 'in Hyderabad',
@@ -509,7 +509,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'Portfolio Launch is ₹3,000 one-time (Save ₹396 off ₹3,396), and includes the animated portfolio website, ATS resume writing, LinkedIn and GitHub preparation, SEO optimisation and complete deployment setup.',
+      'Portfolio Launch is ₹1,999 one-time (save ₹247 off ₹2,246), and includes the animated portfolio website, ATS resume writing, LinkedIn and GitHub preparation, SEO optimisation and complete deployment setup.',
     faqs: [
       {
         q: 'Do I need a portfolio if I have a GitHub profile?',
@@ -611,7 +611,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing',
     pricing:
-      'Final year project pricing depends on scope and stack. Full builds with documentation and viva support start at ₹2,999. Message us on WhatsApp with your branch and deadline for a quote.',
+      'Final year project pricing depends on scope and stack. Full builds with documentation and viva support start at ₹3,999 in the Exclusive Startup Launch Offer (save ₹1,000 off ₹4,999). Message us on WhatsApp with your branch and deadline for a quote.',
     faqs: [
       {
         q: 'Which technologies do you build in?',
@@ -641,7 +641,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'resume-writing-freshers-hyderabad',
     title: 'Resume Writing for Freshers in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Turn campus projects and coursework into interview calls. ATS-optimized fresher resume writing in Hyderabad. First draft in 24-48 hours. Transparent pricing from ₹999.',
+      'Turn campus projects and coursework into interview calls. ATS-optimized fresher resume writing in Hyderabad. First draft in 24-48 hours. Startup Launch Offer from ₹239 (save ₹60 off ₹299).',
     badge: 'Fresher Career Launch',
     h1: 'Resume Writing for Freshers',
     h1Highlight: 'in Hyderabad',
@@ -704,7 +704,7 @@ export const servicePages: Record<string, ServicePageData> = {
       },
       {
         title: 'Affordable fresher pricing',
-        desc: 'Starting at ₹999 one-time. No hidden charges or recurring subscription traps.',
+        desc: 'Starting at ₹239 in the Exclusive Startup Launch Offer (save ₹60 off ₹299). No hidden charges or recurring subscription traps.',
       },
       {
         title: 'Hyderabad local context',
@@ -713,7 +713,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing & Turnaround',
     pricing:
-      'Fresher ATS Resume Writing is ₹999 one-time with 24-48 hour turnaround. Includes unlimited revisions and editable Word + PDF files.',
+      'Fresher ATS Resume Writing starts at ₹239 in the Exclusive Startup Launch Offer (save ₹60 off ₹299), with 24–48 hour turnaround. Includes unlimited revisions and editable Word + PDF files.',
     faqs: [
       {
         q: 'I do not have work experience. What will you put in my resume?',
@@ -743,7 +743,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'linkedin-profile-writer-software-engineers-hyderabad',
     title: 'LinkedIn Profile Writer for Software Engineers in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Get inbound recruiter DMs on LinkedIn. Specialized LinkedIn optimization for software engineers, frontend/backend/full-stack developers in Hyderabad. From ₹999.',
+      'Get inbound recruiter DMs on LinkedIn. Specialized LinkedIn optimization for software engineers, frontend/backend/full-stack developers in Hyderabad. Startup Launch Offer ₹319 (save ₹80 off ₹399).',
     badge: 'Tech Career Optimization',
     h1: 'LinkedIn Profile Writer for Software Engineers',
     h1Highlight: 'in Hyderabad',
@@ -815,7 +815,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing & Turnaround',
     pricing:
-      'LinkedIn Profile Optimization for Software Engineers is ₹999 one-time (or bundled with ATS Resume in Career Starter). Delivered in 48 hours.',
+      'LinkedIn Profile Optimization for Software Engineers is ₹319 in the Exclusive Startup Launch Offer (save ₹80 off ₹399; or bundled with ATS Resume in Career Starter). Delivered in 48 hours.',
     faqs: [
       {
         q: 'Do you need my LinkedIn login and password?',
@@ -845,7 +845,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'executive-resume-writing-hyderabad',
     title: 'Executive Resume Writing Services in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Executive resume writing for Tech Leads, Engineering Managers, Directors, and VPs in Hyderabad. Boardroom-ready narrative and leadership metrics. From ₹2,499.',
+      'Executive resume writing for Tech Leads, Engineering Managers, Directors, and VPs in Hyderabad. Boardroom-ready narrative and leadership metrics. Launch offer ₹1,999 (save ₹500 off ₹2,499).',
     badge: 'Leadership & Executive',
     h1: 'Executive Resume Writing Services',
     h1Highlight: 'in Hyderabad',
@@ -917,7 +917,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing & Turnaround',
     pricing:
-      'Executive Leadership Resume Writing starts at ₹2,499 with 3-4 day turnaround, including direct founder consultation and unlimited revisions.',
+      'Executive Leadership Resume Writing starts at ₹1,999 in the Startup Launch Offer (save ₹500 off ₹2,499) with 3-4 day turnaround, including direct founder consultation and unlimited revisions.',
     faqs: [
       {
         q: 'How many pages should an executive resume be?',
@@ -947,7 +947,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'college-placement-resume-hyderabad',
     title: 'Campus Placement Resume Writing in Hyderabad | SmartScaleTech',
     metaDescription:
-      'Crack on-campus and pool placement drives at JNTU, OU, CBIT, Vasavi, VNR. ATS placement resume writing in Hyderabad. Fast delivery from ₹799 - ₹999.',
+      'Crack on-campus and pool placement drives at JNTU, OU, CBIT, Vasavi, VNR. ATS placement resume writing in Hyderabad. Startup Launch Offer ₹639–₹799 (save ₹160–₹200 off ₹799–₹999).',
     badge: 'Campus Placement Prep',
     h1: 'Campus Placement Resume Writing',
     h1Highlight: 'in Hyderabad',
@@ -1010,7 +1010,7 @@ export const servicePages: Record<string, ServicePageData> = {
       },
       {
         title: 'Student-friendly rates',
-        desc: 'Budget pricing starting at ₹799 - ₹999 specifically designed for college students.',
+        desc: 'Startup Launch Offer ₹639–₹799 (save ₹160–₹200 off standard pricing of ₹799–₹999), specifically designed for college students.',
       },
       {
         title: 'Fast delivery for drive deadlines',
@@ -1019,7 +1019,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing & Turnaround',
     pricing:
-      'Campus Placement Resume Writing is ₹799 - ₹999 with 24-48 hour turnaround. Includes 1-page placement layout and editable Word file.',
+      'Campus Placement Resume Writing is ₹639–₹799 in the Startup Launch Offer (save ₹160–₹200 off ₹799–₹999) with 24-48 hour turnaround. Includes 1-page placement layout and editable Word file.',
     faqs: [
       {
         q: 'Which Hyderabad colleges do you work with students from?',
@@ -1049,7 +1049,7 @@ export const servicePages: Record<string, ServicePageData> = {
     slug: 'freelance-portfolio-website-hyderabad',
     title: 'Freelance Portfolio Website Development in Hyderabad | SmartScaleTech',
     metaDescription:
-      'High-converting portfolio websites for freelancers, consultants, and creators in Hyderabad. Show case studies, get direct clients, zero commissions. From ₹2,999.',
+      'High-converting portfolio websites for freelancers, consultants, and creators in Hyderabad. Show case studies, get direct clients, zero commissions. Startup Launch Offer from ₹2,399 (save ₹600 off ₹2,999).',
     badge: 'Creator & Freelance Tech',
     h1: 'Freelance Portfolio Website Development',
     h1Highlight: 'in Hyderabad',
@@ -1121,7 +1121,7 @@ export const servicePages: Record<string, ServicePageData> = {
     ],
     pricingTitle: 'Pricing & Turnaround',
     pricing:
-      'Freelance Portfolio Website Development is ₹2,999 one-time with 3-5 day turnaround. Includes free deployment setup and WhatsApp lead capture.',
+      'Freelance Portfolio Website Development is ₹2,399 in the Exclusive Startup Launch Offer (save ₹600 off ₹2,999), with 3-5 day turnaround. Includes free deployment setup and WhatsApp lead capture.',
     faqs: [
       {
         q: 'Do I have to pay monthly hosting fees?',

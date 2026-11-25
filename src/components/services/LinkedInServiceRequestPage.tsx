@@ -1,135 +1,128 @@
 import React from 'react';
-import { 
-  Linkedin, 
-  ShieldCheck, 
-  Clock, 
-  Zap, 
-  MessageCircle, 
-  CheckCircle2, 
-  Star,
-  Users,
-  FileCheck,
-  Building2,
-  Sparkles
-} from 'lucide-react';
+import { Linkedin, MessageCircle } from 'lucide-react';
 import { LinkedInServiceRequestForm } from './LinkedInServiceRequestForm';
+import { Breadcrumb } from '../ui/Breadcrumb';
+import { OfferPrice } from '../ui/OfferPrice';
 
 export const LinkedInServiceRequestPage: React.FC = () => {
   return (
-    <main className="bg-slate-50 min-h-screen py-12 lg:py-20 text-slate-800">
-
+    <main className="bg-[#F3EEE3] min-h-screen py-12 lg:py-16 text-[#111111]">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        {/* Hero Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0A66C2]/10 text-[#0A66C2] text-xs font-black uppercase tracking-wider">
-            <Linkedin size={15} /> Official LinkedIn Service Portal
-          </div>
+        <Breadcrumb
+          items={[{ label: 'Home', to: '/' }, { label: 'Start a Project' }]}
+          className="mb-8"
+        />
 
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Request Services from <span className="text-primary">Smart Scale Tech</span>
-          </h1>
-
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Connected via our LinkedIn company page? Submit your exact project requirements below. Your request sends directly to founder Vamshi’s personal WhatsApp and official email for an immediate reply.
+        <div className="max-w-3xl mb-10 space-y-4">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E]">
+            Project &amp; Service Inquiry · Zero Upfront Fee
           </p>
 
-          {/* Trust Highlights */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 text-xs font-bold text-slate-700">
-            <div className="p-3 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col items-center text-center">
-              <Sparkles size={18} className="text-emerald-600 mb-1" />
-              <span>Free Proposal (₹0)</span>
+          <h1 className="text-hero-display font-extrabold text-[#111111]">
+            Tell us what you are building or improving.
+          </h1>
+
+          <p className="text-[#57534E] text-base sm:text-lg leading-relaxed">
+            Submit your requirements below for web development, AI integrations, ATS resumes, or
+            LinkedIn optimization. Requests route directly to founder Vamshi on WhatsApp and
+            official email for clear scoping.
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs font-bold text-[#111111]">
+            <div className="p-3.5 bg-white rounded-xl border border-[#D8D3C9]">
+              <span className="block text-[10px] uppercase tracking-wider text-[#57534E] font-medium">
+                Consultation
+              </span>
+              <span className="mt-0.5 block">₹0 Free Scope</span>
             </div>
-            <div className="p-3 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col items-center text-center">
-              <Zap size={18} className="text-primary mb-1" />
-              <span>Starts at Just ₹199</span>
+            <div className="p-3.5 bg-white rounded-xl border border-[#D8D3C9]">
+              <span className="block text-[10px] uppercase tracking-wider text-[#57534E] font-medium">
+                Single Services
+              </span>
+              <span className="mt-0.5 block">
+                <OfferPrice standardPrice={199} offerPrice={159} startingFrom compact />
+              </span>
             </div>
-            <div className="p-3 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col items-center text-center">
-              <Clock size={18} className="text-amber-600 mb-1" />
-              <span>5-Min WhatsApp Reply</span>
+            <div className="p-3.5 bg-white rounded-xl border border-[#D8D3C9]">
+              <span className="block text-[10px] uppercase tracking-wider text-[#57534E] font-medium">
+                Draft Turnaround
+              </span>
+              <span className="mt-0.5 block">24–48 Hours</span>
             </div>
-            <div className="p-3 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col items-center text-center">
-              <FileCheck size={18} className="text-indigo-600 mb-1" />
-              <span>98/100 ATS Score</span>
+            <div className="p-3.5 bg-white rounded-xl border border-[#D8D3C9]">
+              <span className="block text-[10px] uppercase tracking-wider text-[#57534E] font-medium">
+                Execution
+              </span>
+              <span className="mt-0.5 block">Direct Founder</span>
             </div>
           </div>
         </div>
 
-        {/* Form Container */}
-        <div className="mb-16">
-          <LinkedInServiceRequestForm
-            sourcePage="/request-service"
-          />
+        <div className="mb-14">
+          <LinkedInServiceRequestForm sourcePage="/request-service" />
         </div>
 
-        {/* How It Works */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm mb-16">
-          <div className="text-center max-w-xl mx-auto mb-10">
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-              What Happens After You Submit?
-            </h2>
-            <p className="text-slate-500 text-sm mt-2">
-              Simple 3-step turnaround designed for busy job seekers and hiring candidates.
+        {/* Next Steps */}
+        <div className="bg-white rounded-2xl p-7 sm:p-10 border border-[#D8D3C9] mb-12">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-[#111111] mb-6">
+            What happens after you submit
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+            <div className="space-y-2">
+              <span className="text-xs font-extrabold text-[#D9541E]">01</span>
+              <h3 className="font-extrabold text-[#111111] text-base">Direct Dispatch</h3>
+              <p className="text-[#57534E] text-xs sm:text-sm leading-relaxed">
+                Your brief dispatches via WhatsApp (+91 90008 59695) and email
+                (smartscaletechforyou@gmail.com).
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-extrabold text-[#D9541E]">02</span>
+              <h3 className="font-extrabold text-[#111111] text-base">Scope &amp; Fixed Quote</h3>
+              <p className="text-[#57534E] text-xs sm:text-sm leading-relaxed">
+                Vamshi reviews your current profile or project goal, confirms exact deliverables,
+                and shares a transparent fixed quote.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-extrabold text-[#D9541E]">03</span>
+              <h3 className="font-extrabold text-[#111111] text-base">Iterative Delivery</h3>
+              <p className="text-[#57534E] text-xs sm:text-sm leading-relaxed">
+                Career drafts arrive in 24–48 hours; custom web builds progress cleanly with direct
+                review checkpoints.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Direct Contact Strip */}
+        <div className="bg-[#161616] text-white rounded-2xl p-7 sm:p-9 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-1.5">
+            <h3 className="text-xl font-extrabold">Prefer messaging directly?</h3>
+            <p className="text-white/75 text-xs sm:text-sm max-w-md">
+              Skip the form and send your brief directly on WhatsApp or connect on LinkedIn.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="space-y-3 relative">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary font-black flex items-center justify-center text-base">
-                1
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Instant Dispatch</h3>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                Your request details are dispatched via WhatsApp to <strong>+91 90008 59695</strong> and emailed to <strong>smartscaletechforyou@gmail.com</strong>.
-              </p>
-            </div>
-
-            <div className="space-y-3 relative">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 font-black flex items-center justify-center text-base">
-                2
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Complimentary Audit &amp; Quote</h3>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                Vamshi reviews your existing profile or resume, sends a transparent fixed quote, and answers all questions over WhatsApp.
-              </p>
-            </div>
-
-            <div className="space-y-3 relative">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 font-black flex items-center justify-center text-base">
-                3
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">24–48 Hr First Draft</h3>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                We craft your ATS-compliant resume or LinkedIn makeover with Workday keyword benchmarks and provide revisions until you're completely satisfied.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Direct Contacts Bar */}
-        <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-          <div className="space-y-2">
-            <h3 className="text-xl font-black">Need Immediate Assistance?</h3>
-            <p className="text-slate-300 text-xs sm:text-sm max-w-md">
-              You can also message founder Vamshi Polishetti directly on WhatsApp without filling out the form.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
             <a
-              href="https://wa.me/919000859695?text=Hello%20Vamshi%2C%20I%20saw%20your%20LinkedIn%20company%20page%20and%20would%20like%20to%20request%20a%20service."
+              href="https://wa.me/919000859695?text=Hello%20Vamshi%2C%20I%20would%20like%20to%20request%20a%20SmartScaleTech%20service."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#D9541E] hover:bg-[#B94414] text-white font-semibold text-xs sm:text-sm transition-colors"
             >
-              <MessageCircle size={18} fill="currentColor" /> Chat on WhatsApp (+91 90008 59695)
+              <MessageCircle size={16} /> WhatsApp (+91 90008 59695)
             </a>
             <a
               href="https://www.linkedin.com/company/smartscale-tech"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm backdrop-blur-md transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/25 hover:bg-white/10 text-white font-semibold text-xs sm:text-sm transition-colors"
             >
-              <Linkedin size={18} /> Company LinkedIn
+              <Linkedin size={16} /> Company LinkedIn
             </a>
           </div>
         </div>

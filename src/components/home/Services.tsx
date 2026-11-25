@@ -1,248 +1,67 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import type { ReactNode } from 'react';
+import { ArrowRight, Eye, MessageCircle, CheckCircle2 } from 'lucide-react';
 import {
-  FileText,
-  Linkedin,
-  Rocket,
-  Briefcase,
-  GraduationCap,
-  Users,
-  ArrowRight,
-  Code,
-  Brain,
-  Target,
-  Search,
-  Palette,
-  Megaphone,
-  Globe,
-  Layout,
-  Github,
-  Eye,
-  X,
-  CheckCircle2,
-  MessageCircle,
-  TrendingUp,
-  Sparkles,
-} from 'lucide-react';
-import {
-  getServiceVisualByTitle,
-  ServiceVisual,
-} from '../../data/serviceTransformations';
+  ALL_STRUCTURED_SERVICES,
+  BUSINESS_SERVICES_LIST,
+  CAREER_SERVICES_LIST,
+  StructuredServiceEntry,
+} from '../../data/serviceCatalog';
+import { SERVICE_CATALOG } from '../../data/bundleCatalog';
+import { SectionHeading } from '../ui/SectionHeading';
+import { Dialog } from '../ui/Dialog';
 import { Button } from '../ui/Button';
+import { OfferPrice } from '../ui/OfferPrice';
 
-interface ServiceItem {
-  title: string;
-  desc: string;
-  icon: ReactNode;
-  link?: string;
-}
+type TrackTab = 'all' | 'career' | 'business';
 
-interface ServiceGroup {
-  category: string;
-  icon: ReactNode;
-  items: ServiceItem[];
-}
-
-const services: ServiceGroup[] = [
-  {
-    category: "SmartScaleTech Career Branding Accelerator",
-    icon: <Briefcase className="text-primary" />,
-    items: [
-      {
-        title: "ATS Resume Writing",
-        desc: "Technically engineered single-page resumes designed to rank #1 in Applicant Tracking Systems.",
-        icon: <FileText size={20} className="text-indigo-600" />,
-        link: "/ats-resume-writing-hyderabad"
-      },
-      {
-        title: "LinkedIn Optimization",
-        desc: "Strategic keyword placement and headline optimization to 10x your recruiter impressions.",
-        icon: <Linkedin size={20} className="text-blue-600" />,
-        link: "/linkedin-profile-optimization-hyderabad"
-      },
-      {
-        title: "Naukri Profile Optimization",
-        desc: "Expert profile enhancement for India's largest job portal with keyword optimization and visibility boost.",
-        icon: <Users size={20} className="text-orange-600" />
-      },
-      {
-        title: "Indeed Profile Optimization",
-        desc: "Global Indeed profile optimization to get discovered by international recruiters and employers.",
-        icon: <Globe size={20} className="text-emerald-600" />
-      },
-      {
-        title: "Interview Coaching",
-        desc: "One-on-one sessions with industry HRs to master coding and behavioral rounds.",
-        icon: <Target size={20} className="text-emerald-600" />
-      },
-      {
-        title: "Github & Portfolio Audit",
-        desc: "Complete review of your technical presence to ensure you stand out to top-tier tech companies.",
-        icon: <Github size={20} className="text-slate-900" />
-      },
-      {
-        title: "Cover Letter Mastery",
-        desc: "Compelling cover letters tailored to each role that complement your resume and captivate hiring managers.",
-        icon: <FileText size={20} className="text-rose-600" />
-      },
-      {
-        title: "Salary Negotiation Tips",
-        desc: "Expert guidance on negotiating salary tips, benefits, and equity packages to maximize your earnings.",
-        icon: <Rocket size={20} className="text-yellow-600" />
-      }
-    ],
-  },
-  {
-    category: "SmartScaleTech Premium Tech & Design",
-    icon: <Code className="text-accent" />,
-    items: [
-      {
-        title: "Final Year Projects",
-        desc: "Complete end-to-end development of academic projects with scalable architecture and documentation.",
-        icon: <GraduationCap size={20} className="text-cyan-600" />,
-        link: "/final-year-projects"
-      },
-      {
-        title: "Personal Portfolios",
-        desc: "Recruiter-ready portfolios with smooth animations to showcase your coding projects.",
-        icon: <Layout size={20} className="text-purple-600" />,
-        link: "/portfolio-website-hyderabad"
-      },
-      {
-        title: "AI Integration",
-        desc: "Custom AI solutions for your business, including specialized chatbots and automation tools.",
-        icon: <Brain size={20} className="text-indigo-500" />
-      },
-      {
-        title: "UI/UX Design",
-        desc: "User-centric design systems that prioritize conversion and seamless interaction.",
-        icon: <Palette size={20} className="text-pink-500" />,
-        link: "/ui-ux-design-hyderabad"
-      },
-      {
-        title: "Web Development",
-        desc: "High-performance, scalable web applications built with modern frameworks like React.",
-        icon: <Globe size={20} className="text-blue-500" />,
-        link: "/web-development-hyderabad"
-      },
-      {
-        title: "API Development & Integration",
-        desc: "Robust REST and GraphQL APIs with proper authentication, rate limiting, and documentation.",
-        icon: <Code size={20} className="text-lime-600" />
-      },
-      {
-        title: "Cloud Deployment & DevOps",
-        desc: "AWS, Azure, and GCP deployment with CI/CD pipelines, monitoring, and auto-scaling solutions.",
-        icon: <Rocket size={20} className="text-orange-500" />
-      }
-    ],
-  },
-  {
-    category: "SmartScaleTech Marketing & Strategy",
-    icon: <Target className="text-emerald-500" />,
-    items: [
-      {
-        title: "SEO & Growth",
-        desc: "Advanced search engine optimization to make your brand visible to the right audience.",
-        icon: <Search size={20} className="text-amber-500" />
-      },
-      {
-        title: "Content Strategy",
-        desc: "Data-driven content plans designed to build authority and engage your target market.",
-        icon: <FileText size={20} className="text-red-500" />
-      },
-      {
-        title: "Ad Campaigns",
-        desc: "Precision-targeted digital advertising to maximize ROI and scale your business quickly.",
-        icon: <Megaphone size={20} className="text-orange-500" />
-      },
-      {
-        title: "Brand Identity",
-        desc: "Comprehensive branding packages including logo design, color theory, and brand voice.",
-        icon: <Rocket size={20} className="text-indigo-600" />
-      }
-    ],
-  }
-];
-
-type AudiencePath = 'all' | 'job-seekers' | 'business';
+const ALL_SERVICES_ORDERED = [...CAREER_SERVICES_LIST, ...BUSINESS_SERVICES_LIST];
 
 export const Services = () => {
-  const [selectedVisual, setSelectedVisual] =
-    useState<ServiceVisual | null>(null);
-  const [audiencePath, setAudiencePath] = useState<AudiencePath>('all');
+  const [activeTrack, setActiveTrack] = useState<TrackTab>('all');
+  const [previewService, setPreviewService] = useState<StructuredServiceEntry | null>(null);
 
-  const JOB_SEEKER_TITLES = new Set([
-    'ATS Resume Writing',
-    'LinkedIn Optimization',
-    'Naukri Profile Optimization',
-    'Indeed Profile Optimization',
-    'Interview Coaching',
-    'Github & Portfolio Audit',
-    'Cover Letter Mastery',
-    'Salary Negotiation Tips',
-    'Final Year Projects',
-    'Personal Portfolios',
-  ]);
-
-  const BUSINESS_TITLES = new Set([
-    'Web Development',
-    'UI/UX Design',
-    'AI Integration',
-    'API Development & Integration',
-    'Cloud Deployment & DevOps',
-    'SEO & Growth',
-    'Content Strategy',
-    'Ad Campaigns',
-    'Brand Identity',
-  ]);
-
-  const filteredGroups = services
-    .map((group) => ({
-      ...group,
-      items: group.items.filter((item) => {
-        if (audiencePath === 'all') return true;
-        if (audiencePath === 'job-seekers') return JOB_SEEKER_TITLES.has(item.title);
-        return BUSINESS_TITLES.has(item.title);
-      }),
-    }))
-    .filter((group) => group.items.length > 0);
+  const items =
+    activeTrack === 'all'
+      ? ALL_SERVICES_ORDERED
+      : activeTrack === 'business'
+        ? BUSINESS_SERVICES_LIST
+        : CAREER_SERVICES_LIST;
 
   return (
-    <section id="services" className="py-24 bg-white">
+    <section id="services" className="bg-white border-y border-[#D8D3C9] py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
-          <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">
-              Dual-Track Services
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3 tracking-tight">
-              Choose Your Path: Career Growth or Business Web
-            </h2>
-            <p className="text-slate-500 text-sm sm:text-base">
-              ATS resume writing, LinkedIn optimization, final year projects, custom web development, and SEO in Hitech City, Hyderabad.
-            </p>
-          </div>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+          <SectionHeading
+            eyebrow="Services Overview"
+            title="Full-spectrum career branding"
+            highlight="& digital engineering."
+            description={`Browse all ${Object.keys(ALL_STRUCTURED_SERVICES).length} studio services across Career Solutions and Business Solutions—with zero duplicates and transparent deliverables.`}
+          />
 
-          {/* Dual-Audience Segmented Filter */}
-          <div className="inline-flex flex-wrap items-center gap-1 p-1.5 rounded-2xl bg-slate-100 border border-slate-200/80 self-start lg:self-auto">
+          {/* Track Switcher */}
+          <div
+            role="tablist"
+            aria-label="Service tracks"
+            className="inline-flex flex-wrap items-center gap-1 p-1 rounded-xl bg-[#F3EEE3] border border-[#D8D3C9] self-start lg:self-auto shrink-0"
+          >
             {[
-              { id: 'all' as const, label: 'All Services (19)' },
-              { id: 'job-seekers' as const, label: 'Job Seekers & Students' },
-              { id: 'business' as const, label: 'Businesses & Startups' },
+              { id: 'all' as const, label: `All Services (${ALL_SERVICES_ORDERED.length})` },
+              { id: 'career' as const, label: `Career (${CAREER_SERVICES_LIST.length})` },
+              { id: 'business' as const, label: `Business (${BUSINESS_SERVICES_LIST.length})` },
             ].map((tab) => {
-              const active = audiencePath === tab.id;
+              const selected = activeTrack === tab.id;
               return (
                 <button
                   key={tab.id}
+                  role="tab"
+                  aria-selected={selected}
                   type="button"
-                  onClick={() => setAudiencePath(tab.id)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                    active
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
+                  onClick={() => setActiveTrack(tab.id)}
+                  className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                    selected
+                      ? 'bg-[#111111] text-white'
+                      : 'text-[#57534E] hover:text-[#111111]'
                   }`}
                 >
                   {tab.label}
@@ -252,189 +71,192 @@ export const Services = () => {
           </div>
         </div>
 
-        <div className="space-y-20">
-          {filteredGroups.map((group) => (
-            <div key={group.category}>
-              <div className="flex items-center gap-3 mb-10 border-b border-slate-100 pb-5">
-                <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-100 text-slate-900 shadow-sm">
-                  {group.icon}
+        {/* Service Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {items.map((service) => (
+            (() => {
+              const offer = SERVICE_CATALOG.find((item) => item.id === service.offerServiceId);
+              return (
+            <article
+              key={service.slug}
+              className="rounded-2xl bg-[#F3EEE3]/45 border border-[#D8D3C9] hover:border-[#111111] transition-colors flex flex-col justify-between overflow-hidden"
+            >
+              <div>
+                {/* Consistent 16:9 Preview Visual */}
+                <button
+                  type="button"
+                  onClick={() => setPreviewService(service)}
+                  className="w-full relative overflow-hidden bg-white border-b border-[#D8D3C9] group cursor-pointer block text-left"
+                  aria-label={`Preview ${service.name} details`}
+                >
+                  <img
+                    src={service.previewImage}
+                    alt={service.previewAlt}
+                    loading="lazy"
+                    className="w-full aspect-video object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                  <span className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#111111]/85 text-white text-[11px] font-medium">
+                    <Eye size={12} /> Preview
+                  </span>
+                </button>
+
+                <div className="p-6 space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#57534E]">
+                      {service.categoryLabel}
+                    </span>
+                    {offer ? (
+                      <OfferPrice
+                        standardPrice={offer.standardPrice}
+                        offerPrice={offer.price}
+                        startingFrom={service.categoryLabel !== 'Career Branding'}
+                        compact
+                      />
+                    ) : (
+                      <span className="text-xs font-bold text-[#111111] tabular-nums shrink-0">
+                        {service.priceTag}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="text-lg font-extrabold text-[#111111] leading-snug">
+                    {service.name}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
+                    {service.shortDesc}
+                  </p>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">{group.category}</h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                {group.items.map((service, idx) => {
-                  const visual = getServiceVisualByTitle(service.title);
-
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                      viewport={{ once: true }}
-                      whileHover={{ y: -8 }}
-                      className="p-7 sm:p-8 rounded-[32px] bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all group flex flex-col justify-between"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-2 mb-6">
-                          <div className="h-12 w-12 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-primary/5 transition-colors">
-                            {service.icon}
-                          </div>
-                          {visual?.kind === 'transformation' && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-black">
-                              <TrendingUp size={11} />
-                              {visual.beforeScore} → {visual.afterScore}
-                            </span>
-                          )}
-                          {visual?.kind === 'showcase' && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black">
-                              <Sparkles size={11} />
-                              {visual.badgeLabel}
-                            </span>
-                          )}
-                        </div>
-
-                        <h4 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h4>
-                        <p className="text-slate-500 text-sm leading-relaxed mb-5">
-                          {service.desc}
-                        </p>
-
-                        {visual && (
-                          <button
-                            type="button"
-                            onClick={() => setSelectedVisual(visual)}
-                            className="w-full mb-5 rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 hover:border-primary/50 transition-all text-left cursor-pointer group/img"
-                          >
-                            <img
-                              src={visual.image}
-                              alt={visual.imageAlt}
-                              loading="lazy"
-                              className="w-full aspect-video object-cover object-center transition-transform duration-300 group-hover/img:scale-105"
-                            />
-                            <div className="px-3 py-2 flex items-center justify-between bg-slate-50 text-[11px] font-bold text-slate-700 group-hover/img:text-primary">
-                              <span className="inline-flex items-center gap-1">
-                                <Eye size={13} />{' '}
-                                {visual.kind === 'transformation'
-                                  ? 'View Before & After'
-                                  : 'Preview Service Details'}
-                              </span>
-                              <span
-                                className={
-                                  visual.kind === 'transformation'
-                                    ? 'text-emerald-600 font-black'
-                                    : 'text-primary font-black'
-                                }
-                              >
-                                {visual.kind === 'transformation'
-                                  ? visual.afterScore
-                                  : visual.badgeLabel}
-                              </span>
-                            </div>
-                          </button>
-                        )}
-                      </div>
-
-                      {service.link && (
-                        <Link
-                          to={service.link}
-                          className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-primary hover:gap-2.5 transition-all pt-1"
-                          aria-label={service.title}
-                        >
-                          Learn more <ArrowRight size={14} />
-                        </Link>
-                      )}
-                    </motion.div>
-                  );
-                })}
+              <div className="px-6 pb-6 pt-3 border-t border-[#D8D3C9]/70 flex items-center justify-between gap-2">
+                <Link
+                  to={service.canonicalPath}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#111111] hover:text-[#D9541E] transition-colors"
+                >
+                  <span>Service details</span>
+                  <ArrowRight size={13} />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setPreviewService(service)}
+                  className="text-xs font-medium text-[#57534E] hover:text-[#111111] cursor-pointer"
+                >
+                  Quick view
+                </button>
               </div>
-            </div>
+            </article>
+              );
+            })()
           ))}
+        </div>
+
+        {/* Bottom Custom Builder Strip */}
+        <div className="mt-10 p-6 rounded-2xl bg-[#F3EEE3] border border-[#D8D3C9] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <p className="text-sm text-[#111111]">
+            <strong className="font-bold">Need multiple services?</strong>{' '}
+            <span className="text-[#57534E]">
+              Combine 2 or more services in our custom bundle calculator to save 10%–20% automatically.
+            </span>
+          </p>
+          <Link
+            to="/custom-package-builder"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#D9541E] hover:underline shrink-0"
+          >
+            Open Bundle Builder <ArrowRight size={14} />
+          </Link>
         </div>
       </div>
 
-      {/* Service Visual Lightbox Modal */}
-      {selectedVisual && (
-        <div
-          className="fixed inset-0 z-[130] bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
-          onClick={() => setSelectedVisual(null)}
-        >
-          <div
-            className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white">
-              <div>
-                <span className="text-[10px] font-black uppercase tracking-wider text-indigo-300">
-                  {selectedVisual.category} •{' '}
-                  {selectedVisual.kind === 'transformation'
-                    ? 'Before & After Proof'
-                    : 'Service Overview'}
-                </span>
-                <h3 className="text-lg sm:text-xl font-black">
-                  {selectedVisual.kind === 'transformation'
-                    ? `${selectedVisual.serviceTitle} (${selectedVisual.beforeScore} → ${selectedVisual.afterScore})`
-                    : `${selectedVisual.serviceTitle} — ${selectedVisual.badgeLabel}`}
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedVisual(null)}
-                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white cursor-pointer"
-                aria-label="Close modal"
-              >
-                <X size={18} />
-              </button>
+      {/* Preview Dialog */}
+      <Dialog
+        isOpen={Boolean(previewService)}
+        onClose={() => setPreviewService(null)}
+        title={previewService?.name}
+        subtitle={previewService?.badge}
+        maxWidthClass="max-w-3xl"
+      >
+        {previewService && (
+          <div className="p-6 space-y-6">
+            <div className="rounded-xl overflow-hidden border border-[#D8D3C9] bg-[#F3EEE3]">
+              <img
+                src={previewService.previewImage}
+                alt={previewService.previewAlt}
+                className="w-full h-auto object-contain"
+              />
             </div>
 
-            <div className="p-5 sm:p-6 space-y-5 max-h-[82vh] overflow-y-auto">
-              <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-50">
-                <img
-                  src={selectedVisual.image}
-                  alt={selectedVisual.imageAlt}
-                  className="w-full h-auto object-contain"
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2.5">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#57534E]">
+                  Core Deliverables
+                </p>
+                {previewService.deliverables.slice(0, 4).map((d) => (
+                  <div key={d.title} className="flex items-start gap-2 text-xs sm:text-sm text-[#111111]">
+                    <CheckCircle2 size={15} className="text-[#16845B] shrink-0 mt-0.5" />
+                    <span>
+                      <strong className="font-semibold">{d.title}:</strong>{' '}
+                      <span className="text-[#57534E]">{d.desc}</span>
+                    </span>
+                  </div>
+                ))}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                <div className="space-y-2">
-                  {selectedVisual.improvements.map((point) => (
-                    <div key={point} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
-                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{point}</span>
-                    </div>
-                  ))}
+              <div className="p-5 rounded-xl bg-[#F3EEE3]/60 border border-[#D8D3C9] flex flex-col justify-between gap-4">
+                <div className="space-y-1.5">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#57534E]">
+                    Pricing &amp; Next Step
+                  </p>
+                  {(() => {
+                    const offer = SERVICE_CATALOG.find(
+                      (item) => item.id === previewService.offerServiceId
+                    );
+                    return offer ? (
+                      <div className="space-y-2">
+                        <OfferPrice
+                          standardPrice={offer.standardPrice}
+                          offerPrice={offer.price}
+                          startingFrom={previewService.categoryLabel !== 'Career Branding'}
+                        />
+                        <p className="text-sm text-[#57534E] leading-relaxed">
+                          Exclusive launch offer · 20% OFF
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-sm text-[#111111] leading-relaxed">
+                        {previewService.pricingSummary}
+                      </p>
+                    );
+                  })()}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-2.5 md:justify-end">
+                <div className="flex flex-col sm:flex-row gap-2.5">
+                  <Link
+                    to={previewService.canonicalPath}
+                    onClick={() => setPreviewService(null)}
+                    className="flex-1"
+                  >
+                    <Button variant="dark" className="w-full">
+                      Full Details <ArrowRight size={14} />
+                    </Button>
+                  </Link>
                   <a
                     href={`https://wa.me/919000859695?text=${encodeURIComponent(
-                      `Hello SmartScaleTech, I want to book ${selectedVisual.serviceTitle}.`
+                      `Hello SmartScaleTech, I would like to discuss ${previewService.name}.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="flex-1"
                   >
-                    <Button className="w-full sm:w-auto h-11 px-5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs">
-                      <MessageCircle size={15} className="mr-1.5" /> Book on WhatsApp
+                    <Button variant="primary" className="w-full">
+                      <MessageCircle size={14} /> WhatsApp
                     </Button>
                   </a>
-                  <Link
-                    to={selectedVisual.serviceSlug || '/request-service'}
-                    onClick={() => setSelectedVisual(null)}
-                  >
-                    <Button
-                      variant="outline"
-                      className="w-full sm:w-auto h-11 px-5 rounded-xl border-slate-300 text-slate-700 font-bold text-xs"
-                    >
-                      Request Proposal <ArrowRight size={14} className="ml-1.5" />
-                    </Button>
-                  </Link>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Dialog>
     </section>
   );
 };

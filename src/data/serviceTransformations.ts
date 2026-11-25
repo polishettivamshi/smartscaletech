@@ -47,7 +47,7 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
       'Structured Technical Skills matrix aligned to target engineering roles',
       'Quantified experience and project outcomes (STAR / XYZ impact metrics)',
     ],
-    serviceSlug: '/ats-resume-writing-hyderabad',
+    serviceSlug: '/services/resume-writing',
   },
   {
     id: 'linkedin',
@@ -66,7 +66,7 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
       'High-CTR searchable headline packed with core role & stack keywords',
       'Structured Experience, Skills & Recruiter visibility configuration',
     ],
-    serviceSlug: '/linkedin-profile-optimization-hyderabad',
+    serviceSlug: '/services/linkedin-optimization',
   },
   {
     id: 'naukri',
@@ -85,6 +85,7 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
       'Complete career preferences (preferred location, role, shift & employment type)',
       'Structured key skills & basic details for maximum recruiter Nvites',
     ],
+    serviceSlug: '/services/naukri-optimization',
   },
   {
     id: 'indeed',
@@ -103,6 +104,7 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
       'Keyword-rich role title with core cloud, database & framework tags',
       'Quantified backend engineering summary tailored for direct employer search',
     ],
+    serviceSlug: '/services/indeed-optimization',
   },
   {
     id: 'github',
@@ -121,6 +123,7 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
       'Color-coded tech stack & tooling badges for instant recruiter scanning',
       'Pinned flagship projects with clean descriptions & live links',
     ],
+    serviceSlug: '/services/github-audit',
   },
   {
     id: 'portfolio',
@@ -139,7 +142,7 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
       'Instant credibility bar highlighting experience, projects & GitHub reach',
       'Clean responsive navigation with direct Hire Me conversion trigger',
     ],
-    serviceSlug: '/portfolio-website-hyderabad',
+    serviceSlug: '/services/personal-portfolio',
   },
   {
     id: 'ui-ux',
@@ -158,7 +161,7 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
       'Responsive 4-card service grid replacing plain bullet lists',
       'Consistent spacing, brand palette & mobile-first user flow',
     ],
-    serviceSlug: '/ui-ux-design-hyderabad',
+    serviceSlug: '/services/ui-ux-design',
   },
   {
     id: 'seo',
@@ -166,17 +169,18 @@ export const SERVICE_TRANSFORMATIONS: ServiceTransformation[] = [
     serviceTitle: 'SEO & Growth',
     category: 'Marketing & Strategy',
     image: '/assets/aistudio/SEO_Optimization__From_Fourth_to_First_18c20dc6.webp',
-    imageAlt: 'Google SEO Optimization Before 3rd-4th position vs After 1st position transformation',
-    metricLabel: 'Google Visibility',
+    imageAlt: 'Google SEO Optimization Before and After metadata transformation',
+    metricLabel: 'Search Readiness',
     beforeScore: '35–45%',
     afterScore: '95–100%',
     summary:
-      'Improved search metadata, canonical structure, and Organization schema to lift brand search ranking from 3rd/4th position to the #1 spot.',
+      'Improved search metadata, canonical structure, and Organization schema to strengthen branded search discovery and indexing clarity.',
     improvements: [
       'Structured JSON-LD WebSite, Organization & LocalBusiness schema',
       'Optimized search title, meta description & official site name display',
-      'Prerendered route HTML & sitemap indexing for top-of-page visibility',
+      'Prerendered route HTML & sitemap indexing for clean search visibility',
     ],
+    serviceSlug: '/services/seo-growth',
   },
 ];
 
@@ -362,6 +366,7 @@ export const SERVICE_SHOWCASES: ServiceShowcase[] = [
 ];
 
 export const SLUG_TO_TRANSFORMATION_ID: Record<string, string> = {
+  // Legacy Hyderabad slugs
   'ats-resume-writing-hyderabad': 'ats-resume',
   'resume-writing-freshers-hyderabad': 'ats-resume',
   'executive-resume-writing-hyderabad': 'ats-resume',
@@ -373,6 +378,26 @@ export const SLUG_TO_TRANSFORMATION_ID: Record<string, string> = {
   'ui-ux-design-hyderabad': 'ui-ux',
   'web-development-hyderabad': 'web-development',
   'final-year-projects-hyderabad': 'final-year-projects',
+  // Canonical /services/* slugs
+  'resume-writing': 'ats-resume',
+  'linkedin-optimization': 'linkedin',
+  'naukri-optimization': 'naukri',
+  'indeed-optimization': 'indeed',
+  'github-audit': 'github',
+  'interview-coaching': 'interview-coaching',
+  'cover-letter': 'cover-letter-mastery',
+  'salary-negotiation': 'salary-negotiation',
+  'personal-portfolio': 'portfolio',
+  'final-year-projects': 'final-year-projects',
+  'web-development': 'web-development',
+  'ui-ux-design': 'ui-ux',
+  'ai-integration': 'ai-integration',
+  'api-development': 'api-development',
+  'cloud-devops': 'cloud-devops',
+  'seo-growth': 'seo',
+  'content-strategy': 'content-strategy',
+  'ad-campaigns': 'ad-campaigns',
+  'brand-identity': 'brand-identity',
 };
 
 export function getTransformationByTitle(title: string): ServiceTransformation | undefined {

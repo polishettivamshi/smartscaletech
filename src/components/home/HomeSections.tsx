@@ -1,99 +1,107 @@
-import { MessageCircle, FileCode2, RefreshCw, CheckCircle2, ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { ArrowRight, Code2, PencilRuler, Rocket, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { SectionHeading } from '../ui/SectionHeading';
+import { Button } from '../ui/Button';
+import { Breadcrumb } from '../ui/Breadcrumb';
+import { StatusBanner } from '../ui/StatusBanner';
 
 export const HowItWorks = () => {
   const timeline = [
     {
-      hour: 'Hour 0',
-      name: '10-Min WhatsApp Discovery Brief',
-      deliverable: 'Goal & Scope Locked',
+      stepNum: '01',
+      label: 'Discover',
+      Icon: Search,
+      timing: 'Day 1 · 10-Min Brief',
+      name: 'Scope, Goals & Audit',
+      deliverable: 'Clear Project Brief',
       description:
-        'Share your current resume, target role, or business website goal directly with Founder Vamshi on WhatsApp—no lengthy forms.',
-      icon: MessageCircle,
-      color: 'bg-emerald-50 text-emerald-600 border-emerald-200/70',
+        'Share your existing resume, target role, or business product requirements directly with us via form or WhatsApp.',
     },
     {
-      hour: 'Hour 12',
-      name: 'First ATS Draft or Live Wireframe',
-      deliverable: 'Reviewable Prototype',
+      stepNum: '02',
+      label: 'Plan & Design',
+      Icon: PencilRuler,
+      timing: 'Hour 12 · Structure',
+      name: 'Wireframe & Keyword Map',
+      deliverable: 'Draft Architecture',
       description:
-        'Receive your restructured ATS keyword resume draft or interactive portfolio/website wireframe so we align early on direction.',
-      icon: FileCode2,
-      color: 'bg-primary/10 text-primary border-primary/20',
+        'Receive a clean structural blueprint, ATS keyword hierarchy, or interactive interface wireframe to confirm direction early.',
     },
     {
-      hour: 'Hour 24–36',
-      name: 'Unlimited 1-on-1 Revisions',
-      deliverable: '90+ ATS & Pixel Polish',
+      stepNum: '03',
+      label: 'Build & Refine',
+      Icon: Code2,
+      timing: 'Hour 24–36 · Iteration',
+      name: 'Development & 1-on-1 Polish',
+      deliverable: 'Reviewed Staging Build',
       description:
-        'Fine-tune phrasing, metrics, visual layout, and mobile responsiveness together directly until every section passes review.',
-      icon: RefreshCw,
-      color: 'bg-indigo-50 text-indigo-600 border-indigo-200/70',
+        'Refine typography, quantified impact bullets, responsiveness, and copy directly together until every section passes review.',
     },
     {
-      hour: 'Hour 48',
-      name: 'Complete Source & File Handover',
-      deliverable: 'Word, PDF & Live Deploy',
+      stepNum: '04',
+      label: 'Deliver & Support',
+      Icon: Rocket,
+      timing: 'Hour 48 · Handover',
+      name: 'Final Assets & Live Deploy',
+      deliverable: 'Full Source & Files',
       description:
-        'Walk away with editable Word + PDF files, full GitHub source code, and free ₹0/month cloud deployment with walkthrough.',
-      icon: CheckCircle2,
-      color: 'bg-amber-50 text-amber-600 border-amber-200/70',
+        'Walk away with editable source files (.docx + PDF or GitHub repository), edge deployment, and post-launch handover guidance.',
     },
   ];
 
   return (
-    <section id="how-it-works" className="bg-slate-50/70 py-24 border-y border-slate-100">
+    <section id="how-it-works" className="bg-[#F3EEE3] py-20 sm:py-24 border-y border-[#D8D3C9]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-          <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">
-              Fast, Transparent Execution
-            </p>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-              Your 48-Hour Delivery Timeline
-            </h2>
-            <p className="mt-3 text-base text-slate-600">
-              From your first WhatsApp message to editable resumes, portfolios, and live websites—every milestone has a clear deliverable.
-            </p>
-          </div>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+          <SectionHeading
+            eyebrow="Studio Process"
+            title="Four disciplined phases."
+            highlight="Zero guesswork."
+            description="Whether we are rewriting a technical career profile in 48 hours or engineering a custom business web build, every milestone has a concrete output."
+          />
 
-          <a
-            href="https://wa.me/919000859695?text=Hello%20SmartScaleTech%2C%20I%20would%20like%20to%20start%20my%2048-hour%20delivery%20plan."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-primary text-white text-xs font-bold transition-colors whitespace-nowrap shrink-0 self-start md:self-auto"
-          >
-            Start Hour 0 on WhatsApp <ArrowRight size={14} />
-          </a>
+          <div className="shrink-0 self-start lg:self-auto">
+            <Link to="/request-service">
+              <Button variant="dark" size="lg">
+                Start Phase 01 <ArrowRight size={16} />
+              </Button>
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {timeline.map((step, idx) => (
-            <motion.div
-              key={step.hour}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.08 }}
-              viewport={{ once: true }}
-              className="relative flex flex-col justify-between p-7 bg-white rounded-3xl shadow-sm border border-slate-200/80 hover:shadow-xl transition-all duration-300"
+        {/* Horizontal 4-col on desktop with editorial step line, clean vertical stack on mobile */}
+        <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {timeline.map((step) => (
+            <div
+              key={step.stepNum}
+              className="flex flex-col justify-between p-6 sm:p-7 bg-white rounded-2xl border border-[#D8D3C9] hover:border-[#111111]/40 transition-colors"
             >
               <div>
-                <div className="flex items-center justify-between gap-3 mb-6">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border ${step.color}`}>
-                    <step.icon size={22} />
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F3EEE3] text-[#D9541E]">
+                  <step.Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                   </div>
-                  <span className="text-sm font-black text-slate-900 tabular-nums">{step.hour}</span>
+                  <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#D9541E] tabular-nums">
+                    {step.stepNum} — {step.label}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-3 pb-4 mb-5 border-b border-[#EAE3D5]">
+                  <span className="text-[11px] font-medium text-[#57534E] tabular-nums">
+                    {step.timing}
+                  </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 leading-snug">{step.name}</h3>
-                <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">{step.description}</p>
+                <h3 className="text-lg font-extrabold text-[#111111] leading-snug">{step.name}</h3>
+                <p className="mt-2.5 text-xs sm:text-sm text-[#57534E] leading-relaxed">
+                  {step.description}
+                </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-400 font-semibold">Output</span>
-                <span className="font-bold text-slate-900">{step.deliverable}</span>
+              <div className="mt-6 pt-4 border-t border-[#EAE3D5] flex items-center justify-between text-xs">
+                <span className="text-[#6B6862] font-medium">Deliverable</span>
+                <span className="font-bold text-[#111111]">{step.deliverable}</span>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -103,33 +111,69 @@ export const HowItWorks = () => {
 
 export const PrivacyPolicy = () => {
   return (
-    <section id="privacy-policy" className="bg-slate-50 py-24">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">Privacy Policy</h2>
-          <p className="text-slate-500 max-w-2xl mx-auto">SmartScaleTech respects your privacy when you visit https://smartscaletech.vercel.app and use our branding, resume, LinkedIn, or web development services.</p>
-        </div>
+    <section id="privacy-policy" className="bg-[#F3EEE3] py-16 sm:py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumb
+          items={[{ label: 'Home', to: '/' }, { label: 'Privacy Policy' }]}
+          className="mb-6"
+        />
+        <div className="bg-white border border-[#D8D3C9] rounded-2xl p-8 sm:p-12">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+            Legal &amp; Data Practices
+          </p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111111] mb-4">
+            Privacy Policy
+          </h1>
+          <p className="text-sm sm:text-base text-[#57534E] pb-8 border-b border-[#EAE3D5]">
+            SmartScaleTech respects your privacy when you visit https://smartscaletech.vercel.app
+            and use our branding, ATS resume, LinkedIn optimization, final year project, or web
+            development services.
+          </p>
 
-        <div className="space-y-8 text-slate-600 text-sm leading-relaxed">
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Information We Collect</h3>
-            <p>When you contact us or request a quote, we may collect your name, email address, phone number, project requirements, professional background, and optional portfolio or resume details.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">How We Use Information</h3>
-            <p>We use your data to reply to requests, deliver services, improve SmartScaleTech offerings, and maintain the website. We do not use your information for advertising without your consent.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Cookies and Site Analytics</h3>
-            <p>We may use cookies and analytics tools to understand how visitors use our site and to keep forms working smoothly. This helps us improve performance on desktop and mobile.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Security and Sharing</h3>
-            <p>We protect your information with standard security practices. We do not sell your personal data, and we only share it with trusted providers when needed to deliver services or comply with the law.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Contact</h3>
-            <p>If you have any questions about this Privacy Policy, please email smartscaletechforyou@gmail.com.</p>
+          <div className="mt-8 space-y-8 text-[#57534E] text-sm leading-relaxed">
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">1. Information We Collect</h2>
+              <p>
+                When you contact us or request a quote, we may collect your name, email address,
+                phone or WhatsApp number, project requirements, professional background, and
+                optional portfolio or resume documents shared voluntarily for evaluation.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">2. Client-Side Interactive Tools</h2>
+              <p>
+                Our free ATS Resume &amp; JD Checker, LinkedIn Headline Generator, and Job Readiness
+                Audit evaluate text locally in your browser without requiring account sign-in.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">3. How We Use Information</h2>
+              <p>
+                We use inquiry information solely to reply to requests, scope projects, deliver
+                purchased work, and maintain website stability. We never sell personal data or
+                share client resumes with third-party marketers.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">4. Security &amp; Retention</h2>
+              <p>
+                Submitted documents and inquiry details are handled confidentially using standard
+                access controls. You may request deletion of shared files after project completion.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">5. Contact</h2>
+              <p>
+                For privacy or data removal inquiries, email{' '}
+                <a
+                  href="mailto:smartscaletechforyou@gmail.com"
+                  className="font-semibold text-[#111111] underline underline-offset-4 hover:text-[#D9541E]"
+                >
+                  smartscaletechforyou@gmail.com
+                </a>
+                .
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -139,37 +183,138 @@ export const PrivacyPolicy = () => {
 
 export const TermsOfService = () => {
   return (
-    <section id="terms-of-service" className="bg-white py-24">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-black text-slate-900 mb-4">Terms of Service</h2>
-          <p className="text-slate-500 max-w-2xl mx-auto">These terms apply to your use of SmartScaleTech at https://smartscaletech.vercel.app and any services requested through the site.</p>
-        </div>
+    <section id="terms-of-service" className="bg-[#F3EEE3] py-16 sm:py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumb
+          items={[{ label: 'Home', to: '/' }, { label: 'Terms of Service' }]}
+          className="mb-6"
+        />
+        <div className="bg-white border border-[#D8D3C9] rounded-2xl p-8 sm:p-12">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+            Service Terms
+          </p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111111] mb-4">
+            Terms of Service
+          </h1>
+          <p className="text-sm sm:text-base text-[#57534E] pb-8 border-b border-[#EAE3D5]">
+            These terms apply to your use of SmartScaleTech at https://smartscaletech.vercel.app
+            and services requested through the studio.
+          </p>
 
-        <div className="space-y-8 text-slate-600 text-sm leading-relaxed">
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Acceptance of Terms</h3>
-            <p>By visiting our site or contacting us, you agree to these Terms of Service. If you do not agree, please do not use the website or request services.</p>
+          <div className="mt-8 space-y-8 text-[#57534E] text-sm leading-relaxed">
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">1. Acceptance of Terms</h2>
+              <p>
+                By visiting this site or submitting a project request, you agree to these Terms of
+                Service. Specific project scope, pricing, and delivery schedules are confirmed in
+                writing before paid execution starts.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">2. Services Covered</h2>
+              <p>
+                SmartScaleTech delivers web development, UI/UX systems, API &amp; AI integrations,
+                technical SEO, ATS-aligned resume writing, LinkedIn &amp; Naukri profile branding,
+                and academic final year project mentoring. Hiring outcomes remain subject to
+                employer decisions and market conditions.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">3. Client Responsibilities</h2>
+              <p>
+                Clients agree to provide accurate background details, timely feedback during
+                revision rounds, and licensed assets or third-party credentials where needed for
+                integration projects.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">4. Intellectual Property</h2>
+              <p>
+                Custom deliverables, websites, source repositories, and documents crafted for your
+                project become your property upon agreed settlement. SmartScaleTech retains rights
+                to its proprietary site code, tools, and general studio templates.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">5. Limitation of Liability</h2>
+              <p>
+                SmartScaleTech is not liable for indirect or consequential losses arising from use
+                of free browser tools or custom services. Total liability is limited to the fee
+                actually paid for the specific service.
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Services Covered</h3>
-            <p>SmartScaleTech delivers ATS-friendly resume services, LinkedIn optimization, personal branding, and website development. Specific project scope, pricing, and delivery terms are confirmed in writing before work begins.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Your Responsibilities</h3>
-            <p>You agree to provide accurate information, cooperate with SmartScaleTech, and supply any materials needed to complete the service.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Intellectual Property</h3>
-            <p>All materials on this website are owned by SmartScaleTech. You may not reproduce or distribute content without our permission. Work delivered to you becomes your property once agreed upon and paid for.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Limitation of Liability</h3>
-            <p>SmartScaleTech is not liable for indirect or consequential losses arising from your use of the site or services. Our liability is limited to the amount you paid for the specific service.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Changes to Terms</h3>
-            <p>We may update these terms from time to time. Continued use of the website following any changes constitutes acceptance of the revised terms.</p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export const RefundPolicy = () => {
+  return (
+    <section id="refund-policy" className="bg-[#F3EEE3] py-16 sm:py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumb
+          items={[{ label: 'Home', to: '/' }, { label: 'Refund Policy' }]}
+          className="mb-6"
+        />
+        <div className="bg-white border border-[#D8D3C9] rounded-2xl p-8 sm:p-12">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+            Cancellations &amp; Revisions
+          </p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111111] mb-4">
+            Refund &amp; Cancellation Policy
+          </h1>
+          <p className="text-sm sm:text-base text-[#57534E] pb-6 border-b border-[#EAE3D5]">
+            Clear expectations for deposits, revision rounds, and cancellations on digital career
+            and software engineering projects at SmartScaleTech.
+          </p>
+
+          <StatusBanner tone="info" title="Standard Studio Terms — Subject to Written Project Scope" className="mt-6">
+            Before starting custom engineering or career projects, exact milestones and revision
+            terms are confirmed in writing via WhatsApp or email. If your business requires custom
+            commercial refund clauses, update this page before live billing.
+          </StatusBanner>
+
+          <div className="mt-8 space-y-8 text-[#57534E] text-sm leading-relaxed">
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">1. Before Work Begins</h2>
+              <p>
+                If you cancel an order in writing before initial drafting, research, or development
+                has started, any advance payment is eligible for a full refund minus third-party
+                payment transfer fees, if applicable.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">2. Revision-First Commitment</h2>
+              <p>
+                Because ATS resumes, LinkedIn makeovers, portfolios, and custom code involve dedicated
+                manual time, delivered first drafts are covered by included revision rounds rather than
+                automatic refunds once drafting has commenced. We refine layouts, phrasing, and UI
+                fixes until the agreed scope is met.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">3. Milestone-Based Web &amp; App Builds</h2>
+              <p>
+                Multi-week website or software projects are scoped by milestone. If a project is paused
+                or cancelled mid-way, charges apply only to completed and delivered milestone work; any
+                unused balance for unstarted phases is refundable.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-[#111111] mb-2">4. Requesting Cancellation or Review</h2>
+              <p>
+                Reach out directly on{' '}
+                <a
+                  href="mailto:smartscaletechforyou@gmail.com"
+                  className="font-semibold text-[#111111] underline underline-offset-4 hover:text-[#D9541E]"
+                >
+                  smartscaletechforyou@gmail.com
+                </a>{' '}
+                or WhatsApp (+91 90008 59695) with your booking name and payment reference.
+              </p>
+            </div>
           </div>
         </div>
       </div>

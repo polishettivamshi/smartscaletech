@@ -1,37 +1,30 @@
 import React, { useState } from 'react';
-import { 
-  Linkedin, 
-  Send, 
-  MessageCircle, 
-  Mail, 
-  CheckCircle2, 
-  Clock, 
-  ShieldCheck, 
-  Sparkles, 
-  User, 
-  Phone, 
-  Briefcase, 
-  Building2, 
-  FileText, 
-  Copy, 
-  Check, 
-  ExternalLink,
-  HelpCircle,
-  Zap,
-  ArrowRight
+import {
+  Linkedin,
+  MessageCircle,
+  Mail,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  User,
+  Phone,
+  Copy,
+  Check,
 } from 'lucide-react';
+import { submitLinkedInServiceRequest, LinkedInServiceRequestPayload } from '../../lib/leads';
+import { StatusBanner } from '../ui/StatusBanner';
 import { Button } from '../ui/Button';
-import { submitLinkedInServiceRequest, LinkedInServiceRequestPayload, FOUNDER_WHATSAPP, FOUNDER_EMAIL } from '../../lib/leads';
+import { OfferPrice } from '../ui/OfferPrice';
 
 const SERVICE_OPTIONS = [
-  { id: 'ATS Resume Writing', label: 'ATS Resume Re-engineering', badge: 'Popular', price: 'From ₹199' },
-  { id: 'Campus Placement Resume', label: 'College / Placement Drive Resume', badge: 'Fresher Special', price: '₹199' },
-  { id: 'LinkedIn Profile Optimization', label: 'LinkedIn Profile Makeover', badge: 'High CTR', price: '₹299' },
-  { id: 'Working Pro ATS Resume', label: 'Working Professional ATS Resume (1–5 yrs)', badge: 'Workday Ready', price: '₹399' },
-  { id: 'Career Launch Combo', label: 'Career Launch Combo (Resume + LinkedIn + Cover)', badge: 'Best Value', price: '₹699' },
-  { id: 'Executive Resume', label: 'Senior Lead / Executive Resume (5+ yrs)', badge: 'Leadership', price: '₹699' },
-  { id: 'Portfolio Website', label: 'Developer / Professional Portfolio', badge: 'Fast Launch', price: 'From ₹999' },
-  { id: 'Web Development', label: 'Full-Stack Web Development', badge: 'Custom', price: 'From ₹1,499' },
+  { id: 'Web Development', label: 'Custom Business / SaaS Website', price: 'From ₹7,999', standardPrice: 9999, offerPrice: 7999 },
+  { id: 'UI/UX Design & Wireframe', label: 'UI/UX Design & Interface System', price: 'From ₹3,199', standardPrice: 3999, offerPrice: 3199 },
+  { id: 'AI Workflow / Chatbot Integration', label: 'AI Automation & LLM Integration', price: 'From ₹6,399', standardPrice: 7999, offerPrice: 6399 },
+  { id: 'ATS Resume Writing', label: 'ATS Resume Writing (Word + PDF)', price: '₹239', standardPrice: 299, offerPrice: 239 },
+  { id: 'LinkedIn Profile Optimization', label: 'LinkedIn & Naukri Profile Makeover', price: 'From ₹319', standardPrice: 399, offerPrice: 319 },
+  { id: 'Career Starter Bundle', label: 'Career Starter Bundle (Resume + LinkedIn + Portals)', price: '₹899', standardPrice: 1046, offerPrice: 899 },
+  { id: 'Portfolio Website', label: 'Portfolio Launch Bundle (Portfolio + ATS Resume)', price: '₹1,999', standardPrice: 2246, offerPrice: 1999 },
+  { id: 'Final Year Project', label: 'Final Year Project (Code + Report + Viva)', price: 'From ₹3,999', standardPrice: 4999, offerPrice: 3999 },
 ];
 
 const EXPERIENCE_LEVELS = [
@@ -42,18 +35,17 @@ const EXPERIENCE_LEVELS = [
 ];
 
 const TIMELINE_OPTIONS = [
-  '⚡ Urgent (Within 24–48 Hours)',
-  '📅 Standard (3–5 Days)',
-  '🤝 Flexible / Within 2 Weeks',
+  'Urgent (Within 24–48 Hours)',
+  'Standard (3–5 Days)',
+  'Flexible (1–2 Weeks)',
 ];
 
 const BUDGET_OPTIONS = [
-  '₹0 (Free Resume Audit & Quote Only)',
-  '₹199 – ₹349 (Student & Fresher Special)',
-  '₹350 – ₹699 (Professional / Makeover)',
-  '₹700 – ₹1,299 (Career Launch Combo)',
-  '₹1,300 – ₹2,999 (Portfolio & Web Projects)',
-  'Custom / Discuss on WhatsApp',
+  '₹0 (Free Scope Audit & Quote)',
+  '₹159 – ₹3,999 (Single Career or Project Item)',
+  '₹899 – ₹1,999 (Career or Portfolio Bundle)',
+  '₹1,599 – ₹7,999 (Business & Marketing Services)',
+  'Custom Scope / Software Project',
 ];
 
 interface LinkedInServiceRequestFormProps {
@@ -80,7 +72,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
     experienceLevel: EXPERIENCE_LEVELS[1],
     targetRole: '',
     timeline: TIMELINE_OPTIONS[0],
-    budget: BUDGET_OPTIONS[1],
+    budget: BUDGET_OPTIONS[0],
     projectBrief: '',
     resumeLink: '',
     sourcePage,
@@ -89,10 +81,16 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [generatedUrls, setGeneratedUrls] = useState<{ whatsapp: string; mailto: string; summary: string } | null>(null);
+  const [generatedUrls, setGeneratedUrls] = useState<{
+    whatsapp: string;
+    mailto: string;
+    summary: string;
+  } | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     if (errorMessage) setErrorMessage(null);
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -103,12 +101,14 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
   };
 
   const handleSubmit = async (preferredChannel: 'whatsapp' | 'email') => {
+    if (isSubmitting) return;
+
     const cleanName = formData.name.trim();
     const cleanPhone = formData.phone.trim();
     const cleanEmail = formData.email.trim();
 
     if (!cleanName || !cleanPhone || !cleanEmail) {
-      setErrorMessage('Please fill in your Name, Phone Number, and Email Address.');
+      setErrorMessage('Please enter your Name, Phone Number, and Email Address.');
       return;
     }
 
@@ -138,10 +138,16 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
       if (onSuccess) onSuccess();
 
       if (preferredChannel === 'whatsapp') {
-        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        try {
+          window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        } catch {
+          // Graceful fallback: direct WhatsApp link rendered on confirmation card
+        }
       }
     } catch {
-      setErrorMessage('Failed to submit request. Please reach out directly on WhatsApp: +91 90008 59695');
+      setErrorMessage(
+        'We could not email your request right now. Please message +91 90008 59695 directly on WhatsApp.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -156,63 +162,57 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
   if (isSuccess && generatedUrls) {
     return (
-      <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl text-center space-y-6 animate-in fade-in zoom-in-95 duration-200">
-        <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center border border-emerald-100 shadow-inner">
-          <CheckCircle2 size={36} />
+      <div className="bg-white rounded-2xl p-6 sm:p-10 border border-[#D8D3C9] text-center space-y-6">
+        <div className="w-14 h-14 rounded-full bg-[#16845B]/15 text-[#16845B] mx-auto flex items-center justify-center">
+          <CheckCircle2 size={30} />
         </div>
 
         <div className="space-y-2 max-w-lg mx-auto">
-          <h3 className="text-2xl font-black text-slate-900 tracking-tight">
-            Service Request Ready &amp; Saved!
+          <h3 className="text-2xl font-extrabold text-[#111111]">
+            Service Request Sent
           </h3>
-          <p className="text-slate-600 text-sm leading-relaxed">
-            Thank you, <strong className="text-slate-900">{formData.name}</strong>. Your request for <strong className="text-primary">{formData.service}</strong> has been logged in our system.
-          </p>
-          <p className="text-xs text-slate-500 font-medium">
-            Founder Vamshi Polishetti replies directly within <strong className="text-emerald-700">5 minutes</strong> during working hours (9 AM – 9 PM IST).
+          <p className="text-[#57534E] text-sm leading-relaxed">
+            Thank you, <strong className="text-[#111111]">{formData.name}</strong>. Your inquiry for{' '}
+            <strong className="text-[#D9541E]">{formData.service}</strong> has been emailed to our studio.
           </p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto">
           <a
             href={generatedUrls.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5"
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#D9541E] hover:bg-[#B94414] text-white font-semibold text-sm transition-colors"
           >
-            <MessageCircle size={18} fill="currentColor" />
-            Send via WhatsApp
+            <MessageCircle size={17} /> Send via WhatsApp
           </a>
 
           <a
             href={generatedUrls.mailto}
-            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all hover:-translate-y-0.5"
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#111111] hover:bg-[#2A2927] text-white font-semibold text-sm transition-colors"
           >
-            <Mail size={18} />
-            Send via Email
+            <Mail size={17} /> Open Email App
           </a>
         </div>
 
-        <div className="pt-2">
+        <div>
           <button
             type="button"
             onClick={copySummaryToClipboard}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-primary transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#57534E] hover:text-[#D9541E] cursor-pointer"
           >
-            {copied ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
-            {copied ? 'Copied to clipboard!' : 'Copy formatted request details'}
+            {copied ? <Check size={14} className="text-[#16845B]" /> : <Copy size={14} />}
+            {copied ? 'Copied brief summary' : 'Copy brief summary'}
           </button>
         </div>
 
-        <div className="border-t border-slate-100 pt-6 text-left max-w-lg mx-auto bg-slate-50 rounded-2xl p-4 text-xs space-y-1.5 text-slate-600">
-          <div className="font-bold text-slate-800 flex items-center justify-between pb-1 border-b border-slate-200">
-            <span>Direct Founder Contacts:</span>
-            <span className="text-emerald-600 font-semibold">● Active Now</span>
-          </div>
-          <div>📞 WhatsApp: <strong>+91 90008 59695</strong></div>
-          <div>📧 Email: <strong>smartscaletechforyou@gmail.com</strong></div>
-          <div>🏢 Office: <strong>Hitech City, Hyderabad, Telangana, India</strong></div>
+        <div className="border-t border-[#EAE3D5] pt-5 text-left max-w-lg mx-auto bg-[#F3EEE3]/50 rounded-xl p-4 text-xs space-y-1.5 text-[#57534E]">
+          <p className="font-bold text-[#111111] pb-1 border-b border-[#D8D3C9]">
+            Direct Studio Contacts
+          </p>
+          <p>WhatsApp: +91 90008 59695</p>
+          <p>Email: smartscaletechforyou@gmail.com</p>
+          <p>Studio: Hitech City, Hyderabad, Telangana</p>
         </div>
 
         <button
@@ -221,45 +221,42 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
             setIsSuccess(false);
             setGeneratedUrls(null);
           }}
-          className="text-xs text-slate-400 hover:text-slate-600 font-medium underline cursor-pointer"
+          className="text-xs text-[#57534E] hover:text-[#111111] font-semibold underline underline-offset-4 cursor-pointer"
         >
-          Submit another service request
+          Submit another inquiry
         </button>
       </div>
     );
   }
 
   return (
-    <div className={`bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden ${isCompact ? 'p-6' : 'p-6 sm:p-10'}`}>
-      {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 mb-8">
+    <div
+      className={`bg-white rounded-2xl border border-[#D8D3C9] overflow-hidden ${
+        isCompact ? 'p-6' : 'p-6 sm:p-10'
+      }`}
+    >
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#EAE3D5] mb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-wider mb-2 border border-emerald-200">
-            <Linkedin size={14} className="text-[#0A66C2]" /> 100% Free Consultation · Packages from ₹199
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            Request a Free Service Proposal
-          </h2>
-          <p className="text-slate-500 text-sm mt-1">
-            Requesting a quote and resume score audit is 100% Free (₹0 upfront). Affordable packages start from just ₹199!
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#D9541E] mb-1">
+            Free Scope Consultation · Packages from{' '}
+            <OfferPrice standardPrice={199} offerPrice={159} startingFrom compact />
           </p>
+          <h2 className="text-xl sm:text-2xl font-extrabold text-[#111111]">
+            Project &amp; Career Brief
+          </h2>
         </div>
 
-        <div className="flex flex-col sm:items-end gap-1 text-xs text-slate-500 shrink-0">
-          <span className="inline-flex items-center gap-1.5 font-bold text-emerald-600">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Replies in ~5 minutes
-          </span>
-          <span>WhatsApp &amp; Gmail Direct Dispatch</span>
+        <div className="text-xs text-[#57534E] sm:text-right">
+          <p className="font-bold text-[#16845B]">Fast WhatsApp &amp; Email Dispatch</p>
+          <p>Mon–Sat · Hitech City, IST</p>
         </div>
       </div>
 
       <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
-        {/* Step 1: Select Service */}
         <div className="space-y-3">
-          <label className="block text-xs font-black uppercase tracking-wider text-slate-700">
-            1. Select Requested Service <span className="text-rose-500">*</span>
-          </label>
+          <p className="text-xs font-extrabold uppercase tracking-wider text-[#111111]">
+            1. Select Service Track <span className="text-[#D9541E]">*</span>
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {SERVICE_OPTIONS.map((srv) => {
               const isSelected = formData.service === srv.id;
@@ -268,18 +265,29 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
                   key={srv.id}
                   type="button"
                   onClick={() => handleSelectService(srv.id)}
-                  className={`text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-3 ${
+                  className={`text-left p-3.5 rounded-xl border transition-colors cursor-pointer flex items-start justify-between gap-3 ${
                     isSelected
-                      ? 'border-primary bg-primary/5 text-slate-900 shadow-sm ring-2 ring-primary/20'
-                      : 'border-slate-200 hover:border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                      ? 'border-[#111111] bg-[#F3EEE3]/70 text-[#111111]'
+                      : 'border-[#D8D3C9] hover:border-[#111111]/40 bg-white text-[#57534E]'
                   }`}
                 >
                   <div>
-                    <div className="font-bold text-sm leading-snug">{srv.label}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{srv.price}</div>
+                    <div className="font-bold text-sm text-[#111111] leading-snug">{srv.label}</div>
+                    <div className="mt-1">
+                      {srv.standardPrice && srv.offerPrice ? (
+                        <OfferPrice
+                          standardPrice={srv.standardPrice}
+                          offerPrice={srv.offerPrice}
+                          startingFrom={srv.price.startsWith('From ')}
+                          compact
+                        />
+                      ) : (
+                        <span className="text-xs text-[#57534E] tabular-nums">{srv.price}</span>
+                      )}
+                    </div>
                   </div>
                   {isSelected && (
-                    <div className="w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-5 h-5 rounded-full bg-[#D9541E] text-white flex items-center justify-center shrink-0 mt-0.5">
                       <Check size={12} strokeWidth={3} />
                     </div>
                   )}
@@ -289,255 +297,264 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
           </div>
         </div>
 
-        {/* Step 2: Contact Information */}
-        <div className="space-y-4 pt-2 border-t border-slate-100">
-          <label className="block text-xs font-black uppercase tracking-wider text-slate-700">
-            2. Your Contact &amp; Profile Details <span className="text-rose-500">*</span>
-          </label>
+        <div className="space-y-4 pt-4 border-t border-[#EAE3D5]">
+          <p className="text-xs font-extrabold uppercase tracking-wider text-[#111111]">
+            2. Contact Information <span className="text-[#D9541E]">*</span>
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Full Name <span className="text-rose-500">*</span>
+              <label htmlFor="req-name" className="block text-xs font-bold text-[#111111] mb-1.5">
+                Full Name <span className="text-[#D9541E]">*</span>
               </label>
               <div className="relative">
-                <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <User
+                  size={15}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B6862]"
+                />
                 <input
+                  id="req-name"
                   type="text"
                   name="name"
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="e.g. Enter your name"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
+                  placeholder="Your full name"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                WhatsApp / Phone Number <span className="text-rose-500">*</span>
+              <label htmlFor="req-phone" className="block text-xs font-bold text-[#111111] mb-1.5">
+                WhatsApp / Phone <span className="text-[#D9541E]">*</span>
               </label>
               <div className="relative">
-                <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Phone
+                  size={15}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B6862]"
+                />
                 <input
+                  id="req-phone"
                   type="tel"
                   name="phone"
                   required
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="e.g. 9000859695"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Email Address <span className="text-rose-500">*</span>
+              <label htmlFor="req-email" className="block text-xs font-bold text-[#111111] mb-1.5">
+                Email Address <span className="text-[#D9541E]">*</span>
               </label>
               <div className="relative">
-                <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Mail
+                  size={15}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B6862]"
+                />
                 <input
+                  id="req-email"
                   type="email"
                   name="email"
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="e.g. yourname@gmail.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
+                  placeholder="you@company.com"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                LinkedIn Profile URL <span className="text-slate-400 font-normal">(Recommended)</span>
+              <label htmlFor="req-linkedin" className="block text-xs font-bold text-[#111111] mb-1.5">
+                LinkedIn or Website URL <span className="text-[#6B6862] font-normal">(Optional)</span>
               </label>
               <div className="relative">
-                <Linkedin size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#0A66C2]" />
+                <Linkedin
+                  size={15}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B6862]"
+                />
                 <input
+                  id="req-linkedin"
                   type="url"
                   name="linkedInUrl"
                   value={formData.linkedInUrl}
                   onChange={handleChange}
-                  placeholder="e.g. linkedin.com/in/your-profile"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-[#0A66C2] focus:ring-2 focus:ring-[#0A66C2]/20 bg-slate-50/50"
+                  placeholder="https://..."
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Step 3: Current Context & Experience */}
-        <div className="space-y-4 pt-2 border-t border-slate-100">
-          <label className="block text-xs font-black uppercase tracking-wider text-slate-700">
-            3. Professional Background &amp; Target Role
-          </label>
+        <div className="space-y-4 pt-4 border-t border-[#EAE3D5]">
+          <p className="text-xs font-extrabold uppercase tracking-wider text-[#111111]">
+            3. Context, Timeline &amp; Budget
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Experience Level
+              <label htmlFor="req-level" className="block text-xs font-bold text-[#111111] mb-1.5">
+                Profile / Track
               </label>
               <select
+                id="req-level"
                 name="experienceLevel"
                 value={formData.experienceLevel}
                 onChange={handleChange}
-                className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
               >
                 {EXPERIENCE_LEVELS.map((lvl) => (
-                  <option key={lvl} value={lvl}>{lvl}</option>
+                  <option key={lvl} value={lvl}>
+                    {lvl}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Current Role / Study
+              <label htmlFor="req-timeline" className="block text-xs font-bold text-[#111111] mb-1.5">
+                Timeline
+              </label>
+              <select
+                id="req-timeline"
+                name="timeline"
+                value={formData.timeline}
+                onChange={handleChange}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
+              >
+                {TIMELINE_OPTIONS.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="req-budget" className="block text-xs font-bold text-[#111111] mb-1.5">
+                Budget Range
+              </label>
+              <select
+                id="req-budget"
+                name="budget"
+                value={formData.budget}
+                onChange={handleChange}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
+              >
+                {BUDGET_OPTIONS.map((b) => (
+                  <option key={b} value={b}>
+                    {b}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="req-role" className="block text-xs font-bold text-[#111111] mb-1.5">
+                Current Role or Business Type
               </label>
               <input
+                id="req-role"
                 type="text"
                 name="currentRole"
                 value={formData.currentRole}
                 onChange={handleChange}
-                placeholder="e.g. Java Dev / B.Tech 4th Year"
-                className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
+                placeholder="e.g. Python Dev / B.Tech Student / D2C Brand"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Target Role / Domain
+              <label htmlFor="req-target" className="block text-xs font-bold text-[#111111] mb-1.5">
+                Target Goal / Role
               </label>
               <input
+                id="req-target"
                 type="text"
                 name="targetRole"
                 value={formData.targetRole}
                 onChange={handleChange}
-                placeholder="e.g. Full-Stack / Cloud / SDE-1"
-                className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
+                placeholder="e.g. Backend SDE-1 / Company Website Relaunch"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
               />
             </div>
           </div>
         </div>
 
-        {/* Step 4: Timeline & Budget */}
-        <div className="space-y-4 pt-2 border-t border-slate-100">
-          <label className="block text-xs font-black uppercase tracking-wider text-slate-700">
-            4. Timeline &amp; Budget Expectations
+        <div className="space-y-4 pt-4 border-t border-[#EAE3D5]">
+          <label htmlFor="req-brief" className="block text-xs font-extrabold uppercase tracking-wider text-[#111111]">
+            4. Project Brief <span className="text-[#6B6862] font-normal">(Optional)</span>
           </label>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Delivery Timeline
-              </label>
-              <select
-                name="timeline"
-                value={formData.timeline}
-                onChange={handleChange}
-                className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
-              >
-                {TIMELINE_OPTIONS.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Budget Range
-              </label>
-              <select
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-                className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
-              >
-                {BUDGET_OPTIONS.map((b) => (
-                  <option key={b} value={b}>{b}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Step 5: Brief & Link */}
-        <div className="space-y-4 pt-2 border-t border-slate-100">
-          <label className="block text-xs font-black uppercase tracking-wider text-slate-700">
-            5. Project Brief or Specific Request <span className="text-slate-400 font-normal">(Optional)</span>
-          </label>
-
           <textarea
+            id="req-brief"
             name="projectBrief"
             rows={3}
             value={formData.projectBrief}
             onChange={handleChange}
-            placeholder="Tell us what you need help with (e.g. 'I am not getting callbacks from Workday jobs', 'Need a developer portfolio built with React', or 'Want a full LinkedIn makeover')..."
-            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50 resize-y"
+            placeholder="Describe your goal, deadlines, or paste a relevant job/project link..."
+            className="w-full px-4 py-3 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35 resize-y"
           />
-
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">
-              Current Resume or Project Link (Google Drive / Dropbox)
+            <label htmlFor="req-link" className="block text-xs font-bold text-[#111111] mb-1.5">
+              Resume / Brief Reference Link (Google Drive / Dropbox)
             </label>
             <input
+              id="req-link"
               type="url"
               name="resumeLink"
               value={formData.resumeLink}
               onChange={handleChange}
-              placeholder="e.g. https://drive.google.com/file/d/..."
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 bg-slate-50/50"
+              placeholder="https://drive.google.com/..."
+              className="w-full px-4 py-2.5 rounded-xl border border-[#D8D3C9] text-sm focus:outline-none focus:ring-2 focus:ring-[#D9541E] bg-[#F3EEE3]/35"
             />
-            <p className="text-[11px] text-slate-400 mt-1">
-              You can also send your PDF directly over WhatsApp once you submit.
-            </p>
           </div>
         </div>
 
-        {errorMessage && (
-          <div
-            role="alert"
-            className="rounded-2xl bg-rose-50 border border-rose-200 px-4 py-3 text-xs sm:text-sm font-semibold text-rose-700"
-          >
-            {errorMessage}
-          </div>
-        )}
+        {errorMessage && <StatusBanner tone="error">{errorMessage}</StatusBanner>}
 
-        {/* Action Buttons */}
-        <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-4">
-          <button
+        <div className="pt-4 border-t border-[#EAE3D5] flex flex-col sm:flex-row items-center gap-3.5">
+          <Button
             type="button"
+            variant="primary"
+            size="lg"
             disabled={isSubmitting}
             onClick={() => handleSubmit('whatsapp')}
-            className="w-full sm:flex-1 h-14 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-xl shadow-emerald-600/20 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-50"
+            className="w-full sm:flex-1"
           >
-            <MessageCircle size={20} fill="currentColor" />
-            <span>Send Request via WhatsApp</span>
-          </button>
+            <MessageCircle size={17} />
+            {isSubmitting ? 'Saving...' : 'Send Brief via WhatsApp'}
+          </Button>
 
-          <button
+          <Button
             type="button"
+            variant="dark"
+            size="lg"
             disabled={isSubmitting}
             onClick={() => handleSubmit('email')}
-            className="w-full sm:flex-1 h-14 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-base shadow-lg transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-50"
+            className="w-full sm:flex-1"
           >
-            <Mail size={20} />
-            <span>Send Request via Email</span>
-          </button>
+            <Mail size={17} />
+            {isSubmitting ? 'Saving...' : 'Send Brief via Email'}
+          </Button>
         </div>
 
-        {/* Security and SLA assurance */}
-        <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-xs text-slate-500 font-medium">
-          <span className="flex items-center gap-1.5">
-            <ShieldCheck size={16} className="text-primary" /> 100% Confidential
+        <div className="flex flex-wrap items-center justify-center gap-6 pt-1 text-xs text-[#57534E]">
+          <span className="inline-flex items-center gap-1.5">
+            <ShieldCheck size={14} className="text-[#16845B]" /> Confidential handling
           </span>
-          <span className="flex items-center gap-1.5">
-            <Clock size={16} className="text-emerald-600" /> ~5 min reply on WhatsApp
+          <span className="inline-flex items-center gap-1.5">
+            <Clock size={14} className="text-[#D9541E]" /> Direct founder review
           </span>
-          <span className="flex items-center gap-1.5">
-            <CheckCircle2 size={16} className="text-slate-600" /> No upfront payment required
+          <span className="inline-flex items-center gap-1.5">
+            <CheckCircle2 size={14} className="text-[#111111]" /> No upfront payment needed
           </span>
         </div>
       </form>

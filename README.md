@@ -1,65 +1,92 @@
 # SmartScaleTech
 
-🔗 **Live Site:** [smartscaletech.vercel.app](https://smartscaletech.vercel.app)
+SmartScaleTech is a digital services and career solutions website for businesses, professionals, and graduates. It includes service discovery, portfolio examples, career tools, proposal forms, and the SmartScale Studio Advisor chatbot.
 
-SmartScaleTech is a high-performance digital branding agency platform helping businesses and job seekers build a powerful online presence. The platform showcases premium career services (ATS resume writing, LinkedIn optimization) alongside technical solutions (web development, UI/UX design) — built end-to-end as a production-ready full-stack project.
+🔗 **Live site:** [smartscaletech](https://smartscaletech.vercel.app)
 
 ## 📸 Preview
 
 ![SmartScaleTech Homepage](./screenshots/homepage.png)
 
-## 🚀 Key Features
-- **Modern UI/UX**: Built with a "Clean Modern" aesthetic using Inter for typography and a deep primary indigo theme.
-- **Service Categories**: Comprehensive listings for Career, Tech, and Marketing services.
-- **Responsive Design**: Fully optimized for mobile, tablet, and desktop views.
-- **Interactions**: Smooth animations powered by Framer Motion.
-- **Booking Flow**: Integrated consultation request modal.
+## Features
 
-## 🛠️ Tech Stack
-- **Framework**: [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Type Safety**: [TypeScript](https://www.typescriptlang.org/)
+- Responsive landing page with a full-section hero video (`public/videos/SmartScaleTech Hero Section.mp4`).
+- Business and career service pages, project showcases, pricing, and a custom package builder.
+- Free career tools, including an ATS resume checker, LinkedIn headline generator, and job-readiness audit.
+- Website lead and service-request forms that deliver branded email through Resend.
+- SmartScale Studio Advisor chatbot with service guidance, pricing information, and WhatsApp contact.
+- Search metadata and prerendered HTML for public routes.
 
-## 📦 Local Setup Instructions
+## Tech stack
 
-Follow these steps to run the project on your local machine using Visual Studio Code:
+- React 19, TypeScript, and Vite
+- Tailwind CSS 4
+- Express local development server
+- Resend for lead email delivery
+- Google Gemini for live chatbot responses
+- Lucide React icons
 
-### 1. Prerequisites
-Ensure you have the following installed:
-- [Node.js](https://nodejs.org/) (Version 18 or higher recommended)
-- [npm](https://www.npmjs.com/) (usually comes with Node.js)
+## Requirements
 
-### 2. Clone and Open
-Download the project code as a ZIP and extract it, or clone the repository if applicable. Open the folder in VS Code.
+- Node.js 20 or newer
+- npm
 
-### 3. Install Dependencies
-Open the VS Code terminal (`Ctrl+` or `Cmd+`) and run:
+## Local setup
+
+Run commands from the project root (the directory containing `package.json`):
+
 ```bash
 npm install
 ```
 
-### 4. Run Development Server
-Start the local development server by running:
+Copy `.env.example` to `.env` and add the server-side credentials you want to use:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key
+MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=smartscaletechforyou@gmail.com
+MAIL_PASSWORD=your_google_app_password
+MAIL_ENCRYPTION=tls
+SMTP_USE_TLS=true
+MAIL_FROM=smartscaletechforyou@gmail.com
+MAIL_FROM_NAME="Smart Scale Tech"
+EMAIL_TO=your_inbox@example.com
+```
+
+`GEMINI_API_KEY` enables live chatbot answers. Gmail SMTP delivery requires `MAIL_USERNAME` and a Google App Password in `MAIL_PASSWORD` (not your regular Gmail password); enable 2-Step Verification on the Google account to create an App Password. `MAIL_FROM` should be the authenticated Gmail address. `EMAIL_TO` is optional and defaults to `MAIL_USERNAME`. The optional `VITE_UPI_ID` and `VITE_LEAD_WEBHOOK_URL` settings are documented in `.env.example`. Never commit `.env` or real credentials.
+
+Start the local Express server and Vite app:
+
 ```bash
 npm run dev
 ```
-Once the server starts, you can view the application at `http://localhost:3000`.
 
-### 5. Build for Production
-To generate a production-ready build:
-```bash
-npm run build
-```
-The output will be available in the `dist/` directory.
+Open [http://localhost:3000](http://localhost:3000). If email or live chatbot replies are not configured, those integrations may be unavailable; the chatbot includes local fallback answers.
 
-## 📂 Project Structure
-- `src/components/home/`: Individual landing page sections (Hero, Services, Testimonials, etc.)
-- `src/components/layout/`: Shared layout components (Navbar, Footer)
-- `src/components/ui/`: Reusable primitive components (Buttons)
-- `src/App.tsx`: Main application router and page structure
-- `src/index.css`: Global styles and Tailwind configuration
+## Available scripts
 
----
-*Generated with ❤️ by SmartScaleTech Team.*
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the local application server |
+| `npm run lint` | Run the TypeScript check |
+| `npm test` | Run the Node.js test suite |
+| `npm run build` | Build and prerender the production site |
+| `npm run preview` | Preview the Vite production build |
+
+## Deployment
+
+The site supports Vercel deployment. Configure `GEMINI_API_KEY` and the Gmail SMTP variables (`MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_ENCRYPTION`, `SMTP_USE_TLS`, and `MAIL_FROM`) in the deployment environment; set `EMAIL_TO` and `MAIL_FROM_NAME` as needed. Verify outbound Gmail SMTP connectivity from the deployed function before relying on production email delivery.
+
+## Project structure
+
+- `src/components/home/` — homepage sections
+- `src/components/layout/` — shared navigation, footer, and layout elements
+- `src/components/chat/` — SmartScale Studio Advisor
+- `src/components/services/` — service pages and request forms
+- `src/components/tools/` — career tools and package builder
+- `src/lib/` — shared utilities and tests
+- `api/` — Vercel serverless API handlers and shared email template
+- `server.ts` — local Express server and API endpoints
+- `public/` — static assets, logo, and hero video
