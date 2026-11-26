@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { cleanField, isValidEmail, MailerError, sendLeadEmail } from './_lib/mailer';
+import { cleanField, isValidEmail, MailerError, sendLeadEmail } from './_lib/mailer.js';
 
 interface ApiRequest {
   method?: string;

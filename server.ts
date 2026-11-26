@@ -8,7 +8,7 @@ import {
   isValidEmail,
   MailerError,
   sendLeadEmail as sendBrandedLeadEmail,
-} from './api/_lib/mailer';
+} from './api/_lib/mailer.js';
 
 dotenv.config();
 
