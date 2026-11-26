@@ -34,6 +34,7 @@ import { JobReadinessAuditPage } from './components/tools/JobReadinessAuditPage'
 import { CustomPackageBuilderPage } from './components/tools/CustomPackageBuilderPage';
 import { FinalYearProjectsPage } from './components/services/FinalYearProjectsPage';
 import { LinkedInServiceRequestPage } from './components/services/LinkedInServiceRequestPage';
+import { ServicesPage } from './components/services/ServicesPage';
 import { ProjectsPage } from './components/pages/ProjectsPage';
 import { CaseStudyPage } from './components/pages/CaseStudyPage';
 import { AboutPage } from './components/pages/AboutPage';
@@ -192,6 +193,7 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/services" element={<ServicesPage />} />
             <Route
               path="/services/:slug"
               element={
