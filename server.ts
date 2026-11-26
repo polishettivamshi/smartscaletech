@@ -56,7 +56,15 @@ async function startServer() {
         return res.status(400).json({ error: 'Invalid email format' });
       }
 
-      await sendBrandedLeadEmail(data, 'Service request');
+      let emailSent = false;
+      try {
+        await sendBrandedLeadEmail(data, 'Service request');
+        emailSent = true;
+      } catch (err) {
+        const code = err instanceof MailerError ? err.code : 'EMAIL_DELIVERY_FAILED';
+        const detail = err instanceof Error ? err.message : 'Unknown email error';
+        console.error(`[Service Request Email Error] ${code}: ${detail}`);
+      }
 
       console.log('[Service Request Received]', {
         service: service || 'General',
@@ -64,20 +72,24 @@ async function startServer() {
         hasEmail: Boolean(email),
         timeline: timeline || 'Unspecified',
         budget: budget || 'Unspecified',
+        emailSent,
         timestamp: new Date().toISOString(),
       });
 
       return res.status(200).json({
         success: true,
-        message: 'Service request emailed successfully',
-        founderWhatsApp: '919000859695',
+        message: emailSent
+          ? 'Service request emailed successfully'
+          : 'Service request received. Email notification is temporarily unavailable; please contact us directly.',
+        emailSent,
+        founderWhatsApp: '+919000859695',
         founderEmail: 'smartscaletechforyou@gmail.com',
       });
     } catch (err) {
-      const code = err instanceof MailerError ? err.code : 'EMAIL_DELIVERY_FAILED';
-      const detail = err instanceof Error ? err.message : 'Unknown email error';
+      const code = err instanceof MailerError ? err.code : 'INTERNAL_ERROR';
+      const detail = err instanceof Error ? err.message : 'Unknown error';
       console.error(`[Service Request Error] ${code}: ${detail}`);
-      return res.status(503).json({ code, error: 'Unable to send your request by email right now. Please contact us directly.' });
+      return res.status(500).json({ code, error: 'Internal server error' });
     }
   });
 
