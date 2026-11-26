@@ -134,6 +134,16 @@ export const Navbar = () => {
             {openDropdown === 'services' && (
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[680px] z-50">
                 <div className="rounded-2xl bg-white border border-[#D8D3C9] shadow-2xl p-6 grid grid-cols-2 gap-6">
+                  <div className="col-span-2">
+                    <Link
+                      to="/services"
+                      onClick={() => setOpenDropdown(null)}
+                      className="flex items-center gap-2 px-2.5 py-2.5 rounded-lg text-sm font-semibold text-[#D9541E] hover:bg-[#F3EEE3]/70 transition-colors"
+                    >
+                      <ArrowRight size={13} />
+                      Browse All Services
+                    </Link>
+                  </div>
                   <div>
                     <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#57534E] pb-2.5 mb-3 border-b border-[#D8D3C9]">
                       Business Solutions
