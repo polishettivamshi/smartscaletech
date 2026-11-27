@@ -99,7 +99,7 @@ export const FAQ = () => {
 
           <div className="lg:col-span-5">
             <div className="bg-[#F3EEE3] border border-[#D8D3C9] rounded-2xl p-8 sm:p-10 lg:sticky lg:top-28">
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-3">
                 Direct Studio Desk
               </p>
               <h3 className="text-2xl font-extrabold text-[#111111]">

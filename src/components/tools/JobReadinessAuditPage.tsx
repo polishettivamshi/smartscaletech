@@ -153,7 +153,7 @@ export const JobReadinessAuditPage = () => {
     } else if (score >= 65) {
       level = {
         label: 'Solid Base, Key Signals Missing',
-        color: 'text-[#D9541E]',
+        color: 'text-[#B94414]',
       };
     }
 
@@ -193,7 +193,7 @@ export const JobReadinessAuditPage = () => {
         />
 
         <div className="max-w-3xl mb-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
             Free 6-Checkpoint Diagnostic
           </p>
           <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -240,7 +240,7 @@ export const JobReadinessAuditPage = () => {
                 className="bg-white rounded-2xl p-6 border border-[#D8D3C9] space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#D9541E]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#B94414]">
                     0{index + 1} · {q.category}
                   </span>
                   {answers[q.id] !== undefined && (
@@ -297,13 +297,13 @@ export const JobReadinessAuditPage = () => {
                         className="p-3.5 rounded-xl bg-[#F3EEE3]/55 border border-[#D8D3C9] space-y-1.5"
                       >
                         <div className="flex items-center gap-1.5 text-xs font-bold text-[#111111]">
-                          <AlertTriangle size={14} className="shrink-0 text-[#D9541E]" />
+                          <AlertTriangle size={14} className="shrink-0 text-[#B94414]" />
                           <span>{b.category}</span>
                         </div>
                         <p className="text-xs text-[#57534E] leading-relaxed">{b.recommendation}</p>
                         <Link
                           to={b.fixRoute}
-                          className="inline-flex items-center gap-1 text-[11px] font-bold text-[#D9541E] hover:underline"
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-[#B94414] hover:underline"
                         >
                           Recommended: {b.fixService} <ArrowRight size={11} />
                         </Link>

@@ -78,10 +78,10 @@ export const HowItWorks = () => {
             >
               <div>
                 <div className="mb-5 flex items-center gap-3">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F3EEE3] text-[#D9541E]">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F3EEE3] text-[#B94414]">
                   <step.Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                   </div>
-                  <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#D9541E] tabular-nums">
+                  <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#B94414] tabular-nums">
                     {step.stepNum} — {step.label}
                   </span>
                 </div>
@@ -118,7 +118,7 @@ export const PrivacyPolicy = () => {
           className="mb-6"
         />
         <div className="bg-white border border-[#D8D3C9] rounded-2xl p-8 sm:p-12">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-3">
             Legal &amp; Data Practices
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111111] mb-4">
@@ -167,7 +167,7 @@ export const PrivacyPolicy = () => {
                 For privacy or data removal inquiries, email{' '}
                 <a
                   href="mailto:smartscaletechforyou@gmail.com"
-                  className="font-semibold text-[#111111] underline underline-offset-4 hover:text-[#D9541E]"
+                  className="font-semibold text-[#111111] underline underline-offset-4 hover:text-[#B94414]"
                 >
                   smartscaletechforyou@gmail.com
                 </a>
@@ -190,7 +190,7 @@ export const TermsOfService = () => {
           className="mb-6"
         />
         <div className="bg-white border border-[#D8D3C9] rounded-2xl p-8 sm:p-12">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-3">
             Service Terms
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111111] mb-4">
@@ -259,7 +259,7 @@ export const RefundPolicy = () => {
           className="mb-6"
         />
         <div className="bg-white border border-[#D8D3C9] rounded-2xl p-8 sm:p-12">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-3">
             Cancellations &amp; Revisions
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111111] mb-4">
@@ -308,7 +308,7 @@ export const RefundPolicy = () => {
                 Reach out directly on{' '}
                 <a
                   href="mailto:smartscaletechforyou@gmail.com"
-                  className="font-semibold text-[#111111] underline underline-offset-4 hover:text-[#D9541E]"
+                  className="font-semibold text-[#111111] underline underline-offset-4 hover:text-[#B94414]"
                 >
                   smartscaletechforyou@gmail.com
                 </a>{' '}

@@ -13,7 +13,10 @@ export const FloatingActions = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-16 right-4 sm:right-6 z-40 flex items-center gap-2">
+    <aside
+      className="fixed bottom-16 right-4 sm:right-6 z-40 flex items-center gap-2"
+      aria-label="Floating actions"
+    >
       {showScrollTop && (
         <button
           type="button"
@@ -37,6 +40,6 @@ export const FloatingActions = () => {
         <MessageCircle size={15} />
         <span className="hidden sm:inline">WhatsApp</span>
       </a>
-    </div>
+    </aside>
   );
 };

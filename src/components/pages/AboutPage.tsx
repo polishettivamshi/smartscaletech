@@ -19,7 +19,7 @@ export const AboutPage = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7 space-y-6">
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414]">
                 Independent Digital Studio · Hitech City, Hyderabad
               </p>
               <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -48,7 +48,7 @@ export const AboutPage = () => {
                   </p>
                 </div>
                 <div className="bg-white border border-[#D8D3C9] rounded-xl p-5">
-                  <CheckCircle2 size={18} className="text-[#D9541E] mb-2" />
+                  <CheckCircle2 size={18} className="text-[#B94414] mb-2" />
                   <h2 className="text-sm font-extrabold text-[#111111]">Honest, Transparent Scope</h2>
                   <p className="text-xs text-[#57534E] mt-1 leading-relaxed">
                     Upfront round-figure INR pricing, full code &amp; file ownership, and no

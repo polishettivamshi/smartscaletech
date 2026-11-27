@@ -34,7 +34,7 @@ export const CaseStudyPage = () => {
           />
 
           <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.14em] mb-3">
-            <span className="text-[#D9541E]">{study.category}</span>
+            <span className="text-[#B94414]">{study.category}</span>
             <span className="text-[#9E988C]">·</span>
             <span className="text-[#57534E]">{study.kindLabel}</span>
             <span className="text-[#9E988C]">·</span>
@@ -62,7 +62,7 @@ export const CaseStudyPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-6 rounded-2xl bg-[#F3EEE3]/50 border border-[#D8D3C9]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#D9541E] mb-2">
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#B94414] mb-2">
                 01 · Context &amp; Challenge
               </p>
               <h2 className="text-xl font-extrabold text-[#111111] mb-3">What needed solving</h2>
@@ -96,7 +96,7 @@ export const CaseStudyPage = () => {
               <ul className="space-y-3 mb-6">
                 {study.outcomes.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-[#57534E]">
-                    <CheckCircle2 size={16} className="text-[#D9541E] shrink-0 mt-0.5" />
+                    <CheckCircle2 size={16} className="text-[#B94414] shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -148,7 +148,7 @@ export const CaseStudyPage = () => {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-extrabold text-[#111111]">More Studio Work</h2>
-            <Link to="/work" className="text-xs font-bold text-[#D9541E] hover:underline">
+            <Link to="/work" className="text-xs font-bold text-[#B94414] hover:underline">
               All work →
             </Link>
           </div>
@@ -161,7 +161,7 @@ export const CaseStudyPage = () => {
                   to={`/work/${other.slug}`}
                   className="bg-white border border-[#D8D3C9] rounded-2xl p-5 hover:border-[#111111]/45 transition-colors"
                 >
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#D9541E]">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#B94414]">
                     {other.category}
                   </p>
                   <h3 className="text-base font-extrabold text-[#111111] mt-1">{other.title}</h3>

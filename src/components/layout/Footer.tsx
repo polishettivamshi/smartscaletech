@@ -16,7 +16,7 @@ export const Footer = () => {
                 className="h-9 w-9 rounded-lg object-cover"
               />
               <span className="text-xl font-display font-extrabold tracking-tight text-carbon">
-                SmartScale<span className="text-[#D9541E]">Tech</span>
+                SmartScale<span className="text-[#B94414]">Tech</span>
               </span>
             </Link>
 
@@ -40,7 +40,7 @@ export const Footer = () => {
                   rel="noopener noreferrer"
                   aria-label={item.name}
                   title={item.name}
-                  className="group relative h-10 w-10 rounded-xl bg-white border border-border-hairline flex items-center justify-center text-muted-accessible hover:text-[#D9541E] hover:border-carbon transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9541E]"
+                  className="group relative h-10 w-10 rounded-xl bg-white border border-border-hairline flex items-center justify-center text-muted-accessible hover:text-[#B94414] hover:border-carbon transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9541E]"
                 >
                   <item.Icon size={17} />
                   <span
@@ -57,9 +57,9 @@ export const Footer = () => {
 
           {/* Column 1: Business Solutions */}
           <div className="md:col-span-2 xl:col-span-1">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
               Business
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               {[
                 { label: 'Web Development', to: '/services/web-development' },
@@ -75,7 +75,7 @@ export const Footer = () => {
                 <li key={item.to}>
                   <Link
                     to={item.to}
-                    className="text-muted-accessible hover:text-[#D9541E] transition-colors"
+                    className="text-muted-accessible hover:text-[#B94414] transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -86,9 +86,9 @@ export const Footer = () => {
 
           {/* Column 2: Services Solutions */}
           <div className="md:col-span-2 xl:col-span-1">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
               Services
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               {[
                 { label: 'ATS Resume Writing', to: '/services/resume-writing' },
@@ -105,7 +105,7 @@ export const Footer = () => {
                 <li key={item.to}>
                   <Link
                     to={item.to}
-                    className="text-muted-accessible hover:text-[#D9541E] transition-colors"
+                    className="text-muted-accessible hover:text-[#B94414] transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -116,9 +116,9 @@ export const Footer = () => {
 
           {/* Column 3: Free Tools & Studio */}
           <div className="md:col-span-2 xl:col-span-1">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
               Tools &amp; Studio
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               {[
                 { label: 'Free Tools Hub', to: '/tools' },
@@ -133,7 +133,7 @@ export const Footer = () => {
                 <li key={item.to}>
                   <Link
                     to={item.to}
-                    className="text-muted-accessible hover:text-[#D9541E] transition-colors"
+                    className="text-muted-accessible hover:text-[#B94414] transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -144,9 +144,9 @@ export const Footer = () => {
 
           {/* Column 4: Products */}
           <div className="md:col-span-2 xl:col-span-1">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
               Our Products
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-sm">
               {[
                 { label: 'MDR Free Split', url: 'https://mdr-free-split.vercel.app/' },
@@ -156,7 +156,7 @@ export const Footer = () => {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-accessible hover:text-[#D9541E] transition-colors"
+                    className="text-muted-accessible hover:text-[#B94414] transition-colors"
                   >
                     {item.label}
                   </a>
@@ -167,12 +167,12 @@ export const Footer = () => {
 
           {/* Column 5: Direct Contact */}
           <div className="md:col-span-2 xl:col-span-1">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-carbon mb-4">
               Contact
-            </h4>
+            </h2>
             <ul className="space-y-3 text-xs sm:text-sm text-muted-accessible">
               <li className="flex items-start gap-2.5 xl:whitespace-nowrap">
-                <Mail size={15} className="text-[#D9541E] shrink-0 mt-0.5" />
+                <Mail size={15} className="text-[#B94414] shrink-0 mt-0.5" />
                 <a
                   href="mailto:smartscaletechforyou@gmail.com"
                   className="hover:text-carbon break-all xl:break-normal"
@@ -181,14 +181,14 @@ export const Footer = () => {
                 </a>
               </li>
               <li className="flex items-start gap-2.5 xl:whitespace-nowrap">
-                <Phone size={15} className="text-[#D9541E] shrink-0 mt-0.5" />
+                <Phone size={15} className="text-[#B94414] shrink-0 mt-0.5" />
                 <a href="tel:+919000859695" className="hover:text-carbon tabular-nums">
                   +91 90008 59695
                 </a>
               </li>
               <li className="flex items-start gap-2.5 xl:whitespace-nowrap">
-                <MapPin size={15} className="text-[#D9541E] shrink-0 mt-0.5" />
-                <span>Hitech City, Hyderabad, Telangana, India</span>
+                <MapPin size={15} className="text-[#B94414] shrink-0 mt-0.5" />
+                <span className="min-w-0">Hitech City, Hyderabad, Telangana, India</span>
               </li>
               <li className="pt-1 text-xs font-semibold text-carbon xl:whitespace-nowrap">
                 Mon–Sat · 9:00 AM – 9:00 PM IST
@@ -207,7 +207,7 @@ export const Footer = () => {
                 href="https://www.linkedin.com/in/polishettivamshi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-carbon hover:text-[#D9541E]"
+                className="font-semibold text-carbon hover:text-[#B94414]"
               >
                 Vamshi Polishetti
               </a>

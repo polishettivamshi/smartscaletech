@@ -112,7 +112,7 @@ export const ServicePage = ({ slug }: Props) => {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
             <div className="lg:col-span-8">
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-3">
                 {entry.badge} · {entry.categoryLabel}
               </p>
               <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -167,7 +167,7 @@ export const ServicePage = ({ slug }: Props) => {
                 <span>Hitech City &amp; Remote</span>
                 <Link
                   to="/custom-package-builder"
-                  className="text-[#D9541E] hover:underline underline-offset-4"
+                  className="text-[#111111] hover:underline underline-offset-4"
                 >
                   Bundle &amp; Save →
                 </Link>
@@ -195,7 +195,7 @@ export const ServicePage = ({ slug }: Props) => {
           </div>
 
           <div className="lg:col-span-6 bg-[#F3EEE3]/65 border border-[#D8D3C9] rounded-2xl p-6 sm:p-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-4">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-4">
               Common Bottlenecks We Solve
             </p>
             <ul className="space-y-4">
@@ -237,7 +237,7 @@ export const ServicePage = ({ slug }: Props) => {
       {/* 6. Concrete Deliverables */}
       <section className="py-16 sm:py-20 bg-white border-b border-[#D8D3C9]">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
             Scope &amp; Deliverables
           </p>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#111111] mb-10">
@@ -278,7 +278,7 @@ export const ServicePage = ({ slug }: Props) => {
                 className="bg-white border border-[#D8D3C9] rounded-2xl p-6 flex flex-col justify-between"
               >
                 <div>
-                  <span className="text-xs font-extrabold text-[#D9541E] tabular-nums block mb-3">
+                  <span className="text-xs font-extrabold text-[#B94414] tabular-nums block mb-3">
                     0{idx + 1}
                   </span>
                   <h3 className="text-base font-extrabold text-[#111111] mb-2">{step.title}</h3>
@@ -295,7 +295,7 @@ export const ServicePage = ({ slug }: Props) => {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
                 {visual?.kind === 'transformation'
                   ? `Studio Sample · ${visual.metricLabel}`
                   : 'Visual Sample & Architecture'}
@@ -321,6 +321,7 @@ export const ServicePage = ({ slug }: Props) => {
           <button
             type="button"
             onClick={() => setIsZoomed(true)}
+            aria-label={`Tap to Zoom — ${entry.name} preview`}
             className="group relative block w-full rounded-2xl overflow-hidden border border-[#D8D3C9] bg-[#F3EEE3] p-2 cursor-zoom-in text-left"
           >
             <img
@@ -373,7 +374,7 @@ export const ServicePage = ({ slug }: Props) => {
           </div>
 
           <div className="lg:col-span-6 bg-white border border-[#D8D3C9] rounded-2xl p-6 sm:p-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
               Investment &amp; Bundles
             </p>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#111111] mb-3">

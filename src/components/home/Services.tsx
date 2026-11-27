@@ -131,7 +131,7 @@ export const Services = () => {
               <div className="px-6 pb-6 pt-3 border-t border-[#D8D3C9]/70 flex items-center justify-between gap-2">
                 <Link
                   to={service.canonicalPath}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#111111] hover:text-[#D9541E] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#111111] hover:text-[#B94414] transition-colors"
                 >
                   <span>Service details</span>
                   <ArrowRight size={13} />
@@ -160,7 +160,7 @@ export const Services = () => {
           </p>
           <Link
             to="/custom-package-builder"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#D9541E] hover:underline shrink-0"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B94414] hover:underline shrink-0"
           >
             Open Bundle Builder <ArrowRight size={14} />
           </Link>

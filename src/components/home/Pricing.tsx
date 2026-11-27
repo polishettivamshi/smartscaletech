@@ -131,7 +131,7 @@ export const Pricing = () => {
                 <div className="flex items-center justify-between gap-2 mb-4">
                   <span
                     className={`text-[11px] font-bold uppercase tracking-[0.14em] ${
-                      plan.popular ? 'text-[#F06B37]' : 'text-[#D9541E]'
+                      plan.popular ? 'text-[#F06B37]' : 'text-[#B94414]'
                     }`}
                   >
                     {plan.scope}
@@ -189,7 +189,7 @@ export const Pricing = () => {
                       <Check
                         size={15}
                         className={`shrink-0 mt-0.5 ${
-                          plan.popular ? 'text-[#F06B37]' : 'text-[#D9541E]'
+                          plan.popular ? 'text-[#F06B37]' : 'text-[#B94414]'
                         }`}
                       />
                       <span className={plan.popular ? 'text-white/85' : 'text-[#57534E]'}>
@@ -247,7 +247,7 @@ export const Pricing = () => {
 
           <Link
             to="/custom-package-builder"
-            className="inline-flex items-center gap-1.5 font-bold text-[#111111] hover:text-[#D9541E] underline underline-offset-4"
+            className="inline-flex items-center gap-1.5 font-bold text-[#111111] hover:text-[#B94414] underline underline-offset-4"
           >
             <SlidersHorizontal size={13} /> Open Custom Bundle Builder (Save up to 20%){' '}
             <ArrowRight size={13} />
@@ -257,7 +257,7 @@ export const Pricing = () => {
         {/* Standalone Custom Quote Banner */}
         <div className="mt-8 rounded-2xl bg-white border border-[#D8D3C9] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#D9541E]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#B94414]">
               Custom Pick-and-Mix Estimator
             </p>
             <h3 className="text-lg sm:text-xl font-extrabold text-[#111111] mt-1">

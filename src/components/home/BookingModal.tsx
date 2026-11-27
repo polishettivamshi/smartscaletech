@@ -110,7 +110,7 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                 htmlFor="booking-name"
                 className="text-xs font-bold text-[#111111] uppercase tracking-wider block"
               >
-                Full Name <span className="text-[#D9541E]">*</span>
+                Full Name <span className="text-[#B94414]">*</span>
               </label>
               <div className="relative">
                 <User
@@ -134,7 +134,7 @@ export const BookingModal = ({ isOpen, onClose, planName }: BookingModalProps) =
                 htmlFor="booking-phone"
                 className="text-xs font-bold text-[#111111] uppercase tracking-wider block"
               >
-                WhatsApp Number <span className="text-[#D9541E]">*</span>
+                WhatsApp Number <span className="text-[#B94414]">*</span>
               </label>
               <div className="relative">
                 <Phone

@@ -15,7 +15,13 @@ import {
   Target,
   Upload,
   RotateCcw,
+  Loader2,
 } from 'lucide-react';
+import * as pdfjsLib from 'pdfjs-dist';
+const pdfjsWorkerUrl = new URL(
+  'pdfjs-dist/legacy/build/pdf.worker.mjs',
+  import.meta.url
+).toString();
 import { Button } from '../ui/Button';
 import { StatusBanner } from '../ui/StatusBanner';
 import {
@@ -27,8 +33,10 @@ import {
 import { submitLead } from '../../lib/leads';
 import { trackEvent } from '../../lib/analytics';
 
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl;
+
 const MAX_FILE_SIZE_BYTES = 2 * 1024 * 1024; // 2MB
-const ALLOWED_TEXT_EXTENSIONS = ['.txt', '.md', '.csv'];
+const ALLOWED_TEXT_EXTENSIONS = ['.txt', '.md', '.csv', '.pdf'];
 
 const SAMPLE_RESUME = `Vamshi Polishetti
 Full-Stack Developer | Hyderabad, Telangana | smartscaletechforyou@gmail.com | +91 9000859695
@@ -70,6 +78,7 @@ export const ATSCheckerTool = () => {
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<ATSAnalysisResult | null>(null);
@@ -85,30 +94,57 @@ export const ATSCheckerTool = () => {
     const lowerName = file.name.toLowerCase();
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      setFileError('File exceeds 2 MB limit. Please upload a plain-text file under 2 MB or paste your CV text below.');
+      setFileError('File exceeds 2 MB limit. Please upload a file under 2 MB or paste your CV text below.');
       return;
     }
 
-    const isPlainTextExt = ALLOWED_TEXT_EXTENSIONS.some((ext) => lowerName.endsWith(ext));
-    if (!isPlainTextExt) {
+    const isPlainTextExt = ['.txt', '.md', '.csv'].some((ext) => lowerName.endsWith(ext));
+    const isPdfExt = lowerName.endsWith('.pdf');
+
+    if (!isPlainTextExt && !isPdfExt) {
       setFileError(
-        `".${lowerName.split('.').pop() || 'file'}" binary documents cannot be reliably parsed client-side without external libraries. Please upload a .txt, .md, or .csv export—or copy & paste your resume text directly below.`
+        `".${lowerName.split('.').pop() || 'file'}" is not supported. Please upload a .pdf, .txt, .md, or .csv file—or copy & paste your resume text directly below.`
       );
       return;
     }
 
     try {
-      const content = await file.text();
-      const cleanContent = content.trim();
-      if (cleanContent.split(/\s+/).length < 15) {
-        setFileError('The uploaded text file appears nearly empty. Please check the file or paste your resume content below.');
-        return;
+      if (isPdfExt) {
+        setIsPdfLoading(true);
+        const arrayBuffer = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        let extractedText = '';
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          const pageText = content.items.map((item: any) => item.str).join(' ');
+          extractedText += pageText + '\n';
+        }
+        const cleanContent = extractedText.trim();
+        if (cleanContent.split(/\s+/).length < 15) {
+          setFileError('The uploaded PDF appears nearly empty or contains no extractable text. Please paste your resume content below.');
+          setIsPdfLoading(false);
+          return;
+        }
+        setResumeText(cleanContent);
+        setUploadedFileName(file.name);
+        setResult(null);
+        setIsPdfLoading(false);
+      } else {
+        const content = await file.text();
+        const cleanContent = content.trim();
+        if (cleanContent.split(/\s+/).length < 15) {
+          setFileError('The uploaded text file appears nearly empty. Please check the file or paste your resume content below.');
+          return;
+        }
+        setResumeText(cleanContent);
+        setUploadedFileName(file.name);
+        setResult(null);
       }
-      setResumeText(cleanContent);
-      setUploadedFileName(file.name);
-      setResult(null);
     } catch {
       setFileError('Unable to read the selected file. Please paste your resume text directly.');
+      setIsPdfLoading(false);
     }
   };
 
@@ -233,7 +269,7 @@ export const ATSCheckerTool = () => {
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="max-w-3xl mb-10">
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
           100% Free · Browser-Side Diagnostic
         </p>
         <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -315,12 +351,12 @@ export const ATSCheckerTool = () => {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-[#111111] uppercase tracking-wider">
-                  Upload Plain-Text File or Paste Below
+                  Upload Resume (PDF / Text) or Paste Below
                 </span>
                 <button
                   onClick={handleLoadSample}
                   type="button"
-                  className="text-xs font-bold text-[#D9541E] hover:underline cursor-pointer"
+                  className="text-xs font-bold text-[#B94414] hover:underline cursor-pointer"
                 >
                   Load Sample Data
                 </button>
@@ -342,7 +378,7 @@ export const ATSCheckerTool = () => {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept=".txt,.md,.csv,text/plain"
+                  accept=".pdf,.txt,.md,.csv,text/plain,application/pdf"
                   onChange={handleFileChange}
                   className="sr-only"
                   id="resume-file-upload"
@@ -355,7 +391,7 @@ export const ATSCheckerTool = () => {
                     <div className="flex items-center gap-3">
                       <label
                         htmlFor="resume-file-upload"
-                        className="font-bold text-[#D9541E] hover:underline cursor-pointer"
+                        className="font-bold text-[#B94414] hover:underline cursor-pointer"
                       >
                         Replace File
                       </label>
@@ -373,14 +409,23 @@ export const ATSCheckerTool = () => {
                     htmlFor="resume-file-upload"
                     className="flex flex-col items-center gap-1.5 cursor-pointer py-1"
                   >
-                    <Upload size={18} className="text-[#57534E]" />
-                    <span className="text-xs font-semibold text-[#111111]">
-                      Drag &amp; drop a <code>.txt</code> / <code>.md</code> / <code>.csv</code> resume
-                      or <span className="text-[#D9541E] underline">browse file</span>
-                    </span>
-                    <span className="text-[11px] text-[#57534E]">
-                      Max 2 MB · For PDF/DOCX files, copy &amp; paste plain text below
-                    </span>
+                    {isPdfLoading ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin text-[#D9541E]" />
+                        <span className="text-xs font-semibold text-[#111111]">Extracting PDF text…</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={18} className="text-[#57534E]" />
+                        <span className="text-xs font-semibold text-[#111111]">
+                          Drag &amp; drop a <code>.pdf</code> / <code>.txt</code> / <code>.md</code> / <code>.csv</code> resume
+                          or <span className="text-[#B94414] underline">browse file</span>
+                        </span>
+                        <span className="text-[11px] text-[#57534E]">
+                          Max 2 MB · Text-based PDFs supported; image-only PDFs require copy &amp; paste below
+                        </span>
+                      </>
+                    )}
                   </label>
                 )}
               </div>
@@ -414,7 +459,7 @@ export const ATSCheckerTool = () => {
               <div>
                 <label
                   htmlFor="ats-user-name"
-                  className="block text-[11px] font-bold text-[#57534E] uppercase tracking-wider mb-1"
+                  className="block text-[11px] font-bold text-[#57534E] uppercase tracking-wider mb-1 whitespace-nowrap"
                 >
                   Your Name (Optional, to log follow-up)
                 </label>
@@ -485,7 +530,7 @@ export const ATSCheckerTool = () => {
                       result.score >= 80
                         ? 'text-[#16845B]'
                         : result.score >= 60
-                        ? 'text-[#D9541E]'
+                        ? 'text-[#B94414]'
                         : 'text-[#C43D3D]'
                     }`}
                   >
@@ -616,7 +661,7 @@ export const ATSCheckerTool = () => {
                   <button
                     type="button"
                     onClick={shareOnLinkedIn}
-                    className="inline-flex items-center gap-1 font-bold text-[#111111] hover:text-[#D9541E] cursor-pointer"
+                    className="inline-flex items-center gap-1 font-bold text-[#111111] hover:text-[#B94414] cursor-pointer"
                   >
                     <Linkedin size={13} /> Share Summary
                   </button>

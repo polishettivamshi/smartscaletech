@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Fragment, lazy, Suspense, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -35,6 +35,7 @@ import { CustomPackageBuilderPage } from './components/tools/CustomPackageBuilde
 import { FinalYearProjectsPage } from './components/services/FinalYearProjectsPage';
 import { LinkedInServiceRequestPage } from './components/services/LinkedInServiceRequestPage';
 import { ServicesPage } from './components/services/ServicesPage';
+import { ServicePage } from './components/services/ServicePage';
 import { ProjectsPage } from './components/pages/ProjectsPage';
 import { CaseStudyPage } from './components/pages/CaseStudyPage';
 import { AboutPage } from './components/pages/AboutPage';
@@ -43,11 +44,6 @@ import { SEO } from './lib/seo';
 import { serviceRoutes } from './data/serviceRoutes';
 import { CareerAssistantBot } from './components/chat/CareerAssistantBot';
 import { LinkedInServiceRequestForm } from './components/services/LinkedInServiceRequestForm';
-
-// Lazy-loaded so service page data stays out of the initial homepage bundle.
-const ServicePage = lazy(() =>
-  import('./components/services/ServicePage').then((m) => ({ default: m.ServicePage }))
-);
 
 const CanonicalServiceRoute = () => {
   const { slug = '' } = useParams<{ slug: string }>();
@@ -145,7 +141,7 @@ function HomePage() {
       <section id="project-inquiry" className="bg-[#F3EEE3] py-16 sm:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mb-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
               Free Scope Consultation
             </p>
             <h2 className="text-section-display font-extrabold text-[#111111]">
@@ -196,21 +192,13 @@ function App() {
             <Route path="/services" element={<ServicesPage />} />
             <Route
               path="/services/:slug"
-              element={
-                <Suspense fallback={<div className="min-h-[60vh]" />}>
-                  <CanonicalServiceRoute />
-                </Suspense>
-              }
+              element={<CanonicalServiceRoute />}
             />
             {serviceRoutes.map((slug) => (
               <Fragment key={slug}>
                 <Route
                   path={`/${slug}`}
-                  element={
-                    <Suspense fallback={<div className="min-h-[60vh]" />}>
-                      <ServicePage slug={slug} />
-                    </Suspense>
-                  }
+                  element={<ServicePage slug={slug} />}
                 />
               </Fragment>
             ))}

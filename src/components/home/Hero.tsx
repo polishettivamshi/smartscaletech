@@ -79,7 +79,7 @@ export const Hero = ({ onOpenSamples }: HeroProps = {}) => {
 
           <h1 className="text-hero-display font-extrabold text-[#111111]">
             <span className="block">We build digital experiences.</span>
-            <span className="block text-[#D9541E] mt-1">That move you.</span>
+            <span className="block text-[#B94414] mt-1">That move you.</span>
           </h1>
 
           <p className="text-base sm:text-lg text-[#57534E] leading-relaxed max-w-xl">
@@ -105,7 +105,7 @@ export const Hero = ({ onOpenSamples }: HeroProps = {}) => {
           <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold text-[#57534E]">
             <Link
               to="/free-ats-resume-checker"
-              className="text-[#111111] hover:text-[#D9541E] underline underline-offset-4 transition-colors"
+              className="text-[#111111] hover:text-[#B94414] underline underline-offset-4 transition-colors"
             >
               Run Free ATS Resume Check →
             </Link>
