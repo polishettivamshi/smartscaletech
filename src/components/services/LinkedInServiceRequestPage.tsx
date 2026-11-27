@@ -14,7 +14,7 @@ export const LinkedInServiceRequestPage: React.FC = () => {
         />
 
         <div className="max-w-3xl mb-10 space-y-4">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E]">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414]">
             Project &amp; Service Inquiry · Zero Upfront Fee
           </p>
 
@@ -70,7 +70,7 @@ export const LinkedInServiceRequestPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
             <div className="space-y-2">
-              <span className="text-xs font-extrabold text-[#D9541E]">01</span>
+              <span className="text-xs font-extrabold text-[#B94414]">01</span>
               <h3 className="font-extrabold text-[#111111] text-base">Direct Dispatch</h3>
               <p className="text-[#57534E] text-xs sm:text-sm leading-relaxed">
                 Your brief dispatches via WhatsApp (+91 90008 59695) and email
@@ -79,7 +79,7 @@ export const LinkedInServiceRequestPage: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-extrabold text-[#D9541E]">02</span>
+              <span className="text-xs font-extrabold text-[#B94414]">02</span>
               <h3 className="font-extrabold text-[#111111] text-base">Scope &amp; Fixed Quote</h3>
               <p className="text-[#57534E] text-xs sm:text-sm leading-relaxed">
                 Vamshi reviews your current profile or project goal, confirms exact deliverables,
@@ -88,7 +88,7 @@ export const LinkedInServiceRequestPage: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-extrabold text-[#D9541E]">03</span>
+              <span className="text-xs font-extrabold text-[#B94414]">03</span>
               <h3 className="font-extrabold text-[#111111] text-base">Iterative Delivery</h3>
               <p className="text-[#57534E] text-xs sm:text-sm leading-relaxed">
                 Career drafts arrive in 24–48 hours; custom web builds progress cleanly with direct

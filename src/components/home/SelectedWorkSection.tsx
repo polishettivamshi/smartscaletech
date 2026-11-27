@@ -37,11 +37,11 @@ export const SelectedWorkSection = () => {
               <div className="p-6 sm:p-7 space-y-3 flex-1 flex flex-col justify-between">
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-[0.12em]">
-                    <span className="text-[#D9541E]">{item.category}</span>
+                    <span className="text-[#B94414]">{item.category}</span>
                     <span className="text-[#57534E]">{item.kindLabel}</span>
                   </div>
 
-                  <h3 className="text-xl font-extrabold text-[#111111] group-hover:text-[#D9541E] transition-colors">
+                  <h3 className="text-xl font-extrabold text-[#111111] group-hover:text-[#B94414] transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-sm text-[#57534E] leading-relaxed">{item.shortDesc}</p>
@@ -49,7 +49,7 @@ export const SelectedWorkSection = () => {
 
                 <div className="pt-4 border-t border-[#D8D3C9]/70 flex items-center justify-between text-xs font-semibold text-[#111111]">
                   <span>{item.technologies.slice(0, 3).join(' · ')}</span>
-                  <span className="inline-flex items-center gap-1 group-hover:text-[#D9541E]">
+                  <span className="inline-flex items-center gap-1 group-hover:text-[#B94414]">
                     Inspect Case <ArrowRight size={14} />
                   </span>
                 </div>

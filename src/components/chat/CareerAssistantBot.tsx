@@ -207,7 +207,7 @@ export const CareerAssistantBot: React.FC = () => {
             key={`${keyPrefix}-${idx}`}
             to={match[2]}
             onClick={() => setIsOpen(false)}
-            className="text-[#D9541E] hover:underline font-bold"
+            className="text-[#B94414] hover:underline font-bold"
           >
             {match[1]}
           </Link>
@@ -251,7 +251,7 @@ export const CareerAssistantBot: React.FC = () => {
       if (isListItem) {
         return (
           <div key={lIdx} className="flex items-start gap-1.5 my-1">
-            <span className="min-w-[1.25rem] text-[#D9541E] font-bold">{listNumber}.</span>
+            <span className="min-w-[1.25rem] text-[#B94414] font-bold">{listNumber}.</span>
             <span>{renderedLine}</span>
           </div>
         );
@@ -268,7 +268,7 @@ export const CareerAssistantBot: React.FC = () => {
     <>
       {/* Restrained editorial launcher bottom-left */}
       {!isOpen && (
-        <div className="fixed bottom-16 left-4 sm:left-6 z-40">
+        <div className="fixed bottom-16 left-4 sm:left-6 z-40" role="region" aria-label="SmartScale Studio Advisor">
           <button
             type="button"
             onClick={() => {
@@ -276,7 +276,7 @@ export const CareerAssistantBot: React.FC = () => {
               setIsMinimized(false);
             }}
             className="advisor-glow flex items-center gap-2.5 bg-dark-surface hover:bg-[#D9541E] text-white px-4 py-2.5 rounded-xl border border-white/15 transition-colors cursor-pointer"
-            aria-label="Open SmartScale Studio Advisor"
+            aria-label="SST Chat Bot"
           >
             <MessageSquare size={16} />
             <span className="text-xs font-bold tracking-tight">SST Chat Bot</span>
@@ -367,7 +367,7 @@ export const CareerAssistantBot: React.FC = () => {
                                   <button
                                     type="button"
                                     onClick={() => handleSendMessage(lastFailedPrompt)}
-                                    className="inline-flex items-center gap-1 text-[#D9541E] font-semibold hover:underline cursor-pointer"
+                                    className="inline-flex items-center gap-1 text-[#B94414] font-semibold hover:underline cursor-pointer"
                                   >
                                     <RotateCcw size={11} /> Retry live reply
                                   </button>
@@ -459,14 +459,14 @@ export const CareerAssistantBot: React.FC = () => {
                   <Link
                     to="/request-service"
                     onClick={() => setIsOpen(false)}
-                    className="hover:text-[#D9541E] font-semibold"
+                    className="hover:text-[#B94414] font-semibold"
                   >
                     Request Free Proposal
                   </Link>
                   <Link
                     to="/custom-package-builder"
                     onClick={() => setIsOpen(false)}
-                    className="hover:text-[#D9541E] font-semibold"
+                    className="hover:text-[#B94414] font-semibold"
                   >
                     Bundle Builder
                   </Link>

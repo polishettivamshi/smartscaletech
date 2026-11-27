@@ -202,7 +202,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
         <div
           className={`w-14 h-14 rounded-full mx-auto flex items-center justify-center ${
             isEmailFallback
-              ? 'bg-[#D9541E]/15 text-[#D9541E]'
+              ? 'bg-[#D9541E]/15 text-[#B94414]'
               : 'bg-[#16845B]/15 text-[#16845B]'
           }`}
         >
@@ -221,19 +221,19 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
             {submittedChannel === 'whatsapp' ? (
               <>
                 Thank you, <strong className="text-[#111111]">{formData.name}</strong>. Your brief for{' '}
-                <strong className="text-[#D9541E]">{formData.service}</strong> is ready—tap{' '}
+                <strong className="text-[#B94414]">{formData.service}</strong> is ready—tap{' '}
                 <strong>Send via WhatsApp</strong> below if WhatsApp didn&apos;t open automatically.
                 {emailDelivered === true && ' A copy was also emailed to our studio.'}
               </>
             ) : emailDelivered ? (
               <>
                 Thank you, <strong className="text-[#111111]">{formData.name}</strong>. Your inquiry for{' '}
-                <strong className="text-[#D9541E]">{formData.service}</strong> has been emailed to our studio.
+                <strong className="text-[#B94414]">{formData.service}</strong> has been emailed to our studio.
               </>
             ) : (
               <>
                 Automated email dispatch is temporarily unavailable on the server, so we&apos;ve
-                pre-filled your brief for <strong className="text-[#D9541E]">{formData.service}</strong>.
+                pre-filled your brief for <strong className="text-[#B94414]">{formData.service}</strong>.
                 Tap <strong>Open Email App</strong> or <strong>Send via WhatsApp</strong> below to send it in one tap.
               </>
             )}
@@ -262,7 +262,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
           <button
             type="button"
             onClick={copySummaryToClipboard}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#57534E] hover:text-[#D9541E] cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#57534E] hover:text-[#B94414] cursor-pointer"
           >
             {copied ? <Check size={14} className="text-[#16845B]" /> : <Copy size={14} />}
             {copied ? 'Copied brief summary' : 'Copy brief summary'}
@@ -301,7 +301,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#EAE3D5] mb-8">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#D9541E] mb-1">
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#B94414] mb-1">
             Free Scope Consultation · Packages from{' '}
             <OfferPrice standardPrice={199} offerPrice={159} startingFrom compact />
           </p>
@@ -319,7 +319,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
       <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
         <div className="space-y-3">
           <p className="text-xs font-extrabold uppercase tracking-wider text-[#111111]">
-            1. Select Service Track <span className="text-[#D9541E]">*</span>
+            1. Select Service Track <span className="text-[#B94414]">*</span>
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {SERVICE_OPTIONS.map((srv) => {
@@ -363,13 +363,13 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
         <div className="space-y-4 pt-4 border-t border-[#EAE3D5]">
           <p className="text-xs font-extrabold uppercase tracking-wider text-[#111111]">
-            2. Contact Information <span className="text-[#D9541E]">*</span>
+            2. Contact Information <span className="text-[#B94414]">*</span>
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="req-name" className="block text-xs font-bold text-[#111111] mb-1.5">
-                Full Name <span className="text-[#D9541E]">*</span>
+                Full Name <span className="text-[#B94414]">*</span>
               </label>
               <div className="relative">
                 <User
@@ -391,7 +391,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
             <div>
               <label htmlFor="req-phone" className="block text-xs font-bold text-[#111111] mb-1.5">
-                WhatsApp / Phone <span className="text-[#D9541E]">*</span>
+                WhatsApp / Phone <span className="text-[#B94414]">*</span>
               </label>
               <div className="relative">
                 <Phone
@@ -413,7 +413,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
             <div>
               <label htmlFor="req-email" className="block text-xs font-bold text-[#111111] mb-1.5">
-                Email Address <span className="text-[#D9541E]">*</span>
+                Email Address <span className="text-[#B94414]">*</span>
               </label>
               <div className="relative">
                 <Mail
@@ -522,7 +522,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="req-role" className="block text-xs font-bold text-[#111111] mb-1.5">
+              <label htmlFor="req-role" className="block text-xs font-bold text-[#111111] mb-1.5 whitespace-nowrap">
                 Current Role or Business Type
               </label>
               <input
@@ -537,7 +537,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
             </div>
 
             <div>
-              <label htmlFor="req-target" className="block text-xs font-bold text-[#111111] mb-1.5">
+              <label htmlFor="req-target" className="block text-xs font-bold text-[#111111] mb-1.5 whitespace-nowrap">
                 Target Goal / Role
               </label>
               <input
@@ -615,7 +615,7 @@ export const LinkedInServiceRequestForm: React.FC<LinkedInServiceRequestFormProp
             <ShieldCheck size={14} className="text-[#16845B]" /> Confidential handling
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Clock size={14} className="text-[#D9541E]" /> Direct founder review
+            <Clock size={14} className="text-[#B94414]" /> Direct founder review
           </span>
           <span className="inline-flex items-center gap-1.5">
             <CheckCircle2 size={14} className="text-[#111111]" /> No upfront payment needed

@@ -144,7 +144,7 @@ export const FinalYearProjectsPage = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-5">
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414]">
                 Hitech City, Hyderabad · B.Tech, M.Tech, MCA &amp; BCA
               </p>
               <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -191,7 +191,7 @@ export const FinalYearProjectsPage = () => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-1">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-1">
                 Complete Package · Exclusive Startup Launch Offer
               </p>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#111111]">
@@ -223,7 +223,7 @@ export const FinalYearProjectsPage = () => {
       <section className="py-16 sm:py-20 bg-[#F3EEE3]">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mb-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
               Custom Project Inquiry
             </p>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-[#111111] tracking-tight">
@@ -396,7 +396,7 @@ export const FinalYearProjectsPage = () => {
                         href={whatsappFallbackUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#D9541E] underline"
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#B94414] underline"
                       >
                         <MessageCircle size={15} /> Send via WhatsApp
                       </a>
@@ -408,7 +408,7 @@ export const FinalYearProjectsPage = () => {
                     href={whatsappFallbackUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-[#D9541E] underline"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-[#B94414] underline"
                   >
                     Open prepared brief on WhatsApp →
                   </a>

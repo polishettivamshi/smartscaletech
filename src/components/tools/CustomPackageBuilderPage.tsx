@@ -206,7 +206,7 @@ export const CustomPackageBuilderPage = () => {
         />
 
         <div className="max-w-3xl mb-10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
             Interactive Quote Configurator · Save 10% – 20%
           </p>
           <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -263,7 +263,7 @@ export const CustomPackageBuilderPage = () => {
                     key={preset.name}
                     type="button"
                     onClick={() => applyPreset(preset)}
-                    className="px-3 py-1.5 rounded-lg bg-[#F3EEE3] hover:bg-[#D9541E]/10 border border-[#D8D3C9] text-xs font-semibold text-[#111111] hover:text-[#D9541E] transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-[#F3EEE3] hover:bg-[#D9541E]/10 border border-[#D8D3C9] text-xs font-semibold text-[#111111] hover:text-[#B94414] transition-colors cursor-pointer"
                   >
                     {preset.name}
                   </button>
@@ -277,7 +277,7 @@ export const CustomPackageBuilderPage = () => {
                 <h2 className="text-base sm:text-lg font-extrabold text-[#111111]">
                   Exclusive Startup Launch Offer
                 </h2>
-                <span className="text-xs font-bold text-[#D9541E] tabular-nums">
+                <span className="text-xs font-bold text-[#B94414] tabular-nums">
                   {totals.selectedServices.length} selected
                 </span>
               </div>
@@ -323,19 +323,19 @@ export const CustomPackageBuilderPage = () => {
 
                       <div className="flex flex-wrap items-end justify-between gap-2 pt-2.5 border-t border-[#EAE3D5] tabular-nums">
                         <div className="space-y-1">
-                          <span className="inline-flex rounded-full bg-[#D9541E]/10 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-[#D9541E]">
+                          <span className="inline-flex rounded-full bg-[#D9541E]/10 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-[#B94414]">
                             20% OFF
                           </span>
                           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                            <span className="text-xs font-medium text-[#78716C] line-through">
+                            <span className="text-xs font-medium text-[#57534E] line-through">
                               ₹{service.standardPrice.toLocaleString('en-IN')}
                             </span>
-                            <span className="text-base font-extrabold text-[#D9541E]">
+                            <span className="text-base font-extrabold text-[#111111]">
                               {service.category !== 'Career Branding' ? 'Starting from ' : ''}
                               ₹{service.price.toLocaleString('en-IN')}
                             </span>
                           </div>
-                          <span className="block text-[10px] font-semibold text-[#D9541E]">
+                          <span className="block text-[10px] font-semibold text-[#B94414]">
                             Save ₹{(service.standardPrice - service.price).toLocaleString('en-IN')}
                           </span>
                         </div>
@@ -384,16 +384,16 @@ export const CustomPackageBuilderPage = () => {
                         </span>
                       </div>
                       <span className="flex flex-col items-end gap-1 tabular-nums shrink-0">
-                        <span className="rounded-full bg-[#D9541E]/10 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-[#D9541E]">
+                        <span className="rounded-full bg-[#D9541E]/10 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-[#B94414]">
                           20% OFF
                         </span>
-                        <span className="text-xs font-medium text-[#78716C] line-through">
+                        <span className="text-xs font-medium text-[#57534E] line-through">
                           ₹{addon.standardPrice.toLocaleString('en-IN')}
                         </span>
-                        <span className="text-sm font-extrabold text-[#D9541E]">
+                        <span className="text-sm font-extrabold text-[#111111]">
                           +₹{addon.price.toLocaleString('en-IN')}
                         </span>
-                        <span className="text-[10px] font-semibold text-[#D9541E]">
+                        <span className="text-[10px] font-semibold text-[#B94414]">
                           Save ₹{(addon.standardPrice - addon.price).toLocaleString('en-IN')}
                         </span>
                       </span>
@@ -450,7 +450,7 @@ export const CustomPackageBuilderPage = () => {
                       htmlFor="bundle-name"
                       className="block text-xs font-bold text-[#111111] mb-1"
                     >
-                      Full Name <span className="text-[#D9541E]">*</span>
+                      Full Name <span className="text-[#B94414]">*</span>
                     </label>
                     <input
                       id="bundle-name"
@@ -466,7 +466,7 @@ export const CustomPackageBuilderPage = () => {
                       htmlFor="bundle-phone"
                       className="block text-xs font-bold text-[#111111] mb-1"
                     >
-                      WhatsApp / Phone <span className="text-[#D9541E]">*</span>
+                      WhatsApp / Phone <span className="text-[#B94414]">*</span>
                     </label>
                     <input
                       id="bundle-phone"

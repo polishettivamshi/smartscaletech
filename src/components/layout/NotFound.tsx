@@ -6,7 +6,7 @@ export const NotFound = () => {
   return (
     <section className="min-h-[70vh] flex items-center justify-center bg-[#F3EEE3] py-24 border-b border-[#D8D3C9]">
       <div className="mx-auto max-w-2xl text-center px-4 sm:px-6 lg:px-8">
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414]">
           Error 404
         </p>
         <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold text-[#111111]">

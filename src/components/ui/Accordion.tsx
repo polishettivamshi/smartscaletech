@@ -39,7 +39,7 @@ export const Accordion: React.FC<AccordionProps> = ({
             >
               <span
                 className={`text-sm sm:text-base font-bold transition-colors ${
-                  isOpen ? 'text-[#D9541E]' : 'text-[#111111] group-hover:text-[#D9541E]'
+                  isOpen ? 'text-[#B94414]' : 'text-[#111111] group-hover:text-[#B94414]'
                 }`}
               >
                 {item.question}

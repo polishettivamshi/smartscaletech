@@ -36,7 +36,7 @@ export const ProjectsPage = () => {
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-2xl">
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-3">
                 Work Archive &amp; Demonstrations
               </p>
               <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -115,10 +115,10 @@ export const ProjectsPage = () => {
                     </div>
                     <div className="p-6">
                       <div className="flex items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-wider mb-2.5">
-                        <span className="text-[#D9541E]">{item.category}</span>
+                        <span className="text-[#B94414]">{item.category}</span>
                         <span className="text-[#57534E]">{item.kindLabel}</span>
                       </div>
-                      <h2 className="text-lg font-extrabold text-[#111111] group-hover:text-[#D9541E] transition-colors leading-snug">
+                      <h2 className="text-lg font-extrabold text-[#111111] group-hover:text-[#B94414] transition-colors leading-snug">
                         {item.title}
                       </h2>
                       <p className="mt-2 text-xs sm:text-sm text-[#57534E] leading-relaxed line-clamp-3">
@@ -129,7 +129,7 @@ export const ProjectsPage = () => {
 
                   <div className="px-6 py-4 border-t border-[#EAE3D5] flex items-center justify-between text-xs font-bold text-[#111111]">
                     <span className="text-[#57534E] font-medium">{item.timeline}</span>
-                    <span className="inline-flex items-center gap-1 group-hover:text-[#D9541E]">
+                    <span className="inline-flex items-center gap-1 group-hover:text-[#B94414]">
                       Read Case Study <ArrowRight size={13} />
                     </span>
                   </div>

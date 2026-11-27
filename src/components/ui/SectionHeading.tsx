@@ -51,7 +51,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
         >
           {title}{' '}
           {highlight && (
-            <span className={dark ? 'text-[#F06B37]' : 'text-[#D9541E]'}>{highlight}</span>
+            <span className={dark ? 'text-[#F06B37]' : 'text-[#B94414]'}>{highlight}</span>
           )}
         </h2>
         {description && (
@@ -71,7 +71,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
           to={actionTo}
           className={cn(
             'inline-flex items-center gap-2 text-sm font-semibold underline-offset-4 hover:underline shrink-0 self-start lg:self-auto',
-            dark ? 'text-white hover:text-[#F06B37]' : 'text-[#111111] hover:text-[#D9541E]'
+            dark ? 'text-white hover:text-[#F06B37]' : 'text-[#111111] hover:text-[#B94414]'
           )}
         >
           <span>{actionLabel}</span>

@@ -99,7 +99,7 @@ export const FreeATSCheckerPage = () => {
                 key={item.num}
                 className="p-6 rounded-2xl bg-[#F3EEE3]/45 border border-[#D8D3C9] space-y-2"
               >
-                <span className="text-xs font-extrabold text-[#D9541E]">{item.num}</span>
+                <span className="text-xs font-extrabold text-[#B94414]">{item.num}</span>
                 <h2 className="text-base font-extrabold text-[#111111]">{item.title}</h2>
                 <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">{item.desc}</p>
               </div>

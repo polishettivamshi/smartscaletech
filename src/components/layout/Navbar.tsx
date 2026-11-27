@@ -102,7 +102,7 @@ export const Navbar = () => {
             className="h-9 w-9 rounded-lg object-cover"
           />
           <span className="text-lg sm:text-xl font-display font-extrabold tracking-tight text-[#111111]">
-            SmartScale<span className="text-[#D9541E]">Tech</span>
+            SmartScale<span className="text-[#B94414]">Tech</span>
           </span>
         </Link>
 
@@ -120,7 +120,7 @@ export const Navbar = () => {
               onClick={() =>
                 setOpenDropdown((prev) => (prev === 'services' ? null : 'services'))
               }
-              className="inline-flex items-center gap-1 text-sm font-medium text-[#111111] hover:text-[#D9541E] transition-colors cursor-pointer py-2"
+              className="inline-flex items-center gap-1 text-sm font-medium text-[#111111] hover:text-[#B94414] transition-colors cursor-pointer py-2"
             >
               <span>Services</span>
               <ChevronDown
@@ -138,7 +138,7 @@ export const Navbar = () => {
                     <Link
                       to="/services"
                       onClick={() => setOpenDropdown(null)}
-                      className="flex items-center gap-2 px-2.5 py-2.5 rounded-lg text-sm font-semibold text-[#D9541E] hover:bg-[#F3EEE3]/70 transition-colors"
+                      className="flex items-center gap-2 px-2.5 py-2.5 rounded-lg text-sm font-semibold text-[#B94414] hover:bg-[#F3EEE3]/70 transition-colors"
                     >
                       <ArrowRight size={13} />
                       Browse All Services
@@ -161,7 +161,7 @@ export const Navbar = () => {
                             onClick={() => setOpenDropdown(null)}
                             className="flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg hover:bg-[#F3EEE3]/70 transition-colors group"
                           >
-                            <span className="text-sm font-semibold text-[#111111] group-hover:text-[#D9541E]">
+                            <span className="text-sm font-semibold text-[#111111] group-hover:text-[#B94414]">
                               {srv.name}
                             </span>
                             {offer ? (
@@ -202,7 +202,7 @@ export const Navbar = () => {
                               onClick={() => setOpenDropdown(null)}
                               className="flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg hover:bg-[#F3EEE3]/70 transition-colors group"
                             >
-                              <span className="text-sm font-semibold text-[#111111] group-hover:text-[#D9541E]">
+                              <span className="text-sm font-semibold text-[#111111] group-hover:text-[#B94414]">
                                 {srv.name}
                               </span>
                               {offer ? (
@@ -228,14 +228,14 @@ export const Navbar = () => {
                       <Link
                         to="/final-year-projects"
                         onClick={() => setOpenDropdown(null)}
-                        className="font-semibold text-[#111111] hover:text-[#D9541E]"
+                        className="font-semibold text-[#111111] hover:text-[#B94414]"
                       >
                         Final Year Projects Catalog →
                       </Link>
                       <Link
                         to="/custom-package-builder"
                         onClick={() => setOpenDropdown(null)}
-                        className="font-semibold text-[#D9541E] hover:underline"
+                        className="font-semibold text-[#B94414] hover:underline"
                       >
                         Bundle Builder
                       </Link>
@@ -250,8 +250,8 @@ export const Navbar = () => {
             to="/work"
             className={`text-sm font-medium transition-colors ${
               pathname.startsWith('/work')
-                ? 'text-[#D9541E]'
-                : 'text-[#111111] hover:text-[#D9541E]'
+                ? 'text-[#B94414]'
+                : 'text-[#111111] hover:text-[#B94414]'
             }`}
           >
             Our Work
@@ -269,7 +269,7 @@ export const Navbar = () => {
               onClick={() =>
                 setOpenDropdown((prev) => (prev === 'tools' ? null : 'tools'))
               }
-              className="inline-flex items-center gap-1 text-sm font-medium text-[#111111] hover:text-[#D9541E] transition-colors cursor-pointer py-2"
+              className="inline-flex items-center gap-1 text-sm font-medium text-[#111111] hover:text-[#B94414] transition-colors cursor-pointer py-2"
             >
               <span>Free Tools</span>
               <ChevronDown
@@ -290,11 +290,11 @@ export const Navbar = () => {
                       onClick={() => setOpenDropdown(null)}
                       className="flex items-start gap-3 p-3 rounded-xl hover:bg-[#F3EEE3]/70 transition-colors group"
                     >
-                      <div className="h-8 w-8 rounded-lg bg-[#F3EEE3] text-[#111111] group-hover:text-[#D9541E] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="h-8 w-8 rounded-lg bg-[#F3EEE3] text-[#111111] group-hover:text-[#B94414] flex items-center justify-center shrink-0 mt-0.5">
                         <tool.icon size={15} />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-[#111111] group-hover:text-[#D9541E]">
+                        <p className="text-sm font-semibold text-[#111111] group-hover:text-[#B94414]">
                           {tool.name}
                         </p>
                         <p className="text-xs text-[#57534E]">{tool.desc}</p>
@@ -308,7 +308,7 @@ export const Navbar = () => {
 
           <Link
             to="/#pricing"
-            className="text-sm font-medium text-[#111111] hover:text-[#D9541E] transition-colors"
+            className="text-sm font-medium text-[#111111] hover:text-[#B94414] transition-colors"
           >
             Pricing
           </Link>
@@ -316,7 +316,7 @@ export const Navbar = () => {
           <Link
             to="/about"
             className={`text-sm font-medium transition-colors ${
-              pathname === '/about' ? 'text-[#D9541E]' : 'text-[#111111] hover:text-[#D9541E]'
+              pathname === '/about' ? 'text-[#B94414]' : 'text-[#111111] hover:text-[#B94414]'
             }`}
           >
             About
@@ -324,7 +324,7 @@ export const Navbar = () => {
         </div>
 
         {/* Right Primary CTA */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 max-w-full shrink">
           <Link
             to="/custom-package-builder"
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-[#111111] border border-[#D8D3C9] bg-white hover:border-[#111111] px-3.5 py-2.5 rounded-xl transition-colors"
@@ -391,7 +391,7 @@ export const Navbar = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white border border-[#D8D3C9] text-sm font-semibold text-[#111111]"
                 >
-                  <tool.icon size={15} className="text-[#D9541E] shrink-0" />
+                  <tool.icon size={15} className="text-[#B94414] shrink-0" />
                   <span>{tool.name}</span>
                 </Link>
               ))}

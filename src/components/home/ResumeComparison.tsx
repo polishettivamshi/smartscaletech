@@ -78,7 +78,7 @@ export const ResumeComparison = () => {
 
             <div className="lg:col-span-4 space-y-6">
               <div className="space-y-2">
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#D9541E]">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#B94414]">
                   {active.category}
                 </p>
                 <h3 className="text-2xl font-extrabold text-[#111111]">{active.serviceTitle}</h3>

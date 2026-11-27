@@ -29,7 +29,7 @@ export const TrustGuaranteeBanner = ({ onOpenSamples }: TrustGuaranteeBannerProp
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-7 sm:mb-9">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
             How We Work
           </p>
           <h2 className="text-section-display font-extrabold text-[#111111]">
@@ -59,7 +59,7 @@ export const TrustGuaranteeBanner = ({ onOpenSamples }: TrustGuaranteeBannerProp
             <button
               type="button"
               onClick={onOpenSamples}
-              className="font-bold text-[#111111] hover:text-[#D9541E] underline underline-offset-4 cursor-pointer shrink-0"
+              className="font-bold text-[#111111] hover:text-[#B94414] underline underline-offset-4 cursor-pointer shrink-0"
             >
               Preview Deliverable Samples →
             </button>

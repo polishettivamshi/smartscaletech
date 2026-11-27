@@ -91,7 +91,7 @@ export const PaymentModal = ({
       {emailError && <StatusBanner tone="error">{emailError}</StatusBanner>}
       <div className="flex items-center justify-between p-4 rounded-xl bg-cream/70 border border-border-hairline">
           <div>
-            <span className="text-[11px] font-bold uppercase text-[#D9541E] tracking-wider block">
+            <span className="text-[11px] font-bold uppercase text-[#B94414] tracking-wider block">
               Selected Package
             </span>
             <p className="text-base font-extrabold text-carbon mt-0.5">{planName}</p>
@@ -102,11 +102,11 @@ export const PaymentModal = ({
                 ₹{Number(numericStandardAmount).toLocaleString('en-IN')}
               </span>
             )}
-            <span className="text-2xl font-extrabold text-[#D9541E]">
+            <span className="text-2xl font-extrabold text-[#B94414]">
               ₹{Number(numericAmount).toLocaleString('en-IN')}
             </span>
             {paymentSaving > 0 && (
-              <span className="block text-[10px] font-bold text-[#D9541E]">
+              <span className="block text-[10px] font-bold text-[#B94414]">
                 Save ₹{paymentSaving.toLocaleString('en-IN')}
               </span>
             )}
@@ -149,7 +149,7 @@ export const PaymentModal = ({
 
             <div className="text-center p-5 rounded-xl bg-cream/45 border border-border-hairline">
               <p className="text-xs font-bold text-carbon mb-3 flex items-center justify-center gap-1.5">
-                <QrCode size={15} className="text-[#D9541E]" /> Scan with GPay / PhonePe / Paytm / BHIM
+                <QrCode size={15} className="text-[#B94414]" /> Scan with GPay / PhonePe / Paytm / BHIM
               </p>
               <div className="inline-block p-2.5 bg-white rounded-xl border border-border-hairline">
                 <img
@@ -167,7 +167,7 @@ export const PaymentModal = ({
                 <button
                   type="button"
                   onClick={handleCopyUpi}
-                  className="text-[#D9541E] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  className="text-[#B94414] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
                 >
                   {copied ? <Check size={14} className="text-success" /> : <Copy size={13} />}
                   {copied ? 'Copied' : 'Copy'}

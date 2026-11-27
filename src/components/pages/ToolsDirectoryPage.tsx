@@ -57,7 +57,7 @@ export const ToolsDirectoryPage = () => {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: 'Home', to: '/' }, { label: 'Free Tools' }]} className="mb-7" />
 
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-3">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-3">
             Studio Utilities
           </p>
           <h1 className="text-hero-display font-extrabold text-[#111111] max-w-3xl">
@@ -77,20 +77,20 @@ export const ToolsDirectoryPage = () => {
               >
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-5">
-                    <div className="h-11 w-11 rounded-xl bg-[#F3EEE3] border border-[#D8D3C9] text-[#111111] group-hover:text-[#D9541E] flex items-center justify-center transition-colors">
+                    <div className="h-11 w-11 rounded-xl bg-[#F3EEE3] border border-[#D8D3C9] text-[#111111] group-hover:text-[#B94414] flex items-center justify-center transition-colors">
                       <tool.icon size={20} />
                     </div>
                     <span className="text-[11px] font-bold uppercase tracking-wider text-[#57534E]">
                       {tool.badge}
                     </span>
                   </div>
-                  <h2 className="text-xl font-extrabold text-[#111111] group-hover:text-[#D9541E] transition-colors">
+                  <h2 className="text-xl font-extrabold text-[#111111] group-hover:text-[#B94414] transition-colors">
                     {tool.title}
                   </h2>
                   <p className="mt-2.5 text-sm text-[#57534E] leading-relaxed">{tool.desc}</p>
                 </div>
 
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] group-hover:text-[#D9541E] pt-4 border-t border-[#EAE3D5]">
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#111111] group-hover:text-[#B94414] pt-4 border-t border-[#EAE3D5]">
                   {tool.cta} <ArrowRight size={14} />
                 </span>
               </Link>

@@ -238,7 +238,7 @@ export const LinkedInHeadlineGeneratorPage = () => {
         />
 
         <div className="max-w-3xl mb-10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D9541E] mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B94414] mb-2">
             Free Career Utility · 220-Character Safe
           </p>
           <h1 className="text-hero-display font-extrabold text-[#111111]">
@@ -383,7 +383,7 @@ export const LinkedInHeadlineGeneratorPage = () => {
                     className="p-4 rounded-xl bg-[#F3EEE3]/45 border border-[#D8D3C9] space-y-2"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#D9541E]">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#B94414]">
                         {item.badge}
                       </span>
                       <span className="text-[11px] font-semibold text-[#57534E] tabular-nums">
@@ -416,7 +416,7 @@ export const LinkedInHeadlineGeneratorPage = () => {
             <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#D8D3C9] space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-base font-extrabold text-[#111111] flex items-center gap-2">
-                  <UserCheck size={17} className="text-[#D9541E]" /> Matching &ldquo;About&rdquo; Draft
+                  <UserCheck size={17} className="text-[#B94414]" /> Matching &ldquo;About&rdquo; Draft
                 </h3>
                 <button
                   type="button"
